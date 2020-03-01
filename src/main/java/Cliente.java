@@ -14,13 +14,15 @@ public class Cliente {
     private List<Facturas> listaFacturas;
     private List<Llamadas> listaLlamadas;
 
-    public Cliente(String nombre,String nif,Direccion dir,String email, Calendar fecha, Tarifa tarifa){
+    public Cliente(String nombre,String nif,Direccion dir,String email, Calendar fecha, Tarifa tarifa, List<Facturas> facturas, List<Llamadas> llamadas ){
         this.nombre = nombre;
         this.nif=nif;
         this.direccion=dir;
         this.email=email;
         this.fechaAlta=fecha;
         this.tarifa=tarifa;
+        this.listaFacturas = facturas;
+        this.listaLlamadas = llamadas;
     }
 
 

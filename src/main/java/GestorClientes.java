@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class ListaClientes {
+public class GestorClientes {
     private Set<Cliente> listaClientes = new HashSet<Cliente>();
 
     public boolean darAltaCliente(Cliente cliente){
@@ -12,10 +12,12 @@ public class ListaClientes {
         return true;
     }
 
-    public boolean cambiarTarifa(Cliente cliente, Tarifa tarifa){
-        if(listaClientes.contains(cliente)) {
-            cliente.setTarifa(tarifa);
-            return true;
+    public boolean cambiarTarifa(String nif, Tarifa tarifa){
+        for(Cliente cliente : listaClientes) {
+            if(cliente.getNif().equals(nif)) {
+                cliente.setTarifa(tarifa);
+                return true;
+            }
         }
         return false;
     }
