@@ -20,4 +20,11 @@ public class Direccion {
     public String getPoblacion() {
         return poblacion;
     }
+
+    public void setDireccion(int codPostal, String provincia, String poblacion) {
+        this.codPostal = codPostal;
+        this.provincia = provincia;
+        this.poblacion = poblacion;
+
+    }
 }

@@ -63,6 +63,19 @@ public class Cliente {
         this.tarifa = tarifa;
     }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
+    public void setNif(String nif) {
+        this.nif = nif;
+    }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setFechaAlta(Calendar fechaAlta) {
+        this.fechaAlta = fechaAlta;
+    }
 }
