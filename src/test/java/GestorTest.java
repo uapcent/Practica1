@@ -12,7 +12,7 @@ public class GestorTest  extends GestorClientes{
     Calendar fecha02 = new Calendar.Builder().setDate(2020,02,15).build();
     Calendar fecha03 = new Calendar.Builder().setDate(2019,12,13).build();
 
-    Tarifa tarifa00 = new Tarifa(30);
+    Tarifa tarifa00 = new Tarifa(0.1);
     Tarifa tarifa01 = new Tarifa(50);
     Tarifa tarifa02 = new Tarifa(75);
     Tarifa tarifa03 = new Tarifa(100);
@@ -37,7 +37,7 @@ public class GestorTest  extends GestorClientes{
         assertEquals(true, darAltaCliente(porcelanosa));
         assertEquals(true, darAltaCliente(pamesa));
         assertEquals(4, devolverLista().size());
-        System.out.println("TEST addCliente");
+        System.out.println("TEST AÑADIR CLIENTE");
         System.out.println("Devuelve: " + devolverLista().toString());
     }
 
@@ -62,7 +62,7 @@ public class GestorTest  extends GestorClientes{
         assertEquals(true, borrar(porcelanosa));
         assertEquals(true, borrar(pamesa));
         assertEquals(0, devolverLista().size());
-        System.out.println("TEST BORRAR");
+        System.out.println("TEST BORRAR CLIENTE");
         System.out.println("Se esperaba [] y devuelve: " + devolverLista().toString());
     }
 
@@ -70,7 +70,7 @@ public class GestorTest  extends GestorClientes{
     public void recuperarDatosClienteTest() {
         darAltaCliente(sergi);
         assertEquals(sergi, recuperarDatosClientes(sergi.getNif()));
-        System.out.println("TEST RECUPERAR DATOS");
+        System.out.println("TEST RECUPERAR DATOS CLIENTE");
         System.out.println("La lista contiene: " + devolverLista().size() + " y sus datos pertenecen a " + sergi.getNif());
 
     }
@@ -94,6 +94,7 @@ public class GestorTest  extends GestorClientes{
         assertEquals(true, darArltaLlamada(llamada, sergi.getNif()));
         System.out.println("TEST AÑADIR LLAMADA");
         System.out.println("Se ha añadido la llamada a la lista de llamadas del cliente " + sergi.getNif() + " y su lista ahora contiene " + sergi.getListaLlamadas().size() + " llamadas.");
+        System.out.println("La llamada ha sido: " + llamada.getFecha().getTime());
     }
 
     @Test
@@ -109,17 +110,58 @@ public class GestorTest  extends GestorClientes{
 
     @Test
     public void emitirFacturaTest() {
+        darAltaCliente(sergi);
+        Calendar fechaLlamada0 = new Calendar.Builder().setDate(2020,02,7).setTimeOfDay(11,40,37).build();
+        Calendar fechaLlamada1 =  new Calendar.Builder().setDate(2020,01,15).setTimeOfDay(17,32,25).build();
+        Llamadas llamada0 = new Llamadas("745532552",fechaLlamada0,15);
+        Llamadas llamada1 = new Llamadas("745532552",fechaLlamada1,32);
+        darArltaLlamada(llamada0, sergi.getNif());
+        darArltaLlamada(llamada1,sergi.getNif());
+        Calendar inicio = new Calendar.Builder().setDate(2020,01,2).build();
+        Calendar fin =    new Calendar.Builder().setDate(2020,02,9).build();
+        emitirFactura(sergi.getNif(),inicio,fin);
+        assertEquals(1, sergi.getListaFacturas().size());
+        System.out.println("TEST EMITIR FACTURA");
+        System.out.println("La factura del cliente se ha almacenado en: " + sergi.getListaFacturas().toString());
+        for (Facturas factura : sergi.getListaFacturas()) {
+            System.out.println("El codigo de la factura es: " + factura.getCodigo() + " y el importe es de: " + factura.getImporte() + " euros.");
+        }
 
     }
 
     @Test
     public void datosFacturaTest() {
-
+        darAltaCliente(sergi);
+        Calendar fechaLlamada0 = new Calendar.Builder().setDate(2020,02,7).setTimeOfDay(11,40,37).build();
+        Calendar fechaLlamada1 =  new Calendar.Builder().setDate(2020,01,15).setTimeOfDay(17,32,25).build();
+        Llamadas llamada0 = new Llamadas("745532552",fechaLlamada0,15);
+        Llamadas llamada1 = new Llamadas("745532552",fechaLlamada1,32);
+        darArltaLlamada(llamada0, sergi.getNif());
+        darArltaLlamada(llamada1,sergi.getNif());
+        Calendar inicio = new Calendar.Builder().setDate(2020,01,2).build();
+        Calendar fin =    new Calendar.Builder().setDate(2020,02,9).build();
+        emitirFactura(sergi.getNif(), inicio,fin);
+        Facturas resultado = datosFactura(sergi.getNif(), 0);
+        assertEquals(true, sergi.getListaFacturas().contains(resultado));
+        System.out.println("TEST DATOS FACTURA");
+        System.out.println("Los datos de la factura son: " + resultado.getCodigo() + " el importe " + resultado.getImporte());
     }
 
     @Test
     public void listaFacturasClienteTest() {
-
+        darAltaCliente(sergi);
+        Calendar fechaLlamada0 = new Calendar.Builder().setDate(2020,02,7).setTimeOfDay(11,40,37).build();
+        Calendar fechaLlamada1 =  new Calendar.Builder().setDate(2020,01,15).setTimeOfDay(17,32,25).build();
+        Llamadas llamada0 = new Llamadas("745532552",fechaLlamada0,15);
+        Llamadas llamada1 = new Llamadas("745532552",fechaLlamada1,32);
+        darArltaLlamada(llamada0, sergi.getNif());
+        darArltaLlamada(llamada1,sergi.getNif());
+        Calendar inicio = new Calendar.Builder().setDate(2020,01,2).build();
+        Calendar fin =    new Calendar.Builder().setDate(2020,02,9).build();
+        emitirFactura(sergi.getNif(), inicio,fin);
+        assertEquals(1, sergi.getListaFacturas().size());
+        System.out.println("TEST DEVOLVER LISTA FACTURAS CLIENTE");
+        System.out.println("El Cliente solicitado tiene estas facturas: " + sergi.getListaFacturas().toString());
     }
 
 

@@ -60,7 +60,7 @@ public class GestorClientes {
         for(Cliente cliente : listaClientes) {
             if (cliente.getNif().equals(nif)) {
                 for (Llamadas llamada : cliente.getListaLlamadas() ) {
-                    if (llamada.getFecha().compareTo(inicio) >= 0 || llamada.getFecha().compareTo(fin)  <= 0 ) {
+                    if (llamada.getFecha().compareTo(inicio) >= 0 && llamada.getFecha().compareTo(fin)  <= 0 ) {
                         resultado += llamada.getDuracion()*cliente.getTarifa().getPrecio();
                     }
                 }
