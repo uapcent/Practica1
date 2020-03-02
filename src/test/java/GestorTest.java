@@ -42,19 +42,21 @@ public class GestorTest  extends GestorClientes{
     }
 
     @Test
-    public void cambiarTarifa() {
+    public void cambiarTarifaClienteTest() {
         darAltaCliente(sergi);
         darAltaCliente(pau);
         darAltaCliente(pamesa);
         darAltaCliente(porcelanosa);
+        Tarifa tarifa = sergi.getTarifa();
         assertEquals(true, cambiarTarifa(sergi.getNif(), new Tarifa(50)));
-        System.out.println("Le hemos cambiado la Tarifa a " + sergi.getNombre() + " con DNI:" + sergi.getNif() + " y ahora su tarifa es de " + sergi.getTarifa());
+        System.out.println("TEST CAMBIO TARIFA ");
+        System.out.println("Le hemos cambiado la Tarifa a " + sergi.getNombre() + " con DNI:" + sergi.getNif() + " y ahora su tarifa es de " + sergi.getTarifa() + " y antes su tarifa era " + tarifa);
         assertEquals(false, cambiarTarifa("78578465D", new Tarifa(50)));
 
     }
 
     @Test
-    public void borrar() {
+    public void borrarClienteTest() {
         assertEquals(true, borrar(sergi));
         assertEquals(true, borrar(pau));
         assertEquals(true, borrar(porcelanosa));
@@ -63,4 +65,63 @@ public class GestorTest  extends GestorClientes{
         System.out.println("TEST BORRAR");
         System.out.println("Se esperaba [] y devuelve: " + devolverLista().toString());
     }
+
+    @Test
+    public void recuperarDatosClienteTest() {
+        darAltaCliente(sergi);
+        assertEquals(sergi, recuperarDatosClientes(sergi.getNif()));
+        System.out.println("TEST RECUPERAR DATOS");
+        System.out.println("La lista contiene: " + devolverLista().size() + " y sus datos pertenecen a " + sergi.getNif());
+
+    }
+
+    @Test
+    public void devolverListaClientesTest() {
+        darAltaCliente(sergi);
+        darAltaCliente(pau);
+        darAltaCliente(porcelanosa);
+        darAltaCliente(pamesa);
+        assertEquals(4, devolverLista().size());
+        System.out.println("TEST DEVOLVER LISTA");
+        System.out.println("La lista tiene: " + devolverLista().size() + " elementos y son: " + devolverLista().toString());
+    }
+
+    @Test
+    public void darAltaLlamadaClienteTest() {
+        darAltaCliente(sergi);
+        Calendar fechaLlamada = new Calendar.Builder().setDate(2020,02,10).setTimeOfDay(11,40,37).build();
+        Llamadas llamada = new Llamadas("698456732", fechaLlamada, 30);
+        assertEquals(true, darArltaLlamada(llamada, sergi.getNif()));
+        System.out.println("TEST AÑADIR LLAMADA");
+        System.out.println("Se ha añadido la llamada a la lista de llamadas del cliente " + sergi.getNif() + " y su lista ahora contiene " + sergi.getListaLlamadas().size() + " llamadas.");
+    }
+
+    @Test
+    public void listaLLamadasClienteTest() {
+        darAltaCliente(sergi);
+        Calendar fechaLlamada = new Calendar.Builder().setDate(2020,02,10).setTimeOfDay(11,40,37).build();
+        Llamadas llamada = new Llamadas("698456732", fechaLlamada, 30);
+        darArltaLlamada(llamada,sergi.getNif());
+        assertEquals(1, llamadasCliente(sergi.getNif()).size());
+        System.out.println("TEST DEVOLVER  LISTA LLAMADAS CLIENTE");
+        System.out.println("Se ha añadido la llamada a la lista de llamadas del cliente " + sergi.getNif() + " y su lista ahora contiene " + sergi.getListaLlamadas().size() + " llamadas " + llamadasCliente(sergi.getNif()).toString());
+    }
+
+    @Test
+    public void emitirFacturaTest() {
+
+    }
+
+    @Test
+    public void datosFacturaTest() {
+
+    }
+
+    @Test
+    public void listaFacturasClienteTest() {
+
+    }
+
+
+
 }

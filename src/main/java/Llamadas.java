@@ -5,6 +5,11 @@ public class Llamadas{
     private Calendar fecha;
     private int duracion;
 
+    public Llamadas(String telefono, Calendar fecha, int duracion) {
+        this.telefono = telefono;
+        this.fecha = fecha;
+        this.duracion = duracion;
+    }
 
     public String getTelefono() {
         return telefono;
