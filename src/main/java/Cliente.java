@@ -2,7 +2,7 @@ import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 
-public class Cliente {
+public class Cliente implements Fecha {
 
     //Constructor
     private String nombre;
@@ -43,6 +43,7 @@ public class Cliente {
         return email;
     }
     //GetFecha
+    @Override
     public Calendar getFecha(){
         return fechaAlta;
     }

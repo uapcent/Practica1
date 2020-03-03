@@ -1,7 +1,7 @@
 import java.util.Calendar;
 import java.util.List;
 
-public class Facturas {
+public class Facturas implements Fecha{
     private int codigo;
     private Tarifa tarifa;
     private Calendar fechaEmision;
@@ -31,6 +31,7 @@ public class Facturas {
         this.importe = importe;
     }
 
+    @Override
     public Calendar getFecha(){
         return fechaEmision;
     }
@@ -45,10 +46,6 @@ public class Facturas {
 
     public double getImporte() {
         return importe;
-    }
-
-    public Calendar getFechaEmision() {
-        return fechaEmision;
     }
 
     public Calendar getFechaFacturacionInicio() {

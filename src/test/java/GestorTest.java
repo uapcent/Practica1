@@ -164,6 +164,19 @@ public class GestorTest  extends GestorClientes{
         System.out.println("El Cliente solicitado tiene estas facturas: " + sergi.getListaFacturas().toString());
     }
 
+    @Test
+    public void listaFechasClienteTest(){
+        darAltaCliente(sergi);
+        darAltaCliente(pau);
+        darAltaCliente(pamesa);
+        darAltaCliente(porcelanosa);
+        Calendar inicio = new Calendar.Builder().setDate(2020,01,1).build();
+        Calendar fin =    new Calendar.Builder().setDate(2020,02,25).build();
 
+        assertEquals(2, muestra(devolverLista(), inicio, fin).size());
+        System.out.println("TEST DEVOLVER LISTA CLIENTE INTERVALO");
+        System.out.println("Los clientes en este intervalo son: " + muestra(devolverLista(), inicio, fin).toString());
+
+    }
 
 }

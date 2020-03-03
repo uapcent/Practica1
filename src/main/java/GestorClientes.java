@@ -94,4 +94,17 @@ public class GestorClientes {
         }
         return null;
     }
+
+
+    public < T extends Fecha> Collection  muestra (Collection<T> conjunto, Calendar inicio, Calendar fin)  {
+
+        List<T> listaFiltrado = new LinkedList<>();
+        for ( T elemento : conjunto ){
+            if (elemento.getFecha().compareTo(inicio) >= 0 && elemento.getFecha().compareTo(fin)  <= 0){
+                listaFiltrado.add(elemento);
+            }
+        }
+        return listaFiltrado;
+    }
+
 }

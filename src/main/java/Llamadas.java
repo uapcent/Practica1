@@ -1,6 +1,6 @@
 import java.util.Calendar;
 
-public class Llamadas{
+public class Llamadas implements Fecha{
     private String telefono;
     private Calendar fecha;
     private int duracion;
@@ -15,6 +15,7 @@ public class Llamadas{
         return telefono;
     }
 
+    @Override
     public Calendar getFecha(){
         return fecha;
     }
