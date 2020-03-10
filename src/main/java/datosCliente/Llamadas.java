@@ -1,6 +1,8 @@
+package datosCliente;
+
 import java.util.Calendar;
 
-public class Llamadas implements Fecha{
+public class Llamadas implements Fecha {
     private String telefono;
     private Calendar fecha;
     private int duracion;

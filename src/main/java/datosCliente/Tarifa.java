@@ -1,3 +1,5 @@
+package datosCliente;
+
 public class Tarifa {
     private double precio;
 

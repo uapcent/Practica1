@@ -1,7 +1,8 @@
-import java.util.Calendar;
-import java.util.List;
+package datosCliente;
 
-public class Facturas implements Fecha{
+import java.util.Calendar;
+
+public class Facturas implements Fecha {
     private int codigo;
     private Tarifa tarifa;
     private Calendar fechaEmision;

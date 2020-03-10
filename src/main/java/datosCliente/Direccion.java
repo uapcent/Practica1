@@ -1,3 +1,5 @@
+package datosCliente;
+
 public class Direccion {
     private int codPostal;
     private String provincia;

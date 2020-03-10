@@ -1,5 +1,8 @@
+package clientes;
+
+import datosCliente.*;
+
 import java.util.Calendar;
-import java.util.HashSet;
 import java.util.List;
 
 public class Cliente implements Fecha {
@@ -14,7 +17,7 @@ public class Cliente implements Fecha {
     private List<Facturas> listaFacturas;
     private List<Llamadas> listaLlamadas;
 
-    public Cliente(String nombre,String nif,Direccion dir,String email, Calendar fecha, Tarifa tarifa, List<Facturas> facturas, List<Llamadas> llamadas ){
+    public Cliente(String nombre, String nif, Direccion dir, String email, Calendar fecha, Tarifa tarifa, List<Facturas> facturas, List<Llamadas> llamadas ){
         this.nombre = nombre;
         this.nif=nif;
         this.direccion=dir;

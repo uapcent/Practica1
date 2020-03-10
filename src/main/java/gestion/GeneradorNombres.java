@@ -1,7 +1,8 @@
+package gestion;
+
 import es.uji.www.GeneradorDatosINE;
 
 public class GeneradorNombres {
-
 
     public static void main(String[] args) {
         GeneradorDatosINE generador = new GeneradorDatosINE();
