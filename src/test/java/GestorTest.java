@@ -65,6 +65,11 @@ public class GestorTest  extends GestorClientes {
 
     @Test
     public void borrarClienteTest() {
+        darAltaCliente(sergi);
+        darAltaCliente(pau);
+        darAltaCliente(pamesa);
+        darAltaCliente(porcelanosa);
+        System.out.println(devolverLista().size());
         assertEquals(true, borrar(sergi));
         assertEquals(true, borrar(pau));
         assertEquals(true, borrar(porcelanosa));

@@ -144,21 +144,22 @@ public class GestorClientes {
             return null;
         }
 
+        Cliente cliente = buscarCliente(nif);
+        double resultado = CalcularPrecioFactura(cliente, inicio, fin);
+        Facturas nueva = new Facturas(cliente.getListaFacturas().size(),cliente.getTarifa(),Calendar.getInstance(),inicio,fin,resultado);
+        cliente.getListaFacturas().add(nueva);
+        return nueva;
+    }
 
+    private double CalcularPrecioFactura(Cliente cliente, Calendar inicio, Calendar fin){
         double resultado = 0;
-        for(Cliente cliente : listaClientes) {
-            if (cliente.getNif().equals(nif)) {
-                for (Llamadas llamada : cliente.getListaLlamadas() ) {
-                    if (llamada.getFecha().compareTo(inicio) >= 0 && llamada.getFecha().compareTo(fin)  <= 0 ) {
-                        resultado += llamada.getDuracion()*cliente.getTarifa().getPrecio();
-                    }
-                }
-                Facturas nueva = new Facturas(cliente.getListaFacturas().size(),cliente.getTarifa(),Calendar.getInstance(),inicio,fin,resultado);
-                cliente.getListaFacturas().add(nueva);
-                return nueva;
+
+        for (Llamadas llamada : cliente.getListaLlamadas() ) {
+            if (llamada.getFecha().compareTo(inicio) >= 0 && llamada.getFecha().compareTo(fin)  <= 0 ) {
+                resultado += llamada.getDuracion()*cliente.getTarifa().getPrecio();
             }
         }
-        return null;
+        return resultado;
     }
 
     public Facturas datosFactura(String nif, int codigo) {

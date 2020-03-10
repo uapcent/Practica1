@@ -82,4 +82,6 @@ public class Cliente implements Fecha {
     public void setFechaAlta(Calendar fechaAlta) {
         this.fechaAlta = fechaAlta;
     }
+    //TODO
+    //public String toString(){};
 }
