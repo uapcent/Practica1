@@ -82,6 +82,12 @@ public class Cliente implements Fecha {
     public void setFechaAlta(Calendar fechaAlta) {
         this.fechaAlta = fechaAlta;
     }
-    //TODO
-    //public String toString(){};
+    //TODO toString del método agenda
+    /**public String toString(){
+        String cadena = "";
+        for (int i = 0; i < cantidad(); i++) {
+            cadena = cadena + vector[i].toString() + "\n";
+        }
+        return cadena;
+    };**/
 }
