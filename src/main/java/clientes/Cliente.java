@@ -3,6 +3,7 @@ package clientes;
 import datosCliente.*;
 
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Cliente implements Fecha {
@@ -14,25 +15,23 @@ public class Cliente implements Fecha {
     private String email;
     private Calendar fechaAlta;
     private Tarifa tarifa;
-    private List<Facturas> listaFacturas;
-    private List<Llamadas> listaLlamadas;
+    private List<Facturas> listaFacturas = new LinkedList();
+    private List<Llamadas> listaLlamadas = new LinkedList();
 
-    public Cliente(String nombre, String nif, Direccion dir, String email, Calendar fecha, Tarifa tarifa, List<Facturas> facturas, List<Llamadas> llamadas ){
+    public Cliente(String nombre, String nif, Direccion dir, String email, Calendar fecha, Tarifa tarifa){
         this.nombre = nombre;
         this.nif=nif;
         this.direccion=dir;
         this.email=email;
         this.fechaAlta=fecha;
         this.tarifa=tarifa;
-        this.listaFacturas = facturas;
-        this.listaLlamadas = llamadas;
+
     }
-
-
 
     public String getNombre() {
         return nombre;
     }
+
 
     public String getNif() {
         return nif;
@@ -82,12 +81,13 @@ public class Cliente implements Fecha {
     public void setFechaAlta(Calendar fechaAlta) {
         this.fechaAlta = fechaAlta;
     }
-    //TODO toString del método agenda
-    /**public String toString(){
-        String cadena = "";
-        for (int i = 0; i < cantidad(); i++) {
-            cadena = cadena + vector[i].toString() + "\n";
-        }
-        return cadena;
-    };**/
+
+    public String toString(){
+        return "Nombre: " + getNombre() + "\n" +
+                "NIF: " + getNif() + "\n" +
+                getDireccion().toString() + "\n" +
+                "Correo: " + getEmail() + "\n" +
+                "Fecha: " + getFecha().get(Calendar.DAY_OF_MONTH) + "/" + getFecha().get(Calendar.MONTH) + "/" + getFecha().get(Calendar.YEAR) + "\n" +
+                getTarifa().toString() + "€";
+    }
 }
