@@ -7,9 +7,7 @@ import datosCliente.Llamadas;
 import datosCliente.Tarifa;
 import gestion.GestorClientes;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.Assert.*;
-
 import java.util.Calendar;
 import java.util.LinkedList;
 
@@ -31,10 +29,10 @@ public class GestorTest  extends GestorClientes {
     Direccion direccion03 = new Direccion(12530,"Castellón","Burriana");
 
 
-    Cliente sergi = new Particular("Sergi", "Orenga Navarro","65792347F", direccion01,"correosergi@gmail.es",fecha00,tarifa00,new LinkedList<Facturas>(), new LinkedList<Llamadas>());
-    Cliente pau = new Particular("Pau", "Centelles Ortells","87651237B", direccion01,"correopau@gmail.es",fecha01,tarifa01,new LinkedList<Facturas>(), new LinkedList<Llamadas>());
-    Cliente porcelanosa = new Empresa("Porcelanosa Cerámica","698459475245V", direccion02,"porcelanosabussiness@gmail.es",fecha02,tarifa02,new LinkedList<Facturas>(), new LinkedList<Llamadas>());
-    Cliente pamesa = new Empresa("Pamesa Cerámica","90847636418P", direccion03,"pamesabussiness@gmail.es",fecha03,tarifa03,new LinkedList<Facturas>(), new LinkedList<Llamadas>());
+    Cliente sergi = new Particular("Sergi", "Orenga Navarro","65792347F", direccion01,"correosergi@gmail.es",fecha00,tarifa00);
+    Cliente pau = new Particular("Pau", "Centelles Ortells","87651237B", direccion01,"correopau@gmail.es",fecha01,tarifa01);
+    Cliente porcelanosa = new Empresa("Porcelanosa Cerámica","698459475245V", direccion02,"porcelanosabussiness@gmail.es",fecha02,tarifa02);
+    Cliente pamesa = new Empresa("Pamesa Cerámica","90847636418P", direccion03,"pamesabussiness@gmail.es",fecha03,tarifa03);
 
 
 
@@ -70,10 +68,10 @@ public class GestorTest  extends GestorClientes {
         darAltaCliente(pamesa);
         darAltaCliente(porcelanosa);
         System.out.println(devolverLista().size());
-        assertEquals(true, borrar(sergi));
-        assertEquals(true, borrar(pau));
-        assertEquals(true, borrar(porcelanosa));
-        assertEquals(true, borrar(pamesa));
+        assertEquals(true, borrar("65792347F"));
+        assertEquals(true, borrar("87651237B"));
+        assertEquals(true, borrar("698459475245V"));
+        assertEquals(true, borrar("90847636418P"));
         assertEquals(0, devolverLista().size());
         System.out.println("TEST BORRAR CLIENTE");
         System.out.println("Se esperaba [] y devuelve: " + devolverLista().toString());
@@ -189,7 +187,8 @@ public class GestorTest  extends GestorClientes {
         assertEquals(2, muestra(devolverLista(), inicio, fin).size());
         System.out.println("TEST DEVOLVER LISTA CLIENTE INTERVALO");
         System.out.println("Los clientes en este intervalo son: " + muestra(devolverLista(), inicio, fin).toString());
-
     }
-
 }
+
+
+

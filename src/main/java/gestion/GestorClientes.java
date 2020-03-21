@@ -21,7 +21,8 @@ public class GestorClientes {
             System.out.println(miExcepcion.getMessage());
             return false;
         }
-        return listaClientes.add(cliente);
+        listaClientes.add(cliente);
+        return true;
     }
 
     private Cliente buscarCliente(String nif){
@@ -33,10 +34,10 @@ public class GestorClientes {
         return null;
     }
 
-    public boolean borrar(Cliente cliente){
+    public boolean borrar(String nif){
+        Cliente cliente = buscarCliente(nif);
         try {
-            Cliente aux = buscarCliente(cliente.getNif());
-            if (aux==null){
+            if (cliente==null){
                 throw new MiExcepcion(103);
             }
         }catch (MiExcepcion miExcepcion){
