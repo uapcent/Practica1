@@ -21,8 +21,6 @@ public class Facturas implements Fecha {
     }
 
 
-
-
     public Facturas(int codigo, Tarifa tarifa, Calendar fechaEmision, Calendar fechaFacturacionInicio, Calendar fechaFacturacionFin, double importe) {
         this.codigo = codigo;
         this.tarifa = tarifa;
@@ -79,6 +77,16 @@ public class Facturas implements Fecha {
 
     public void setCodigo(int codigo) {
         this.codigo = codigo;
+    }
+
+    public String toString(){
+        return "Código: " + getCodigo() +"\n" +
+                "Tarifa: " + getTarifa().toString() + "\n" +
+                "Fecha de emisión" + getFecha().toString() + "\n" +
+                "Fecha de facturación: De "
+                + getFechaFacturacionInicio().getTime() +  " - a "
+                + getFechaFacturacionFin().getTime() +"\n" +
+                "Importe: " + getImporte() + "€" + "\n";
     }
 
 }

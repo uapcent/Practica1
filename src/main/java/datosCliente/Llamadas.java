@@ -26,4 +26,10 @@ public class Llamadas implements Fecha {
         return duracion;
     }
 
+    public String toString(){
+        return "Teléfono: " + getTelefono() + "\n" +
+                "Fecha: " + getFecha().getTime() + "\n" +
+                "Duración: " + getDuracion() + "\n";
+    }
+
 }

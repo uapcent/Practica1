@@ -6,9 +6,10 @@ import datosCliente.Fecha;
 import datosCliente.Llamadas;
 import datosCliente.Tarifa;
 
+import java.io.*;
 import java.util.*;
 
-public class GestorClientes {
+public class GestorClientes implements Serializable {
     private Set<Cliente> listaClientes = new HashSet<Cliente>();
 
     public boolean darAltaCliente(Cliente cliente){
@@ -228,5 +229,6 @@ public class GestorClientes {
         }
         return listaFiltrado;
     }
+
 
 }

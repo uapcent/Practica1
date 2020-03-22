@@ -13,15 +13,28 @@ import java.io.*;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
-public class Main implements Serializable {
-
+public class Main implements Serializable{
 
     public static void main(String[] args) {
         Scanner input;  //Importante
         input = new Scanner(System.in);
         boolean salir = false;
         GestorClientes gestionClientes = new GestorClientes();
+
+        //Leer del fichero
+        try {
+            FileInputStream fis = null;
+            fis = new FileInputStream("agenda.bin");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            gestionClientes = (GestorClientes) ois.readObject();
+            ois.close();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
 
         while (!salir) {
             System.out.println("Introduce un número para elegir opción: ");
@@ -82,6 +95,7 @@ public class Main implements Serializable {
 
                 case 4:
                     salir = false;
+
                 default:
                     break;
             }
@@ -93,16 +107,23 @@ public class Main implements Serializable {
         //1: cliente
         //2: factura
         //3: llamada
-        //4: salir
+        //5: Salir
         GestorClientes aux = new GestorClientes();
 
-        //TODO Hacer menu
+        //Escribir al fichero
 
-        //Hay que meterlo en un try catch del menu
+        try {
+            FileOutputStream fos = null;
+            fos = new FileOutputStream("agenda.bin");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(gestionClientes);
+            oos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
-
-
 
     private static int menuCliente() {
         Scanner input  = new Scanner(System.in);
@@ -334,6 +355,9 @@ public class Main implements Serializable {
         gestionClientes.listaFacturaCliente(nif);
         input.close();
     }
+
+    private static final long serialVersionUID = 2164987154748724908L;
+
 }
 
 
