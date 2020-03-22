@@ -82,7 +82,7 @@ public class Facturas implements Fecha {
     public String toString(){
         return "Código: " + getCodigo() +"\n" +
                 "Tarifa: " + getTarifa().toString() + "\n" +
-                "Fecha de emisión" + getFecha().toString() + "\n" +
+                "Fecha de emisión: " + getFecha().getTime() + "\n" +
                 "Fecha de facturación: De "
                 + getFechaFacturacionInicio().getTime() +  " - a "
                 + getFechaFacturacionFin().getTime() +"\n" +

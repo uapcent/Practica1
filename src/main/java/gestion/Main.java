@@ -10,10 +10,7 @@ import datosCliente.Llamadas;
 import datosCliente.Tarifa;
 
 import java.io.*;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class Main implements Serializable{
 
@@ -233,13 +230,18 @@ public class Main implements Serializable{
         System.out.println("Introduja el DNI del cliente del que desea saber los datos: ");
         String nif = input.next();
         System.out.println("Los datos del cliente son los siguientes: ");
-        gestionClientes.recuperarDatosClientes(nif).toString();
+        Cliente cliente = gestionClientes.recuperarDatosClientes(nif);
+        System.out.println(cliente.toString());
         input.close();
     }
 
     private static void listaClientes(GestorClientes gestionClientes){
         System.out.println("El listado de los clientes almacenado es el siguiente: ");
-        gestionClientes.devolverLista();
+        Set<Cliente> lista =  gestionClientes.devolverLista();
+        for (Cliente cliente : lista) {
+            System.out.println(cliente.toString());
+            System.out.println("\n");
+        }
     }
 
     private static void cambiarTarifaCliente(GestorClientes gestionClientes){
@@ -275,7 +277,11 @@ public class Main implements Serializable{
         año = Integer.parseInt(fechaIni.substring(6,fechaIni.length()));
         Calendar fechaFinal = new Calendar.Builder().setDate(año,mes,dia).build();
         System.out.println("Su lista es la siguiente: ");
-        gestionClientes.muestra(gestionClientes.devolverLista(),fechaInicial,fechaFinal);
+        Collection <Cliente>  lista = gestionClientes.muestra(gestionClientes.devolverLista(),fechaInicial,fechaFinal);
+        for (Cliente cliente : lista) {
+            System.out.println(cliente.toString());
+            System.out.println("\n");
+        }
         input.close();
     }
 
@@ -308,7 +314,11 @@ public class Main implements Serializable{
         Scanner input = new Scanner(System.in);
         System.out.println("Introduja el NIF del cliente del que quiera saber todas sus llamadas: ");
         String  nif = input.next();
-        gestionClientes.llamadasCliente(nif);
+       List<Llamadas> lista = gestionClientes.llamadasCliente(nif);
+       for (Llamadas llamada : lista) {
+           System.out.println(llamada.toString());
+           System.out.println("\n");
+       }
         input.close();
     }
 
@@ -331,8 +341,9 @@ public class Main implements Serializable{
         mes = Integer.parseInt(fechaIni.substring(3,5));
         año = Integer.parseInt(fechaIni.substring(6,fechaIni.length()));
         Calendar fechaFinal = new Calendar.Builder().setDate(año,mes,dia).build();
-        System.out.println("La factura que ha añadido es la siguiente:");
-        gestionClientes.emitirFactura(nif,fechaInicial,fechaFinal);
+        System.out.println("La factura que ha emitido es la siguiente:");
+        Facturas factura = gestionClientes.emitirFactura(nif,fechaInicial,fechaFinal);
+        System.out.println(factura.toString());
         input.close();
     }
 
@@ -343,7 +354,8 @@ public class Main implements Serializable{
         System.out.println("Introduce el codigo de la factura que desea conocer de el cliente:  ");
         int codigo = input.nextInt();
         System.out.println("Los datos de la factura son los siguientes:");
-        gestionClientes.datosFactura(nif,codigo);
+        Facturas factura = gestionClientes.datosFactura(nif,codigo);
+        System.out.println(factura);
         input.close();
 
     }
@@ -352,7 +364,11 @@ public class Main implements Serializable{
         Scanner input = new Scanner(System.in);
         System.out.println("Introduja el NIF del cliente del que quiera saber todas sus facturas: ");
         String  nif = input.next();
-        gestionClientes.listaFacturaCliente(nif);
+        List<Facturas> facturas = gestionClientes.listaFacturaCliente(nif);
+        for (Facturas factura : facturas) {
+            System.out.println(factura.toString());
+            System.out.println("\n");
+        }
         input.close();
     }
 
