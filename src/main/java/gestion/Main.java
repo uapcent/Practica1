@@ -98,17 +98,13 @@ public class Main implements Serializable{
             }
         }
         input.close();
-
-
-        //Crear un objeto de gestion clientes para llamar a los métodos, variables y tal
+        //Crear un objeto de gestion clientes para llamar a los métodos, variables.
         //1: cliente
         //2: factura
         //3: llamada
         //5: Salir
-        GestorClientes aux = new GestorClientes();
 
         //Escribir al fichero
-
         try {
             FileOutputStream fos = null;
             fos = new FileOutputStream("agenda.bin");
