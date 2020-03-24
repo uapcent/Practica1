@@ -1,18 +1,22 @@
 package datosCliente;
 
-public class Tarifa {
-    private double precio;
+public abstract class Tarifa {
+    private float precio;
 
-
-    public Tarifa(double precio) {
+    public Tarifa(float precio) {
         this.precio = precio;
     }
 
-    public double getPrecio() {
+    public float getPrecio() {
         return precio;
     }
 
-    public void  setPrecio(double precio) {
+    public void  setPrecio(float precio) {
         this.precio = precio;
     }
+
+    public abstract String descripcion();
+
+    public abstract float calcularTarifa(Llamadas llamada);
+
 }

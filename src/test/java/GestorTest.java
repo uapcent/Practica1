@@ -1,10 +1,7 @@
 import clientes.Cliente;
-import datosCliente.Direccion;
+import datosCliente.*;
 import clientes.Empresa;
 import clientes.Particular;
-import datosCliente.Facturas;
-import datosCliente.Llamadas;
-import datosCliente.Tarifa;
 import gestion.GestorClientes;
 import org.junit.jupiter.api.Test;
 import static org.junit.Assert.*;
@@ -18,10 +15,10 @@ public class GestorTest  extends GestorClientes {
     Calendar fecha02 = new Calendar.Builder().setDate(2020,02,15).build();
     Calendar fecha03 = new Calendar.Builder().setDate(2019,12,13).build();
 
-    Tarifa tarifa00 = new Tarifa(0.1);
-    Tarifa tarifa01 = new Tarifa(50);
-    Tarifa tarifa02 = new Tarifa(75);
-    Tarifa tarifa03 = new Tarifa(100);
+    Tarifa tarifa00 = new TarifaBasica(0.1f);
+    Tarifa tarifa01 = new TarifaBasica(50.0f);
+    Tarifa tarifa02 = new TarifaBasica(75.0f);
+    Tarifa tarifa03 = new TarifaBasica(100.0f);
 
     Direccion direccion00 = new Direccion(12600,"Castellón","La Vall d'Uixó");
     Direccion direccion01 = new Direccion(12592,"Castellón","Xilxes");

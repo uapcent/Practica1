@@ -32,7 +32,6 @@ public class Cliente implements Fecha {
         return nombre;
     }
 
-
     public String getNif() {
         return nif;
     }
