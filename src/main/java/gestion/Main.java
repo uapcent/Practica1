@@ -4,10 +4,7 @@ import clientes.Cliente;
 import clientes.Empresa;
 import clientes.Particular;
 import com.sun.xml.internal.bind.v2.TODO;
-import datosCliente.Direccion;
-import datosCliente.Facturas;
-import datosCliente.Llamadas;
-import datosCliente.Tarifa;
+import datosCliente.*;
 
 import java.io.*;
 import java.util.*;
@@ -192,8 +189,8 @@ public class Main implements Serializable{
         System.out.println("Tarifa: ");
 
         Direccion dir = new Direccion(codpos, prov, pob);
-        double precio = input.nextDouble();
-        Tarifa tarifa = new Tarifa(precio);
+        float precio = input.nextFloat();
+        Tarifa tarifa = new TarifaBasica(precio);
 
         //TODO cliente no deberia recibir una lista de llamadas, sino que deberia crear una vacía
         boolean añadido;
@@ -245,8 +242,8 @@ public class Main implements Serializable{
         System.out.println("Introduja el DNI del cliente del que quiera cambiar su Tarifa: ");
         String nif = input.next();
         System.out.println("Introduja la nueva Tarifa que se le va a asignar al cliente: ");
-        double precioTarifa = input.nextDouble();
-        Tarifa tarifa = new Tarifa(precioTarifa);
+        float precioTarifa = input.nextFloat();
+        Tarifa tarifa = new TarifaBasica(precioTarifa);
         boolean añadido = gestionClientes.cambiarTarifa(nif, tarifa);
         if (añadido) {
             System.out.println("La factura ha sido cambiada correctamente.");

@@ -51,10 +51,10 @@ public class GestorTest  extends GestorClientes {
         darAltaCliente(pamesa);
         darAltaCliente(porcelanosa);
         Tarifa tarifa = sergi.getTarifa();
-        assertEquals(true, cambiarTarifa(sergi.getNif(), new Tarifa(50)));
+        assertEquals(true, cambiarTarifa(sergi.getNif(), new TarifaBasica(50)));
         System.out.println("TEST CAMBIO TARIFA ");
         System.out.println("Le hemos cambiado la datosCliente.Tarifa a " + sergi.getNombre() + " con DNI:" + sergi.getNif() + " y ahora su tarifa es de " + sergi.getTarifa() + " y antes su tarifa era " + tarifa);
-        assertEquals(false, cambiarTarifa("78578465D", new Tarifa(50)));
+        assertEquals(false, cambiarTarifa("78578465D", new TarifaBasica(50)));
 
     }
 

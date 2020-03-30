@@ -12,7 +12,7 @@ public class TarifaPorDia extends TarifaEspecial {
 
     @Override
     public String descripcion() {
-        return super.descripcion() + " , ";
+        return  "Usas la tarifa por días.";
     }
 
     public static String diaSemana(int mes, int dias, int año) {
@@ -41,10 +41,13 @@ public class TarifaPorDia extends TarifaEspecial {
     @Override
     public float calcularTarifa(Llamadas llamada) {
         Calendar fecha = llamada.getFecha();
-        int dia = Calendar.DAY_OF_MONTH;
-        int mes = Calendar.MONTH;
-        int año = Calendar.YEAR;
+        int dia = fecha.get(Calendar.DAY_OF_MONTH);
+        int mes = fecha.get(Calendar.MONTH);
+        int año = fecha.get(Calendar.YEAR);
+        String diaDeLaSeamana = diaSemana(mes,dia,año);
+        if(this.dia.equals(diaDeLaSeamana)) {
+            return super.getPrecio()*llamada.getDuracion();
+        }
         return 0;
     }
-
 }

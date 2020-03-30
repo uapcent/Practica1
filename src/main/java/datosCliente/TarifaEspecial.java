@@ -10,11 +10,13 @@ public abstract class TarifaEspecial extends Tarifa {
 
     @Override
     public float getPrecio() {
-        if (tarifa.getPrecio() < super.getPrecio())
+        if (tarifa.getPrecio() < super.getPrecio() && tarifa.getPrecio() != 0.0f) {
             return tarifa.getPrecio();
-        else
+        } else {
             return super.getPrecio();
+        }
     }
+
 
     @Override
     public String descripcion() {

@@ -8,7 +8,7 @@ public class TarifaBasica extends Tarifa {
 
     @Override
     public  String descripcion() {
-        return "Esta es la tarifa básica.";
+        return "Usas la tarifa básica.";
     }
 
     @Override
