@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Cliente implements Fecha {
+public abstract class Cliente implements Fecha {
 
     //Constructor
     private String nombre;

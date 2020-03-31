@@ -10,10 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Particular extends Cliente {
-
     private String apellidos;
-    List<Facturas> facturas = new LinkedList();
-    List<Llamadas> llamadas = new LinkedList<>();
 
     public Particular(String nombre, String apellidos, String nif, Direccion dir, String email, Calendar fecha, Tarifa tarifa){
         super(nombre, nif, dir, email, fecha, tarifa);

@@ -22,7 +22,4 @@ public abstract class TarifaEspecial extends Tarifa {
     public String descripcion() {
         return tarifa.descripcion();
     }
-
-
-
 }
