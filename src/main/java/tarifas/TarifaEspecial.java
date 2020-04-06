@@ -1,4 +1,4 @@
-package datosCliente;
+package tarifas;
 
 public abstract class TarifaEspecial extends Tarifa {
     private Tarifa tarifa;

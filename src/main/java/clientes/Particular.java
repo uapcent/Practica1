@@ -1,13 +1,9 @@
 package clientes;
 
 import datosCliente.Direccion;
-import datosCliente.Facturas;
-import datosCliente.Llamadas;
-import datosCliente.Tarifa;
+import tarifas.Tarifa;
 
 import java.util.Calendar;
-import java.util.LinkedList;
-import java.util.List;
 
 public class Particular extends Cliente {
     private String apellidos;

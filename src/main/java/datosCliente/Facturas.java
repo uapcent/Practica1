@@ -1,5 +1,7 @@
 package datosCliente;
 
+import tarifas.Tarifa;
+
 import java.util.Calendar;
 
 public class Facturas implements Fecha {

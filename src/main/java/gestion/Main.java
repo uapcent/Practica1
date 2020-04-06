@@ -3,8 +3,9 @@ package gestion;
 import clientes.Cliente;
 import clientes.Empresa;
 import clientes.Particular;
-import com.sun.xml.internal.bind.v2.TODO;
 import datosCliente.*;
+import tarifas.Tarifa;
+import tarifas.TarifaBasica;
 
 import java.io.*;
 import java.util.*;
@@ -192,7 +193,6 @@ public class Main implements Serializable{
         float precio = input.nextFloat();
         Tarifa tarifa = new TarifaBasica(precio);
 
-        //TODO cliente no deberia recibir una lista de llamadas, sino que deberia crear una vacía
         boolean añadido;
         if (apellidos.equals("-")){
             Cliente cli = new Empresa(nombre, nif, dir, email, fecha, tarifa);

@@ -4,7 +4,7 @@ import clientes.Cliente;
 import datosCliente.Facturas;
 import datosCliente.Fecha;
 import datosCliente.Llamadas;
-import datosCliente.Tarifa;
+import tarifas.Tarifa;
 
 import java.io.*;
 import java.util.*;

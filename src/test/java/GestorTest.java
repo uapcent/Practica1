@@ -4,9 +4,11 @@ import clientes.Empresa;
 import clientes.Particular;
 import gestion.GestorClientes;
 import org.junit.jupiter.api.Test;
+import tarifas.Tarifa;
+import tarifas.TarifaBasica;
+
 import static org.junit.Assert.*;
 import java.util.Calendar;
-import java.util.LinkedList;
 
 public class GestorTest  extends GestorClientes {
 
@@ -53,7 +55,7 @@ public class GestorTest  extends GestorClientes {
         Tarifa tarifa = sergi.getTarifa();
         assertEquals(true, cambiarTarifa(sergi.getNif(), new TarifaBasica(50)));
         System.out.println("TEST CAMBIO TARIFA ");
-        System.out.println("Le hemos cambiado la datosCliente.Tarifa a " + sergi.getNombre() + " con DNI:" + sergi.getNif() + " y ahora su tarifa es de " + sergi.getTarifa() + " y antes su tarifa era " + tarifa);
+        System.out.println("Le hemos cambiado la tarifas.Tarifa a " + sergi.getNombre() + " con DNI:" + sergi.getNif() + " y ahora su tarifa es de " + sergi.getTarifa() + " y antes su tarifa era " + tarifa);
         assertEquals(false, cambiarTarifa("78578465D", new TarifaBasica(50)));
 
     }

@@ -3,12 +3,7 @@ package clientes;
 import java.util.Calendar;
 
 import datosCliente.Direccion;
-import datosCliente.Facturas;
-import datosCliente.Llamadas;
-import datosCliente.Tarifa;
-
-import java.util.LinkedList;
-import java.util.List;
+import tarifas.Tarifa;
 
 public class Empresa extends Cliente{
 

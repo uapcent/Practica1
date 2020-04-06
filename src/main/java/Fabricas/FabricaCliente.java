@@ -5,9 +5,13 @@ import clientes.Cliente;
 import clientes.Empresa;
 import clientes.Particular;
 import clientes.Salir;
+import datosCliente.Direccion;
+import sun.misc.Cache;
+import tarifas.Tarifa;
 
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Calendar;
 
 public enum FabricaCliente {
     PARTICULAR("Particular.", Particular.class),
@@ -24,12 +28,12 @@ public enum FabricaCliente {
         this.cliente = cliente;
     }
 
-    public Cliente getCliente(String... args) {
+    public Cliente getCliente(Object... args) {
         try {
             if (args.length == 6)
-                return cliente.getConstructor(String.class, String.class, String.class, String.class, String.class, String.class).newInstance(args);
+                return cliente.getConstructor(String.class, String.class, Direccion.class, String.class, Calendar.class, Tarifa.class).newInstance(args);
             else if (args.length == 7 )
-                return cliente.getConstructor(String.class, String.class, String.class, String.class, String.class, String.class, String.class).newInstance(args);
+                return cliente.getConstructor(String.class, String.class, String.class, Direccion.class, String.class, Calendar.class, Tarifa.class).newInstance(args);
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {

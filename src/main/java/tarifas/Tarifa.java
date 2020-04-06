@@ -1,4 +1,6 @@
-package datosCliente;
+package tarifas;
+
+import datosCliente.Llamadas;
 
 public abstract class Tarifa {
     private float precio;
@@ -10,13 +12,13 @@ public abstract class Tarifa {
     public float getPrecio() {
         return precio;
     }
-
     public void  setPrecio(float precio) {
         this.precio = precio;
     }
 
     public abstract String descripcion();
-
     public abstract float calcularTarifa(Llamadas llamada);
+
+
 
 }

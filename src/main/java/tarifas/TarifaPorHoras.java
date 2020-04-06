@@ -1,4 +1,6 @@
-package datosCliente;
+package tarifas;
+
+import datosCliente.Llamadas;
 
 import java.util.Calendar;
 

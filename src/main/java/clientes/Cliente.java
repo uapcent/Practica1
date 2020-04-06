@@ -1,6 +1,7 @@
 package clientes;
 
 import datosCliente.*;
+import tarifas.Tarifa;
 
 import java.util.Calendar;
 import java.util.LinkedList;
