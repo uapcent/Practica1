@@ -11,7 +11,9 @@ import java.util.Calendar;
 import java.util.Scanner;
 
 public class MainFabricaClientes {
-    public static void main(String[] args) {new MainFabricaClientes().launch(); }
+    public static void main(String[] args) {
+        new MainFabricaClientes().launch();
+    }
 
     private void launch() {
         FabricaCliente opcion;
