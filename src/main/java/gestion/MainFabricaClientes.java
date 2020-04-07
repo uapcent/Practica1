@@ -5,6 +5,7 @@ import Fabricas.FabricaCliente;
 import datosCliente.Direccion;
 import tarifas.Tarifa;
 import tarifas.TarifaBasica;
+import gestion.PedirDatos;
 
 import java.util.Calendar;
 import java.util.Scanner;
@@ -27,91 +28,57 @@ public class MainFabricaClientes {
     }
 
     private void filtraOpcion(FabricaCliente opcion) {
-        Cliente cliente;
+        Scanner entrada = new Scanner(System.in);
 
-        String nombre, apellidos, nif, email;
+        Cliente cliente;
+        PedirDatos dato = new PedirDatos();
+        GestorClientes gestor = new GestorClientes();
+        String nombre;
+        String apellidos;
+        String nif;
+        String  poblacion;
+        String provincia;
+        int codigoPostal;
+        String email;
         Calendar fecha;
+        float precioTarifa;
         Tarifa tarifa;
         Direccion dir;
 
-        /**Scanner input = new Scanner(System.in);
-        System.out.println("Introduce los datos del cliente: \nNombre: ");
-        String nombre = input.next();
-
-        String apellidos = "";
-        if (opcion == FabricaCliente.PARTICULAR) {
-            System.out.println("Apellidos: (O escribe - si es una empresa)");
-            apellidos = input.next();
-        }
-
-        System.out.println("Nif: ");
-        String nif = input.next();
-
-        System.out.println("Código Postal: ");
-        int codpos = input.nextInt();
-
-        System.out.println("Provincia: ");
-        String prov = input.next();
-
-        System.out.println("Población: ");
-        String pob = input.next();
-
-        System.out.println("Correo electónico: ");
-        String email = input.next();
-
-        Calendar fecha = Calendar.getInstance();
-        System.out.println("Tarifa: ");
-        float precio = input.nextInt();
-
-        Direccion dir = new Direccion(codpos, prov, pob);
-        Tarifa tarifa = new TarifaBasica(precio);
-        **/
-
         switch (opcion) {
-            preguntas(nombre, nif, email, fecha, tarifa, dir);
             case PARTICULAR:
+                nombre = dato.pideNombre(entrada);
+                apellidos = dato.apellidos(entrada);
+                nif = dato.nif(entrada);
+                email = dato.email(entrada);
+                poblacion = dato.poblacion(entrada);
+                provincia = dato.provincia(entrada);
+                codigoPostal = dato.codPostal(entrada);
+                fecha = Calendar.getInstance();
+                precioTarifa = dato.tarifa(entrada);
+                dir = new Direccion(codigoPostal,provincia,poblacion);
+                tarifa = new TarifaBasica(precioTarifa);
                 cliente = opcion.getCliente(nombre, apellidos, nif, dir, email, fecha, tarifa);
-                System.out.println(cliente);
+                gestor.darAltaCliente(cliente);
                 break;
-
             case EMPRESA:
+                nombre = dato.pideNombre(entrada);
+                nif = dato.nif(entrada);
+                email = dato.email(entrada);
+                poblacion = dato.poblacion(entrada);
+                provincia = dato.provincia(entrada);
+                codigoPostal = dato.codPostal(entrada);
+                fecha = Calendar.getInstance();
+                precioTarifa = dato.tarifa(entrada);
+                dir = new Direccion(codigoPostal,provincia,poblacion);
+                tarifa = new TarifaBasica(precioTarifa);
                 cliente = opcion.getCliente(nombre, nif, dir, email, fecha, tarifa);
-                System.out.println(cliente);
-                break;
 
+                break;
             case SALIR:
+                entrada.close();
                 break;
         }
-        //input.close();
-    }
-
-    private void preguntas(String nombre, String nif, String email, Calendar fecha, Tarifa tarifa, Direccion dir){
-        Scanner input = new Scanner(System.in);
-        System.out.println("Introduce los datos del cliente: \nNombre: ");
-        nombre = input.next();
-
-        System.out.println("Nif: ");
-        nif = input.next();
-
-        System.out.println("Código Postal: ");
-        int codpos = input.nextInt();
-
-        System.out.println("Provincia: ");
-        String prov = input.next();
-
-        System.out.println("Población: ");
-        String pob = input.next();
-
-        System.out.println("Correo electónico: ");
-        email = input.next();
-
-        fecha = Calendar.getInstance();
-        System.out.println("Tarifa: ");
-        float precio = input.nextInt();
-
-        tarifa = new TarifaBasica(precio);
-        dir = new Direccion(codpos, prov, pob);
-
     }
 
     private void menu() {
