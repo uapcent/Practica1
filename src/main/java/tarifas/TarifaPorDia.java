@@ -52,4 +52,8 @@ public class TarifaPorDia extends TarifaEspecial {
         }
         return 0;
     }
+
+    public String getDia() {
+        return dia;
+    }
 }

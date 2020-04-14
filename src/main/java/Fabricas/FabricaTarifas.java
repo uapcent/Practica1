@@ -21,14 +21,14 @@ public enum FabricaTarifas {
         this.tarifa = tarifa;
     }
 
-    public Tarifa getTarifa(String... args) {
+    public Tarifa getTarifa(Object... args) {
         try {
             if (args.length == 1)
                 return tarifa.getConstructor(float.class).newInstance(args);
             else if (args.length == 3)
-                return tarifa.getConstructor(Tarifa.class, float.class, int.class, int.class).newInstance(args);
+                return tarifa.getConstructor(Tarifa.class, float.class, String.class).newInstance(args);
             else if (args.length == 4)
-                return tarifa.getConstructor(float.class, float.class, int.class, int.class).newInstance(args);
+                return tarifa.getConstructor(Tarifa.class, float.class, int.class, int.class).newInstance(args);
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {

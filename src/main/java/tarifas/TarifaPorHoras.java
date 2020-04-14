@@ -28,4 +28,12 @@ public class TarifaPorHoras extends TarifaEspecial{
         }
         return 0;
     }
+
+    public int getHoraInicial() {
+        return horaInicial;
+    }
+    public int getHoraFinal() {
+        return horaFinal;
+    }
+
 }

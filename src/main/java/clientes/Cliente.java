@@ -33,6 +33,10 @@ public abstract class Cliente implements Fecha {
         return nombre;
     }
 
+    public String getApellidos() {
+        return null;
+    }
+
     public String getNif() {
         return nif;
     }

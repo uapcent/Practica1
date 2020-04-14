@@ -16,9 +16,18 @@ public abstract class Tarifa {
         this.precio = precio;
     }
 
+    public String getDia() {
+        return null;
+    }
+
+    public int getHoraInicial() {
+        return 0;
+    }
+
+    public int getHoraFinal() {
+        return 0;
+    }
+
     public abstract String descripcion();
     public abstract float calcularTarifa(Llamadas llamada);
-
-
-
 }
