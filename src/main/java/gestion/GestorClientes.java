@@ -4,6 +4,9 @@ import clientes.Cliente;
 import datosCliente.Facturas;
 import datosCliente.Fecha;
 import datosCliente.Llamadas;
+import excepciones.ExcecpcionClienteYaExiste;
+import excepciones.ExcepcionClienteNoExiste;
+import excepciones.ExcepcionIntervaloFechas;
 import tarifas.Tarifa;
 
 import java.io.*;
@@ -12,18 +15,12 @@ import java.util.*;
 public class GestorClientes implements Serializable {
     private Set<Cliente> listaClientes = new HashSet<Cliente>();
 
-    public boolean darAltaCliente(Cliente cliente){
-        try {
-            Cliente aux = buscarCliente(cliente.getNif());
-            if (aux!=null){
-                throw new MiExcepcion(102);
-            }
-        }catch (MiExcepcion miExcepcion){
-            System.out.println(miExcepcion.getMessage());
-            return false;
+    public boolean darAltaCliente(Cliente cliente) throws ExcecpcionClienteYaExiste {
+        Cliente aux = buscarCliente(cliente.getNif());
+        if(aux != null) {
+            throw new ExcecpcionClienteYaExiste();
         }
-        listaClientes.add(cliente);
-        return true;
+        return listaClientes.add(cliente);
     }
 
     private Cliente buscarCliente(String nif){
@@ -35,127 +32,72 @@ public class GestorClientes implements Serializable {
         return null;
     }
 
-    public boolean borrar(String nif){
+    public boolean borrar(String nif) throws ExcepcionClienteNoExiste {
         Cliente cliente = buscarCliente(nif);
-        try {
-            if (cliente==null){
-                throw new MiExcepcion(103);
-            }
-        }catch (MiExcepcion miExcepcion){
-            System.out.println(miExcepcion.getMessage());
-            return false;
+        if(cliente == null ) {
+           throw new ExcepcionClienteNoExiste();
         }
-        listaClientes.remove(cliente);
+        return listaClientes.remove(cliente);
+    }
+
+    public boolean cambiarTarifa(String nif, Tarifa tarifa) throws ExcepcionClienteNoExiste{
+        Cliente cliente = buscarCliente(nif);
+        if(cliente == null ) {
+            throw new ExcepcionClienteNoExiste();
+        }
+        cliente.setTarifa(tarifa);
         return true;
     }
 
-    public boolean cambiarTarifa(String nif, Tarifa tarifa){
-        try {
-            Cliente aux = buscarCliente(nif);
-            if (aux==null){
-                throw new MiExcepcion(103);
-            }
-        }catch (MiExcepcion miExcepcion){
-            System.out.println(miExcepcion.getMessage());
-            return false;
+    public Cliente recuperarDatosClientes(String nif) throws ExcepcionClienteNoExiste {
+        Cliente cliente = buscarCliente(nif);
+        if(cliente == null ) {
+            throw new ExcepcionClienteNoExiste();
         }
-        for(Cliente cliente : listaClientes) {
-            if(cliente.getNif().equals(nif)) {
-                cliente.setTarifa(tarifa);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public Cliente recuperarDatosClientes(String nif) {
-        try {
-            Cliente aux = buscarCliente(nif);
-            if (aux==null){
-                throw new MiExcepcion(103);
-            }
-        }catch (MiExcepcion miExcepcion){
-            System.out.println(miExcepcion.getMessage());
-            return null;
-        }
-        for (Cliente cliente : listaClientes) {
-            if (cliente.getNif().equals(nif)) {
-                return cliente;
-            }
-        }
-        return null;
+        return cliente;
     }
 
     public Set<Cliente> devolverLista(){
         return listaClientes;
     }
 
-    public boolean darAltaLlamada(Llamadas llamada, String nif) {
-        try {
-            Cliente aux = buscarCliente(nif);
-            if (aux==null){
-                throw new MiExcepcion(103);
-            }
-        }catch (MiExcepcion miExcepcion){
-            System.out.println(miExcepcion.getMessage());
-            return false;
-        }
-
-        for (Cliente cliente : listaClientes) {
-            if(cliente.getNif().equals(nif)) {
-                cliente.getListaLlamadas().add(llamada);
-                return true;
-            }
-        }
-        return false;
-
-    }
-
-    public List<Llamadas> llamadasCliente(String nif) {
-        try {
-            Cliente aux = buscarCliente(nif);
-            if (aux==null){
-                throw new MiExcepcion(103);
-            }
-        }catch (MiExcepcion miExcepcion){
-            System.out.println(miExcepcion.getMessage());
-            return null;
-        }
-
-        for(Cliente cliente : listaClientes) {
-            if(cliente.getNif().equals(nif)) {
-                return cliente.getListaLlamadas();
-            }
-        }
-        return null;
-    }
-
-    public Facturas emitirFactura(String nif, Calendar inicio, Calendar fin) {
-
-        try {
-            Cliente aux = buscarCliente(nif);
-            if (aux==null) {
-                throw new MiExcepcion(103);
-            }
-            if (inicio.compareTo(fin)>=0){
-                throw new MiExcepcion(101);
-            }
-        } catch (MiExcepcion miExcepcion) {
-            //miExcepcion.printStackTrace();
-            System.out.println(miExcepcion.getMessage());
-            return null;
-        }
-
+    public boolean darAltaLlamada(Llamadas llamada, String nif) throws ExcepcionClienteNoExiste{
         Cliente cliente = buscarCliente(nif);
+        if(cliente == null ) {
+            throw new ExcepcionClienteNoExiste();
+        }
+        cliente.getListaLlamadas().add(llamada);
+        return true;
+    }
+
+    public List<Llamadas> llamadasCliente(String nif) throws ExcepcionClienteNoExiste {
+        Cliente cliente = buscarCliente(nif);
+        if(cliente == null ) {
+            throw new ExcepcionClienteNoExiste();
+        }
+        return cliente.getListaLlamadas();
+    }
+
+    public Facturas emitirFactura(String nif, Calendar inicio, Calendar fin) throws ExcepcionClienteNoExiste, ExcepcionIntervaloFechas {
+        Cliente cliente = buscarCliente(nif);
+        if(cliente == null) {
+            throw new ExcepcionClienteNoExiste();
+        }
+        if(inicio.compareTo(fin)>0 || fin.compareTo(inicio) < 0) {
+            throw new ExcepcionIntervaloFechas();
+        }
         double resultado = CalcularPrecioFactura(cliente, inicio, fin);
         Facturas nueva = new Facturas(cliente.getListaFacturas().size(),cliente.getTarifa(),Calendar.getInstance(),inicio,fin,resultado);
         cliente.getListaFacturas().add(nueva);
         return nueva;
     }
 
-    private double CalcularPrecioFactura(Cliente cliente, Calendar inicio, Calendar fin){
+    private double CalcularPrecioFactura(Cliente cliente, Calendar inicio, Calendar fin) throws ExcepcionClienteNoExiste{
+        Cliente aux = buscarCliente(cliente.getNif());
+        if(aux == null) {
+            throw new ExcepcionClienteNoExiste();
+        }
         double resultado = 0;
-
         for (Llamadas llamada : cliente.getListaLlamadas() ) {
             if (llamada.getFecha().compareTo(inicio) >= 0 && llamada.getFecha().compareTo(fin)  <= 0 ) {
                 resultado += llamada.getDuracion()*cliente.getTarifa().getPrecio();
@@ -164,63 +106,32 @@ public class GestorClientes implements Serializable {
         return resultado;
     }
 
-    public Facturas datosFactura(String nif, int codigo) {
-        try {
-            Cliente aux = buscarCliente(nif);
-            if (aux==null){
-                throw new MiExcepcion(103);
-            }
-        }catch (MiExcepcion miExcepcion){
-            System.out.println(miExcepcion.getMessage());
-            return null;
+    public Facturas datosFactura(String nif, int codigo) throws ExcepcionClienteNoExiste{
+        Cliente cliente = buscarCliente(nif);
+        if(cliente == null ) {
+            throw new ExcepcionClienteNoExiste();
         }
-
-        for(Cliente cliente : listaClientes) {
-            if (cliente.getNif().equals(nif)) {
-                for (Facturas factura : cliente.getListaFacturas()) {
-                    if(factura.getCodigo() == codigo) {
-                        return factura;
-                    }
-
-                }
+        for (Facturas factura : cliente.getListaFacturas()) {
+            if (factura.getCodigo() == codigo) {
+                return factura;
             }
         }
         return null;
     }
 
-    public List<Facturas> listaFacturaCliente(String nif) {
-        try {
-            Cliente aux = buscarCliente(nif);
-            if (aux==null){
-                throw new MiExcepcion(103);
-            }
-        }catch (MiExcepcion miExcepcion){
-            System.out.println(miExcepcion.getMessage());
-            return null;
+    public List<Facturas> listaFacturaCliente(String nif)  throws ExcepcionClienteNoExiste{
+        Cliente cliente = buscarCliente(nif);
+        if(cliente == null ) {
+            throw new ExcepcionClienteNoExiste();
         }
-
-
-        for(Cliente cliente : listaClientes) {
-            if (cliente.getNif().equals(nif)) {
-                return cliente.getListaFacturas();
-            }
-        }
-        return null;
+        return cliente.getListaFacturas();
     }
 
     //Crea una lista filtrada según las fechas. Clase genérica, sirve para varios métodos
-    public < T extends Fecha> Collection  muestra (Collection<T> conjunto, Calendar inicio, Calendar fin)  {
-
-        try {
-            if (inicio.compareTo(fin)>=0){
-                throw new MiExcepcion(101);
-            }
-        } catch (MiExcepcion miExcepcion) {
-            //miExcepcion.printStackTrace();
-            System.out.println(miExcepcion.getMessage());
-            return null;
+    public < T extends Fecha> Collection  muestra (Collection<T> conjunto, Calendar inicio, Calendar fin) throws ExcepcionIntervaloFechas {
+        if(inicio.compareTo(fin) > 0) {
+            throw new ExcepcionIntervaloFechas(inicio,fin);
         }
-
         List<T> listaFiltrado = new LinkedList<>();
         for ( T elemento : conjunto ){
             if (elemento.getFecha().compareTo(inicio) >= 0 && elemento.getFecha().compareTo(fin)  <= 0){
@@ -229,6 +140,4 @@ public class GestorClientes implements Serializable {
         }
         return listaFiltrado;
     }
-
-
 }

@@ -61,7 +61,7 @@ public class MainFabricaClientes {
                 dir = new Direccion(codigoPostal,provincia,poblacion);
                 tarifa = new TarifaBasica(precioTarifa);
                 cliente = opcion.getCliente(nombre, apellidos, nif, dir, email, fecha, tarifa);
-                gestor.darAltaCliente(cliente);
+                //gestor.darAltaCliente(cliente);
                 break;
             case EMPRESA:
                 nombre = dato.pideNombre(entrada);
@@ -75,7 +75,6 @@ public class MainFabricaClientes {
                 dir = new Direccion(codigoPostal,provincia,poblacion);
                 tarifa = new TarifaBasica(precioTarifa);
                 cliente = opcion.getCliente(nombre, nif, dir, email, fecha, tarifa);
-
                 break;
             case SALIR:
                 entrada.close();

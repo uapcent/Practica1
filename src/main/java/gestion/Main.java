@@ -4,6 +4,9 @@ import clientes.Cliente;
 import clientes.Empresa;
 import clientes.Particular;
 import datosCliente.*;
+import excepciones.ExcecpcionClienteYaExiste;
+import excepciones.ExcepcionClienteNoExiste;
+import excepciones.ExcepcionIntervaloFechas;
 import tarifas.Tarifa;
 import tarifas.TarifaBasica;
 
@@ -165,66 +168,78 @@ public class Main implements Serializable{
 
     private static void añadeCliente(GestorClientes gestionClientes){
         Scanner input = new Scanner(System.in);
-        System.out.println("Introduce los datos del cliente: \nNombre: ");
-        String nombre  = input.next();
+        try {
+            System.out.println("Introduce los datos del cliente: \nNombre: ");
+            String nombre = input.next();
 
-        System.out.println("Apellidos: (O escribe - si es una empresa)");
-        String apellidos = input.next();
+            System.out.println("Apellidos: (O escribe - si es una empresa)");
+            String apellidos = input.next();
 
-        System.out.println("Nif: ");
-        String nif = input.next();
+            System.out.println("Nif: ");
+            String nif = input.next();
 
-        System.out.println("Código Postal: ");
-        int codpos = input.nextInt();
+            System.out.println("Código Postal: ");
+            int codpos = input.nextInt();
 
-        System.out.println("Provincia: ");
-        String prov = input.next();
+            System.out.println("Provincia: ");
+            String prov = input.next();
 
-        System.out.println("Población: ");
-        String pob = input.next();
+            System.out.println("Población: ");
+            String pob = input.next();
 
-        System.out.println("Correo electónico: ");
-        String email = input.next();
+            System.out.println("Correo electónico: ");
+            String email = input.next();
 
-        Calendar fecha = Calendar.getInstance();
-        System.out.println("Tarifa: ");
+            Calendar fecha = Calendar.getInstance();
+            System.out.println("Tarifa: ");
 
-        Direccion dir = new Direccion(codpos, prov, pob);
-        float precio = input.nextFloat();
-        Tarifa tarifa = new TarifaBasica(precio);
+            Direccion dir = new Direccion(codpos, prov, pob);
+            float precio = input.nextFloat();
+            Tarifa tarifa = new TarifaBasica(precio);
 
-        boolean añadido;
-        if (apellidos.equals("-")){
-            Cliente cli = new Empresa(nombre, nif, dir, email, fecha, tarifa);
-            añadido = gestionClientes.darAltaCliente(cli);
-        }else {
-            Cliente cli = new Particular(nombre, apellidos, nif, dir, email, fecha, tarifa);
-            añadido = gestionClientes.darAltaCliente(cli);
-        }
-        if(añadido) {
-            System.out.println("El cliente ha sido añadido correctamente.");
+            boolean añadido;
+            if (apellidos.equals("-")) {
+                Cliente cli = new Empresa(nombre, nif, dir, email, fecha, tarifa);
+                añadido = gestionClientes.darAltaCliente(cli);
+            } else {
+                Cliente cli = new Particular(nombre, apellidos, nif, dir, email, fecha, tarifa);
+                añadido = gestionClientes.darAltaCliente(cli);
+            }
+            if(añadido) {
+                System.out.println("El cliente ha sido añadido correctamente.");
+            }
+        }catch (ExcecpcionClienteYaExiste e) {
+            e.printStackTrace();
         }
         input.close();
     }
 
     private static void borraCliente(GestorClientes gestionClientes){
         Scanner input = new Scanner(System.in);
-        System.out.println("Introduja el DNI del cliente que desea borrar: ");
-        String nif = input.next();
-        boolean borrado = gestionClientes.borrar(nif);
-        if (borrado) {
-            System.out.println("El cliente ha sido borrado correctamente.");
+        try {
+            System.out.println("Introduja el DNI del cliente que desea borrar: ");
+            String nif = input.next();
+            boolean borrado = gestionClientes.borrar(nif);
+            if (borrado) {
+                System.out.println("El cliente ha sido borrado correctamente.");
+            }
+        }catch (ExcepcionClienteNoExiste e){
+            e.printStackTrace();
         }
         input.close();
     }
 
     private static void obtenerCliente(GestorClientes gestionClientes){
         Scanner input = new Scanner(System.in);
-        System.out.println("Introduja el DNI del cliente del que desea saber los datos: ");
-        String nif = input.next();
-        System.out.println("Los datos del cliente son los siguientes: ");
-        Cliente cliente = gestionClientes.recuperarDatosClientes(nif);
-        System.out.println(cliente.toString());
+        try {
+            System.out.println("Introduja el DNI del cliente del que desea saber los datos: ");
+            String nif = input.next();
+            System.out.println("Los datos del cliente son los siguientes: ");
+            Cliente cliente = gestionClientes.recuperarDatosClientes(nif);
+            System.out.println(cliente.toString());
+        }catch (ExcepcionClienteNoExiste e) {
+            e.printStackTrace();
+        }
         input.close();
     }
 
@@ -239,14 +254,18 @@ public class Main implements Serializable{
 
     private static void cambiarTarifaCliente(GestorClientes gestionClientes){
         Scanner input = new Scanner(System.in);
-        System.out.println("Introduja el DNI del cliente del que quiera cambiar su Tarifa: ");
-        String nif = input.next();
-        System.out.println("Introduja la nueva Tarifa que se le va a asignar al cliente: ");
-        float precioTarifa = input.nextFloat();
-        Tarifa tarifa = new TarifaBasica(precioTarifa);
-        boolean añadido = gestionClientes.cambiarTarifa(nif, tarifa);
-        if (añadido) {
-            System.out.println("La factura ha sido cambiada correctamente.");
+        try {
+            System.out.println("Introduja el DNI del cliente del que quiera cambiar su Tarifa: ");
+            String nif = input.next();
+            System.out.println("Introduja la nueva Tarifa que se le va a asignar al cliente: ");
+            float precioTarifa = input.nextFloat();
+            Tarifa tarifa = new TarifaBasica(precioTarifa);
+            boolean añadido = gestionClientes.cambiarTarifa(nif, tarifa);
+            if (añadido) {
+                System.out.println("La factura ha sido cambiada correctamente.");
+            }
+        }catch (ExcepcionClienteNoExiste e) {
+            e.printStackTrace();
         }
         input.close();
     }
@@ -256,24 +275,29 @@ public class Main implements Serializable{
         int dia;
         int mes;
         int año;
-        System.out.println("Se quiere obtener la lista de clientes entre dos fechas.");
-        System.out.println("Introduzca la fecha inicial con el siguiente formato (01/01/2020): ");
-        String fechaIni = input.next();
-        dia = Integer.parseInt(fechaIni.substring(0,2));
-        mes = Integer.parseInt(fechaIni.substring(3,5));
-        año = Integer.parseInt(fechaIni.substring(6,fechaIni.length()));
-        Calendar fechaInicial = new Calendar.Builder().setDate(año,mes,dia).build();
-        System.out.println("Introduzca la fecha final con el siguiente formato (01/01/2020): ");
-        String fechaFin = input.next();
-        dia = Integer.parseInt(fechaIni.substring(0,2));
-        mes = Integer.parseInt(fechaIni.substring(3,5));
-        año = Integer.parseInt(fechaIni.substring(6,fechaIni.length()));
-        Calendar fechaFinal = new Calendar.Builder().setDate(año,mes,dia).build();
-        System.out.println("Su lista es la siguiente: ");
-        Collection <Cliente>  lista = gestionClientes.muestra(gestionClientes.devolverLista(),fechaInicial,fechaFinal);
-        for (Cliente cliente : lista) {
-            System.out.println(cliente.toString());
-            System.out.println("\n");
+        try {
+
+            System.out.println("Se quiere obtener la lista de clientes entre dos fechas.");
+            System.out.println("Introduzca la fecha inicial con el siguiente formato (01/01/2020): ");
+            String fechaIni = input.next();
+            dia = Integer.parseInt(fechaIni.substring(0, 2));
+            mes = Integer.parseInt(fechaIni.substring(3, 5));
+            año = Integer.parseInt(fechaIni.substring(6, fechaIni.length()));
+            Calendar fechaInicial = new Calendar.Builder().setDate(año, mes, dia).build();
+            System.out.println("Introduzca la fecha final con el siguiente formato (01/01/2020): ");
+            String fechaFin = input.next();
+            dia = Integer.parseInt(fechaIni.substring(0, 2));
+            mes = Integer.parseInt(fechaIni.substring(3, 5));
+            año = Integer.parseInt(fechaIni.substring(6, fechaIni.length()));
+            Calendar fechaFinal = new Calendar.Builder().setDate(año, mes, dia).build();
+            System.out.println("Su lista es la siguiente: ");
+            Collection<Cliente> lista = gestionClientes.muestra(gestionClientes.devolverLista(), fechaInicial, fechaFinal);
+            for (Cliente cliente : lista) {
+                System.out.println(cliente.toString());
+                System.out.println("\n");
+            }
+        }catch (ExcepcionIntervaloFechas e) {
+            e.printStackTrace();
         }
         input.close();
     }
@@ -283,35 +307,43 @@ public class Main implements Serializable{
         int dia;
         int mes;
         int año;
-        System.out.println("Introduja el nif del cliente, el número de telefono, la fecha y la duración para añadir una llamada.");
-        String nif = input.next();
-        System.out.println("Numero de telefono: ");
-        String numero = input.next();
-        System.out.println("Introduzca la fecha de la llamada con el siguiente formato (01/01/2020): ");
-        String fecha = input.next();
-        dia = Integer.parseInt(fecha.substring(0,2));
-        mes = Integer.parseInt(fecha.substring(3,5));
-        año = Integer.parseInt(fecha.substring(6,fecha.length()));
-        Calendar fechaLlamada = new Calendar.Builder().setDate(año,mes,dia).build();
-        System.out.println("Duración de la llamada (en minutos): ");
-        int duracion = input.nextInt();
-        Llamadas llamada = new Llamadas(numero,fechaLlamada,duracion);
-        boolean añadido = gestionClientes.darAltaLlamada(llamada, nif);
-        if(añadido) {
-            System.out.println("La llamada se ha añadido correctamente a la lista del cliente.");
+        try {
+            System.out.println("Introduja el nif del cliente, el número de telefono, la fecha y la duración para añadir una llamada.");
+            String nif = input.next();
+            System.out.println("Numero de telefono: ");
+            String numero = input.next();
+            System.out.println("Introduzca la fecha de la llamada con el siguiente formato (01/01/2020): ");
+            String fecha = input.next();
+            dia = Integer.parseInt(fecha.substring(0, 2));
+            mes = Integer.parseInt(fecha.substring(3, 5));
+            año = Integer.parseInt(fecha.substring(6, fecha.length()));
+            Calendar fechaLlamada = new Calendar.Builder().setDate(año, mes, dia).build();
+            System.out.println("Duración de la llamada (en minutos): ");
+            int duracion = input.nextInt();
+            Llamadas llamada = new Llamadas(numero, fechaLlamada, duracion);
+            boolean añadido = gestionClientes.darAltaLlamada(llamada, nif);
+            if (añadido) {
+                System.out.println("La llamada se ha añadido correctamente a la lista del cliente.");
+            }
+        }catch (ExcepcionClienteNoExiste e) {
+            e.printStackTrace();
         }
         input.close();
     }
 
     private static void llamadasCliente(GestorClientes gestionClientes) {
         Scanner input = new Scanner(System.in);
-        System.out.println("Introduja el NIF del cliente del que quiera saber todas sus llamadas: ");
-        String  nif = input.next();
-       List<Llamadas> lista = gestionClientes.llamadasCliente(nif);
-       for (Llamadas llamada : lista) {
-           System.out.println(llamada.toString());
-           System.out.println("\n");
-       }
+        try {
+            System.out.println("Introduja el NIF del cliente del que quiera saber todas sus llamadas: ");
+            String nif = input.next();
+            List<Llamadas> lista = gestionClientes.llamadasCliente(nif);
+            for (Llamadas llamada : lista) {
+                System.out.println(llamada.toString());
+                System.out.println("\n");
+            }
+        }catch (ExcepcionClienteNoExiste e) {
+            e.printStackTrace();
+        }
         input.close();
     }
 
@@ -320,47 +352,61 @@ public class Main implements Serializable{
         int dia;
         int mes;
         int año;
-        System.out.println("Introduce el NIF del cliente al que desea emitir la factura: ");
-        String nif = input.next();
-        System.out.println("Introduzca la fecha inicial de la factura con el siguiente formato (01/01/2020): ");
-        String fechaIni = input.next();
-        dia = Integer.parseInt(fechaIni.substring(0,2));
-        mes = Integer.parseInt(fechaIni.substring(3,5));
-        año = Integer.parseInt(fechaIni.substring(6,fechaIni.length()));
-        Calendar fechaInicial = new Calendar.Builder().setDate(año,mes,dia).build();
-        System.out.println("Introduzca la fecha final de la factura con el siguiente formato (01/01/2020): ");
-        String fechaFin = input.next();
-        dia = Integer.parseInt(fechaIni.substring(0,2));
-        mes = Integer.parseInt(fechaIni.substring(3,5));
-        año = Integer.parseInt(fechaIni.substring(6,fechaIni.length()));
-        Calendar fechaFinal = new Calendar.Builder().setDate(año,mes,dia).build();
-        System.out.println("La factura que ha emitido es la siguiente:");
-        Facturas factura = gestionClientes.emitirFactura(nif,fechaInicial,fechaFinal);
-        System.out.println(factura.toString());
+        try {
+            System.out.println("Introduce el NIF del cliente al que desea emitir la factura: ");
+            String nif = input.next();
+            System.out.println("Introduzca la fecha inicial de la factura con el siguiente formato (01/01/2020): ");
+            String fechaIni = input.next();
+            dia = Integer.parseInt(fechaIni.substring(0, 2));
+            mes = Integer.parseInt(fechaIni.substring(3, 5));
+            año = Integer.parseInt(fechaIni.substring(6, fechaIni.length()));
+            Calendar fechaInicial = new Calendar.Builder().setDate(año, mes, dia).build();
+            System.out.println("Introduzca la fecha final de la factura con el siguiente formato (01/01/2020): ");
+            String fechaFin = input.next();
+            dia = Integer.parseInt(fechaIni.substring(0, 2));
+            mes = Integer.parseInt(fechaIni.substring(3, 5));
+            año = Integer.parseInt(fechaIni.substring(6, fechaIni.length()));
+            Calendar fechaFinal = new Calendar.Builder().setDate(año, mes, dia).build();
+            System.out.println("La factura que ha emitido es la siguiente:");
+            Facturas factura = gestionClientes.emitirFactura(nif, fechaInicial, fechaFinal);
+            System.out.println(factura.toString());
+        }catch (ExcepcionClienteNoExiste e) {
+            e.printStackTrace();
+        }catch (ExcepcionIntervaloFechas e) {
+            e.printStackTrace();
+        }
         input.close();
     }
 
     private static void datosFactura(GestorClientes gestionClientes) {
         Scanner input = new Scanner(System.in);
-        System.out.println("Introduce el NIF del cliente al que desea conocer una de sus facturas: ");
-        String nif = input.next();
-        System.out.println("Introduce el codigo de la factura que desea conocer de el cliente:  ");
-        int codigo = input.nextInt();
-        System.out.println("Los datos de la factura son los siguientes:");
-        Facturas factura = gestionClientes.datosFactura(nif,codigo);
-        System.out.println(factura);
+        try {
+            System.out.println("Introduce el NIF del cliente al que desea conocer una de sus facturas: ");
+            String nif = input.next();
+            System.out.println("Introduce el codigo de la factura que desea conocer de el cliente:  ");
+            int codigo = input.nextInt();
+            System.out.println("Los datos de la factura son los siguientes:");
+            Facturas factura = gestionClientes.datosFactura(nif, codigo);
+            System.out.println(factura);
+        }catch (ExcepcionClienteNoExiste e) {
+            e.printStackTrace();
+        }
         input.close();
 
     }
 
     private static void listaFacturaCliente(GestorClientes gestionClientes) {
         Scanner input = new Scanner(System.in);
-        System.out.println("Introduja el NIF del cliente del que quiera saber todas sus facturas: ");
-        String  nif = input.next();
-        List<Facturas> facturas = gestionClientes.listaFacturaCliente(nif);
-        for (Facturas factura : facturas) {
-            System.out.println(factura.toString());
-            System.out.println("\n");
+        try {
+            System.out.println("Introduja el NIF del cliente del que quiera saber todas sus facturas: ");
+            String nif = input.next();
+            List<Facturas> facturas = gestionClientes.listaFacturaCliente(nif);
+            for (Facturas factura : facturas) {
+                System.out.println(factura.toString());
+                System.out.println("\n");
+            }
+        }catch (ExcepcionClienteNoExiste e) {
+            e.printStackTrace();
         }
         input.close();
     }

@@ -2,6 +2,9 @@ import clientes.Cliente;
 import datosCliente.*;
 import clientes.Empresa;
 import clientes.Particular;
+import excepciones.ExcecpcionClienteYaExiste;
+import excepciones.ExcepcionClienteNoExiste;
+import excepciones.ExcepcionIntervaloFechas;
 import gestion.GestorClientes;
 import org.junit.jupiter.api.Test;
 import tarifas.Tarifa;
@@ -36,7 +39,7 @@ public class GestorTest  extends GestorClientes {
 
 
     @Test
-    public void darAltaClienteTest() {
+    public void darAltaClienteTest() throws ExcecpcionClienteYaExiste {
         assertEquals(true, darAltaCliente(sergi));
         assertEquals(true, darAltaCliente(pau));
         assertEquals(true, darAltaCliente(porcelanosa));
@@ -47,7 +50,7 @@ public class GestorTest  extends GestorClientes {
     }
 
     @Test
-    public void cambiarTarifaClienteTest() {
+    public void cambiarTarifaClienteTest() throws ExcecpcionClienteYaExiste, ExcepcionClienteNoExiste {
         darAltaCliente(sergi);
         darAltaCliente(pau);
         darAltaCliente(pamesa);
@@ -56,12 +59,10 @@ public class GestorTest  extends GestorClientes {
         assertEquals(true, cambiarTarifa(sergi.getNif(), new TarifaBasica(50)));
         System.out.println("TEST CAMBIO TARIFA ");
         System.out.println("Le hemos cambiado la tarifas.Tarifa a " + sergi.getNombre() + " con DNI:" + sergi.getNif() + " y ahora su tarifa es de " + sergi.getTarifa() + " y antes su tarifa era " + tarifa);
-        assertEquals(false, cambiarTarifa("78578465D", new TarifaBasica(50)));
-
     }
 
     @Test
-    public void borrarClienteTest() {
+    public void borrarClienteTest() throws ExcecpcionClienteYaExiste, ExcepcionClienteNoExiste{
         darAltaCliente(sergi);
         darAltaCliente(pau);
         darAltaCliente(pamesa);
@@ -77,7 +78,7 @@ public class GestorTest  extends GestorClientes {
     }
 
     @Test
-    public void recuperarDatosClienteTest() {
+    public void recuperarDatosClienteTest() throws ExcecpcionClienteYaExiste, ExcepcionClienteNoExiste{
         darAltaCliente(sergi);
         assertEquals(sergi, recuperarDatosClientes(sergi.getNif()));
         System.out.println("TEST RECUPERAR DATOS CLIENTE");
@@ -86,7 +87,7 @@ public class GestorTest  extends GestorClientes {
     }
 
     @Test
-    public void devolverListaClientesTest() {
+    public void devolverListaClientesTest()throws ExcecpcionClienteYaExiste {
         darAltaCliente(sergi);
         darAltaCliente(pau);
         darAltaCliente(porcelanosa);
@@ -97,7 +98,7 @@ public class GestorTest  extends GestorClientes {
     }
 
     @Test
-    public void darAltaLlamadaClienteTest() {
+    public void darAltaLlamadaClienteTest() throws ExcecpcionClienteYaExiste, ExcepcionClienteNoExiste{
         darAltaCliente(sergi);
         Calendar fechaLlamada = new Calendar.Builder().setDate(2020,02,10).setTimeOfDay(11,40,37).build();
         Llamadas llamada = new Llamadas("698456732", fechaLlamada, 30);
@@ -108,7 +109,7 @@ public class GestorTest  extends GestorClientes {
     }
 
     @Test
-    public void listaLLamadasClienteTest() {
+    public void listaLLamadasClienteTest() throws ExcecpcionClienteYaExiste, ExcepcionClienteNoExiste{
         darAltaCliente(sergi);
         Calendar fechaLlamada = new Calendar.Builder().setDate(2020,02,10).setTimeOfDay(11,40,37).build();
         Llamadas llamada = new Llamadas("698456732", fechaLlamada, 30);
@@ -119,7 +120,7 @@ public class GestorTest  extends GestorClientes {
     }
 
     @Test
-    public void emitirFacturaTest() {
+    public void emitirFacturaTest() throws ExcecpcionClienteYaExiste, ExcepcionClienteNoExiste, ExcepcionIntervaloFechas {
         darAltaCliente(sergi);
         Calendar fechaLlamada0 = new Calendar.Builder().setDate(2020,02,7).setTimeOfDay(11,40,37).build();
         Calendar fechaLlamada1 =  new Calendar.Builder().setDate(2020,01,15).setTimeOfDay(17,32,25).build();
@@ -140,7 +141,7 @@ public class GestorTest  extends GestorClientes {
     }
 
     @Test
-    public void datosFacturaTest() {
+    public void datosFacturaTest() throws ExcecpcionClienteYaExiste, ExcepcionClienteNoExiste, ExcepcionIntervaloFechas{
         darAltaCliente(sergi);
         Calendar fechaLlamada0 = new Calendar.Builder().setDate(2020,02,7).setTimeOfDay(11,40,37).build();
         Calendar fechaLlamada1 =  new Calendar.Builder().setDate(2020,01,15).setTimeOfDay(17,32,25).build();
@@ -158,7 +159,7 @@ public class GestorTest  extends GestorClientes {
     }
 
     @Test
-    public void listaFacturasClienteTest() {
+    public void listaFacturasClienteTest() throws ExcecpcionClienteYaExiste, ExcepcionClienteNoExiste, ExcepcionIntervaloFechas{
         darAltaCliente(sergi);
         Calendar fechaLlamada0 = new Calendar.Builder().setDate(2020,02,7).setTimeOfDay(11,40,37).build();
         Calendar fechaLlamada1 =  new Calendar.Builder().setDate(2020,01,15).setTimeOfDay(17,32,25).build();
@@ -175,7 +176,7 @@ public class GestorTest  extends GestorClientes {
     }
 
     @Test
-    public void listaFechasClienteTest(){
+    public void listaFechasClienteTest() throws ExcecpcionClienteYaExiste,ExcepcionIntervaloFechas{
         darAltaCliente(sergi);
         darAltaCliente(pau);
         darAltaCliente(pamesa);
