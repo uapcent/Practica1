@@ -20,7 +20,8 @@ public class GestorClientes implements Serializable {
         if(aux != null) {
             throw new ExcecpcionClienteYaExiste();
         }
-        return listaClientes.add(cliente);
+        listaClientes.add(cliente);
+        return true;
     }
 
     private Cliente buscarCliente(String nif){

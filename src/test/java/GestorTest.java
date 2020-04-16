@@ -1,3 +1,4 @@
+import Fabricas.FabricaCliente;
 import clientes.Cliente;
 import datosCliente.*;
 import clientes.Empresa;
@@ -35,6 +36,7 @@ public class GestorTest  extends GestorClientes {
     Cliente pau = new Particular("Pau", "Centelles Ortells","87651237B", direccion01,"correopau@gmail.es",fecha01,tarifa01);
     Cliente porcelanosa = new Empresa("Porcelanosa Cerámica","698459475245V", direccion02,"porcelanosabussiness@gmail.es",fecha02,tarifa02);
     Cliente pamesa = new Empresa("Pamesa Cerámica","90847636418P", direccion03,"pamesabussiness@gmail.es",fecha03,tarifa03);
+    Cliente pepe = FabricaCliente.PARTICULAR.getCliente("Sergi","jdjfjkfkf","5743267864",direccion01, "hola@gmail.com", fecha01, tarifa02);
 
 
 
@@ -44,7 +46,8 @@ public class GestorTest  extends GestorClientes {
         assertEquals(true, darAltaCliente(pau));
         assertEquals(true, darAltaCliente(porcelanosa));
         assertEquals(true, darAltaCliente(pamesa));
-        assertEquals(4, devolverLista().size());
+        assertEquals(true, darAltaCliente(pepe));
+        assertEquals(5, devolverLista().size());
         System.out.println("TEST AÑADIR CLIENTE");
         System.out.println("Devuelve: " + devolverLista().toString());
     }

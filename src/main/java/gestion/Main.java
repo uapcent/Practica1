@@ -1,5 +1,6 @@
 package gestion;
 
+import Fabricas.FabricaCliente;
 import clientes.Cliente;
 import clientes.Empresa;
 import clientes.Particular;
@@ -31,8 +32,6 @@ public class Main implements Serializable{
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-
-
 
         while (!salir) {
             System.out.println("Introduce un número para elegir opción: ");
@@ -92,19 +91,13 @@ public class Main implements Serializable{
                     break;
 
                 case 4:
-                    salir = false;
+                    salir = true;
 
                 default:
                     break;
             }
         }
         input.close();
-        //Crear un objeto de gestion clientes para llamar a los métodos, variables.
-        //1: cliente
-        //2: factura
-        //3: llamada
-        //5: Salir
-
         //Escribir al fichero
         try {
             FileOutputStream fos = null;
@@ -115,8 +108,6 @@ public class Main implements Serializable{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     private static int menuCliente() {
@@ -166,52 +157,9 @@ public class Main implements Serializable{
         }
     }
 
-    private static void añadeCliente(GestorClientes gestionClientes){
-        Scanner input = new Scanner(System.in);
-        try {
-            System.out.println("Introduce los datos del cliente: \nNombre: ");
-            String nombre = input.next();
-
-            System.out.println("Apellidos: (O escribe - si es una empresa)");
-            String apellidos = input.next();
-
-            System.out.println("Nif: ");
-            String nif = input.next();
-
-            System.out.println("Código Postal: ");
-            int codpos = input.nextInt();
-
-            System.out.println("Provincia: ");
-            String prov = input.next();
-
-            System.out.println("Población: ");
-            String pob = input.next();
-
-            System.out.println("Correo electónico: ");
-            String email = input.next();
-
-            Calendar fecha = Calendar.getInstance();
-            System.out.println("Tarifa: ");
-
-            Direccion dir = new Direccion(codpos, prov, pob);
-            float precio = input.nextFloat();
-            Tarifa tarifa = new TarifaBasica(precio);
-
-            boolean añadido;
-            if (apellidos.equals("-")) {
-                Cliente cli = new Empresa(nombre, nif, dir, email, fecha, tarifa);
-                añadido = gestionClientes.darAltaCliente(cli);
-            } else {
-                Cliente cli = new Particular(nombre, apellidos, nif, dir, email, fecha, tarifa);
-                añadido = gestionClientes.darAltaCliente(cli);
-            }
-            if(añadido) {
-                System.out.println("El cliente ha sido añadido correctamente.");
-            }
-        }catch (ExcecpcionClienteYaExiste e) {
-            e.printStackTrace();
-        }
-        input.close();
+    private static void añadeCliente(GestorClientes gestorClientes) {
+        MainFabricaClientes menucliente = new MainFabricaClientes();
+        menucliente.launch(gestorClientes);
     }
 
     private static void borraCliente(GestorClientes gestionClientes){
@@ -226,10 +174,10 @@ public class Main implements Serializable{
         }catch (ExcepcionClienteNoExiste e){
             e.printStackTrace();
         }
-        input.close();
+
     }
 
-    private static void obtenerCliente(GestorClientes gestionClientes){
+    private static void obtenerCliente(GestorClientes gestionClientes) {
         Scanner input = new Scanner(System.in);
         try {
             System.out.println("Introduja el DNI del cliente del que desea saber los datos: ");
@@ -237,15 +185,15 @@ public class Main implements Serializable{
             System.out.println("Los datos del cliente son los siguientes: ");
             Cliente cliente = gestionClientes.recuperarDatosClientes(nif);
             System.out.println(cliente.toString());
-        }catch (ExcepcionClienteNoExiste e) {
+        } catch (ExcepcionClienteNoExiste e) {
             e.printStackTrace();
         }
-        input.close();
     }
 
     private static void listaClientes(GestorClientes gestionClientes){
         System.out.println("El listado de los clientes almacenado es el siguiente: ");
         Set<Cliente> lista =  gestionClientes.devolverLista();
+        System.out.println(lista.size());
         for (Cliente cliente : lista) {
             System.out.println(cliente.toString());
             System.out.println("\n");
@@ -267,7 +215,6 @@ public class Main implements Serializable{
         }catch (ExcepcionClienteNoExiste e) {
             e.printStackTrace();
         }
-        input.close();
     }
 
     private static void listaClientesFechas(GestorClientes gestionClientes){
@@ -299,7 +246,6 @@ public class Main implements Serializable{
         }catch (ExcepcionIntervaloFechas e) {
             e.printStackTrace();
         }
-        input.close();
     }
 
     private static void darAltaLlamada(GestorClientes gestionClientes) {
@@ -328,7 +274,6 @@ public class Main implements Serializable{
         }catch (ExcepcionClienteNoExiste e) {
             e.printStackTrace();
         }
-        input.close();
     }
 
     private static void llamadasCliente(GestorClientes gestionClientes) {
@@ -344,7 +289,6 @@ public class Main implements Serializable{
         }catch (ExcepcionClienteNoExiste e) {
             e.printStackTrace();
         }
-        input.close();
     }
 
     private static void emitirFactura(GestorClientes gestionClientes) {
@@ -375,7 +319,6 @@ public class Main implements Serializable{
         }catch (ExcepcionIntervaloFechas e) {
             e.printStackTrace();
         }
-        input.close();
     }
 
     private static void datosFactura(GestorClientes gestionClientes) {
@@ -391,8 +334,6 @@ public class Main implements Serializable{
         }catch (ExcepcionClienteNoExiste e) {
             e.printStackTrace();
         }
-        input.close();
-
     }
 
     private static void listaFacturaCliente(GestorClientes gestionClientes) {
@@ -408,7 +349,6 @@ public class Main implements Serializable{
         }catch (ExcepcionClienteNoExiste e) {
             e.printStackTrace();
         }
-        input.close();
     }
 
     private static final long serialVersionUID = 2164987154748724908L;
