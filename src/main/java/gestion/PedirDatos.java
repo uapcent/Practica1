@@ -1,8 +1,9 @@
 package gestion;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class PedirDatos {
+public class PedirDatos implements Serializable {
 
 
     public String pideNombre(Scanner entrada) {

@@ -3,9 +3,10 @@ package clientes;
 import datosCliente.Direccion;
 import tarifas.Tarifa;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class Particular extends Cliente {
+public class Particular extends Cliente implements Serializable {
     private String apellidos;
 
     public Particular(String nombre, String apellidos, String nif, Direccion dir, String email, Calendar fecha, Tarifa tarifa){

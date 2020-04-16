@@ -2,9 +2,10 @@ package tarifas;
 
 import datosCliente.Llamadas;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class TarifaPorDia extends TarifaEspecial {
+public class TarifaPorDia extends TarifaEspecial implements Serializable {
     private String dia;
 
     public TarifaPorDia(Tarifa tarifa, float precioEspecial, String dia) {

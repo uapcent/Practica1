@@ -10,10 +10,11 @@ import sun.misc.Cache;
 import tarifas.Tarifa;
 
 
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Calendar;
 
-public enum FabricaCliente {
+public enum FabricaCliente implements Serializable {
     PARTICULAR("Particular.", Particular.class),
     EMPRESA("Empresa.", Empresa.class),
     SALIR("Salir.", Salir.class);

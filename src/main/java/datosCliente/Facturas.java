@@ -2,9 +2,10 @@ package datosCliente;
 
 import tarifas.Tarifa;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class Facturas implements Fecha {
+public class Facturas implements Fecha, Serializable {
     private int codigo;
     private Tarifa tarifa;
     private Calendar fechaEmision;

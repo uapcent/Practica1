@@ -23,15 +23,8 @@ public class Main implements Serializable{
         GestorClientes gestionClientes = new GestorClientes();
 
         //Leer del fichero
-        try {
-            FileInputStream fis = null;
-            fis = new FileInputStream("agenda.bin");
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            gestionClientes = (GestorClientes) ois.readObject();
-            ois.close();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        LeerFichero lectura = new LeerFichero();
+        lectura.leerFichero(gestionClientes);
 
         while (!salir) {
             System.out.println("Introduce un número para elegir opción: ");
@@ -99,15 +92,8 @@ public class Main implements Serializable{
         }
         input.close();
         //Escribir al fichero
-        try {
-            FileOutputStream fos = null;
-            fos = new FileOutputStream("agenda.bin");
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(gestionClientes);
-            oos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        EscribirFichero escritura = new EscribirFichero();
+        escritura.escribirFichero(gestionClientes);
     }
 
     private static int menuCliente() {

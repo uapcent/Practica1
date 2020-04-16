@@ -4,9 +4,10 @@ import clientes.Cliente;
 import clientes.Empresa;
 import tarifas.*;
 
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 
-public enum FabricaTarifas {
+public enum FabricaTarifas implements Serializable {
     TARIFABASICA("Tarifa básica.", TarifaBasica.class),
     TARIFAPORDIA("Tarifa por dia.", TarifaPorDia.class),
     TARIFAPORHORAS("Tarifa por horas.", TarifaPorHoras.class),

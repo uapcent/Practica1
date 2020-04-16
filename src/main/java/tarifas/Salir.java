@@ -2,7 +2,9 @@ package tarifas;
 
 import datosCliente.Llamadas;
 
-public class Salir extends Tarifa {
+import java.io.Serializable;
+
+public class Salir extends Tarifa implements Serializable {
     public Salir(float precio) {
         super(precio);
     }

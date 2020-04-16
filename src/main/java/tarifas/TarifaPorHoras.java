@@ -2,9 +2,10 @@ package tarifas;
 
 import datosCliente.Llamadas;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class TarifaPorHoras extends TarifaEspecial{
+public class TarifaPorHoras extends TarifaEspecial implements Serializable {
     private int horaInicial;
     private int horaFinal;
 

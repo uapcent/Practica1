@@ -3,11 +3,12 @@ package clientes;
 import datosCliente.*;
 import tarifas.Tarifa;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class Cliente implements Fecha {
+public abstract class Cliente implements Fecha, Serializable {
 
     //Constructor
     private String nombre;

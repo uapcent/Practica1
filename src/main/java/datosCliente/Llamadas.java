@@ -1,8 +1,9 @@
 package datosCliente;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class Llamadas implements Fecha {
+public class Llamadas implements Fecha, Serializable {
     private String telefono;
     private Calendar fecha;
     private int duracion;

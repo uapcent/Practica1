@@ -1,6 +1,8 @@
 package tarifas;
 
-public abstract class TarifaEspecial extends Tarifa {
+import java.io.Serializable;
+
+public abstract class TarifaEspecial extends Tarifa implements Serializable {
     private Tarifa tarifa;
 
     public TarifaEspecial(Tarifa tarifa, float precioEspecial) {

@@ -8,10 +8,11 @@ import tarifas.Tarifa;
 import tarifas.TarifaBasica;
 import gestion.PedirDatos;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Scanner;
 
-public class MainFabricaClientes {
+public class MainFabricaClientes implements Serializable {
 
     public void launch(GestorClientes gestorClientes) {
         FabricaCliente opcion;

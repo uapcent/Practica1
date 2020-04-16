@@ -1,6 +1,8 @@
 package datosCliente;
 
-public class Direccion {
+import java.io.Serializable;
+
+public class Direccion implements Serializable {
     private int codPostal;
     private String provincia;
     private String poblacion;
