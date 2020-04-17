@@ -24,7 +24,7 @@ public class GestorClientes implements Serializable {
         return true;
     }
 
-    private Cliente buscarCliente(String nif){
+    public Cliente buscarCliente(String nif){
         for(Cliente cliente : listaClientes) {
             if(cliente.getNif().equals(nif)) {
                 return cliente;

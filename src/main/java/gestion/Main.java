@@ -1,6 +1,6 @@
 package gestion;
 
-import Fabricas.FabricaCliente;
+import Fabricas.*;
 import clientes.Cliente;
 import clientes.Empresa;
 import clientes.Particular;
@@ -35,7 +35,7 @@ public class Main implements Serializable{
 
         while (!salir) {
             System.out.println("Introduce un número para elegir opción: ");
-            System.out.println("1. Cliente\n2. Factura\n3.Llamada\n4. Salir");
+            System.out.println("1. Cliente\n2. Factura\n3. Llamada\n4. Salir");
             int opcion = input.nextInt();
             switch (opcion){
                 case 1:
@@ -123,7 +123,6 @@ public class Main implements Serializable{
             case 5: return 5;
             case 6: return 6;
             default:
-                input.close();
                 return -1;
         }
     }
@@ -137,7 +136,6 @@ public class Main implements Serializable{
             case 1: return 1;
             case 2: return 2;
             default:
-                input.close();
                 return -1;
         }
     }
@@ -152,14 +150,59 @@ public class Main implements Serializable{
             case 2: return 2;
             case 3: return 3;
             default:
-                input.close();
                 return -1;
         }
     }
 
     private static void añadeCliente(GestorClientes gestorClientes) {
-        MainFabricaClientes menucliente = new MainFabricaClientes();
-        menucliente.launch(gestorClientes);
+       Scanner input = new Scanner(System.in);
+       System.out.println("Elige el cliente que quieres crear: \n");
+       System.out.println("1. Particular.\n2. Empresa\n3. Salir");
+       FabricaClientes2 cliente = new FabricaClientes2();
+       FabricaTarifas2 tarifaAPedir = new FabricaTarifas2();
+       Main datos = new Main();
+       PedirDatos dato = new PedirDatos();
+       int opcion = input.nextInt();
+       switch(opcion) {
+           case 1:
+               try {
+                   String nombre = dato.pideNombre(input);
+                   String apellidos = dato.apellidos(input);
+                   String nif = dato.nif(input);
+                   String email = dato.email(input);
+                   String poblacion = dato.poblacion(input);
+                   String provincia = dato.provincia(input);
+                   int codigoPostal = dato.codPostal(input);
+                   Calendar fecha = Calendar.getInstance();
+                   float precioTarifa = dato.tarifa(input);
+                   Direccion dir = new Direccion(codigoPostal, provincia, poblacion);
+                   Tarifa tarifa = tarifaAPedir.crearTarifaBásica(precioTarifa);
+                   tarifa = datos.crearTarifas(input,tarifa);
+                   gestorClientes.darAltaCliente(cliente.crearParticular(nombre, apellidos, nif, dir, email, fecha, tarifa));
+               }catch (ExcecpcionClienteYaExiste e) {
+                   e.printStackTrace();
+               }
+           case 2:
+               try {
+                   String nombre = dato.pideNombre(input);
+                   String nif = dato.nif(input);
+                   String email = dato.email(input);
+                   String poblacion = dato.poblacion(input);
+                   String provincia = dato.provincia(input);
+                   int codigoPostal = dato.codPostal(input);
+                   Calendar fecha = Calendar.getInstance();
+                   float precioTarifa = dato.tarifa(input);
+                   Direccion dir = new Direccion(codigoPostal, provincia, poblacion);
+                   Tarifa tarifa = tarifaAPedir.crearTarifaBásica(precioTarifa);
+                   tarifa = datos.crearTarifas(input,tarifa);
+                   gestorClientes.darAltaCliente(cliente.crearEmpresa(nombre, nif, dir, email, fecha, tarifa));
+               }catch (ExcecpcionClienteYaExiste e) {
+                   e.printStackTrace();
+               }
+           case 3:
+               break;
+       }
+
     }
 
     private static void borraCliente(GestorClientes gestionClientes){
@@ -202,12 +245,13 @@ public class Main implements Serializable{
 
     private static void cambiarTarifaCliente(GestorClientes gestionClientes){
         Scanner input = new Scanner(System.in);
+        Main crearTarifa = new Main();
         try {
             System.out.println("Introduja el DNI del cliente del que quiera cambiar su Tarifa: ");
             String nif = input.next();
-            System.out.println("Introduja la nueva Tarifa que se le va a asignar al cliente: ");
-            float precioTarifa = input.nextFloat();
-            Tarifa tarifa = new TarifaBasica(precioTarifa);
+            Cliente cliente = gestionClientes.buscarCliente(nif);
+            Tarifa tarifa = cliente.getTarifa();
+            tarifa = crearTarifa.crearTarifas(input, tarifa);
             boolean añadido = gestionClientes.cambiarTarifa(nif, tarifa);
             if (añadido) {
                 System.out.println("La factura ha sido cambiada correctamente.");
@@ -223,7 +267,6 @@ public class Main implements Serializable{
         int mes;
         int año;
         try {
-
             System.out.println("Se quiere obtener la lista de clientes entre dos fechas.");
             System.out.println("Introduzca la fecha inicial con el siguiente formato (01/01/2020): ");
             String fechaIni = input.next();
@@ -350,6 +393,35 @@ public class Main implements Serializable{
             e.printStackTrace();
         }
     }
+
+    private Tarifa crearTarifas(Scanner entrada, Tarifa tarifa) {
+        System.out.println("Elige la tarifa que quieras utilizar:");
+        System.out.println("1. Tarifa Por Día\n2. Tarifa Por Horas\n3. Salir");
+        int opcion = entrada.nextInt();
+        float precio;
+        FabricaTarifas2 tarifaACrear = new FabricaTarifas2();
+        switch (opcion) {
+            case 1:
+                System.out.println("Elige el precio de tu tarifa por día: ");
+                precio = entrada.nextFloat();
+                System.out.println("Elige el día: ");
+                String día = entrada.next();
+                tarifa = tarifaACrear.crearTarifaPorDías(tarifa,precio,día);
+                break;
+            case 2:
+                System.out.println("Elige el precio de tu tarifa por día: ");
+                precio = entrada.nextFloat();
+                System.out.println("Elige el día: ");
+                int horaInicial = entrada.nextInt();
+                int horaFinal = entrada.nextInt();
+                tarifa = tarifaACrear.crearTarifaPorHoras(tarifa,precio,horaInicial,horaFinal);
+                break;
+            case 3:
+                break;
+        }
+        return tarifa;
+    }
+
 
     private static final long serialVersionUID = 2164987154748724908L;
 
