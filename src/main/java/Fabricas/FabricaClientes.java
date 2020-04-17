@@ -8,7 +8,7 @@ import tarifas.Tarifa;
 
 import java.util.Calendar;
 
-public class FabricaClientes2 implements CrearClientes {
+public class FabricaClientes implements CrearClientes {
     @Override
     public Cliente crearEmpresa(String nombre, String nif, Direccion dir, String email, Calendar fecha, Tarifa tarifa) {
         return new Empresa(nombre,nif,dir,email,fecha,tarifa);

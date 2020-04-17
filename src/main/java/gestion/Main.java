@@ -2,14 +2,11 @@ package gestion;
 
 import Fabricas.*;
 import clientes.Cliente;
-import clientes.Empresa;
-import clientes.Particular;
 import datosCliente.*;
 import excepciones.ExcecpcionClienteYaExiste;
 import excepciones.ExcepcionClienteNoExiste;
 import excepciones.ExcepcionIntervaloFechas;
 import tarifas.Tarifa;
-import tarifas.TarifaBasica;
 
 import java.io.*;
 import java.util.*;
@@ -158,8 +155,8 @@ public class Main implements Serializable{
        Scanner input = new Scanner(System.in);
        System.out.println("Elige el cliente que quieres crear: \n");
        System.out.println("1. Particular.\n2. Empresa\n3. Salir");
-       FabricaClientes2 cliente = new FabricaClientes2();
-       FabricaTarifas2 tarifaAPedir = new FabricaTarifas2();
+       FabricaClientes cliente = new FabricaClientes();
+       FabricaTarifas tarifaAPedir = new FabricaTarifas();
        Main datos = new Main();
        PedirDatos dato = new PedirDatos();
        int opcion = input.nextInt();
@@ -399,7 +396,7 @@ public class Main implements Serializable{
         System.out.println("1. Tarifa Por Día\n2. Tarifa Por Horas\n3. Salir");
         int opcion = entrada.nextInt();
         float precio;
-        FabricaTarifas2 tarifaACrear = new FabricaTarifas2();
+        FabricaTarifas tarifaACrear = new FabricaTarifas();
         switch (opcion) {
             case 1:
                 System.out.println("Elige el precio de tu tarifa por día: ");

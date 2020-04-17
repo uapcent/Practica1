@@ -27,7 +27,7 @@ public class FabricasTest {
     @Test
     public void fabricaClientesParticular() {
         System.out.println("\nVamos a ver si crea un particular según nuestros datos: ");
-        FabricaClientes2 clienteACrear = new FabricaClientes2();
+        FabricaClientes clienteACrear = new FabricaClientes();
         Cliente creado = clienteACrear.crearParticular("Sergi", "Orenga Navarro","65792347F",direccion01,"correosergi@gmail.es", fecha00,tarifa00);
         assertEquals(particular.getNombre(), creado.getNombre());
         assertEquals(particular.getApellidos(), creado.getApellidos());
@@ -42,7 +42,7 @@ public class FabricasTest {
     @Test
     public void fabricaClientesEmpresa() {
         System.out.println("\nVamos a ver si crea un cliente según nuestros datos: ");
-        FabricaClientes2 clienteACrear = new FabricaClientes2();
+        FabricaClientes clienteACrear = new FabricaClientes();
         Cliente creado = clienteACrear.crearEmpresa("Porcelanosa Cerámica","698459475245V", direccion02,"porcelanosabussiness@gmail.es",fecha02,tarifa02);
         assertEquals(empresa.getNombre(), creado.getNombre());
         assertEquals(empresa.getNif(), creado.getNif());
@@ -56,7 +56,7 @@ public class FabricasTest {
     @Test
     public void fabricaTarifaBasica() {
         Tarifa tarifa = new TarifaBasica(0.15f);
-        FabricaTarifas2 tarifaACrear = new FabricaTarifas2();
+        FabricaTarifas tarifaACrear = new FabricaTarifas();
         Tarifa tarifaFabrica = tarifaACrear.crearTarifaBásica(0.15f);
         assertEquals(tarifa.getPrecio(), tarifaFabrica.getPrecio(),0);
         System.out.println("Crea la misma tarifa con el mismo precio: " + tarifaFabrica.getPrecio());
@@ -65,7 +65,7 @@ public class FabricasTest {
     public void fabricaTarifaDias() {
         Tarifa tarifa = new TarifaBasica(0.15f);
         tarifa = new TarifaPorDia(tarifa, 0.10f, "MARTES");
-        FabricaTarifas2 tarifaACrear = new FabricaTarifas2();
+        FabricaTarifas tarifaACrear = new FabricaTarifas();
         Tarifa tarifaFabrica = tarifaACrear.crearTarifaBásica(0.15f);
         tarifaFabrica = tarifaACrear.crearTarifaPorDías(tarifaFabrica, 0.10f,"MARTES");
         assertEquals(tarifa.getPrecio(), tarifaFabrica.getPrecio(),0);
@@ -78,7 +78,7 @@ public class FabricasTest {
     public void fabricaTarifaPorHoras() {
         Tarifa tarifa = new TarifaBasica(0.15f);
         tarifa = new TarifaPorHoras(tarifa, 0.10f, 10,12);
-        FabricaTarifas2 tarifaACrear = new FabricaTarifas2();
+        FabricaTarifas tarifaACrear = new FabricaTarifas();
         Tarifa tarifaFabrica = tarifaACrear.crearTarifaBásica(0.15f);
         tarifaFabrica = tarifaACrear.crearTarifaPorHoras(tarifaFabrica, 0.10f,10,12);
         assertEquals(tarifa.getPrecio(), tarifaFabrica.getPrecio(),0);
