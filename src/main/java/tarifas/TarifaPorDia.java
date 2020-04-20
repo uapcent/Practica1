@@ -15,7 +15,7 @@ public class TarifaPorDia extends TarifaEspecial implements Serializable {
 
     @Override
     public String descripcion() {
-        return  "Usas la tarifa por días.";
+        return  super.descripcion() + "Usas la tarifa por días.";
     }
 
     public static String diaSemana(int mes, int dias, int año) {

@@ -90,9 +90,12 @@ public abstract class Cliente implements Fecha, Serializable {
     public String toString(){
         return "Nombre: " + getNombre() + "\n" +
                 "NIF: " + getNif() + "\n" +
-                getDireccion().toString() + "\n" +
+                //getDireccion().toString() + "\n" +
+                "Código postal: "+ getDireccion().getCodPostal() + "\n" +
+                "Población: "+ getDireccion().getPoblacion() + "\n" +
+                "Provincia: "+ getDireccion().getProvincia() + "\n" +
                 "Correo: " + getEmail() + "\n" +
                 "Fecha: " + getFecha().get(Calendar.DAY_OF_MONTH) + "/" + getFecha().get(Calendar.MONTH) + "/" + getFecha().get(Calendar.YEAR) + "\n" +
-                getTarifa().toString() + "€";
+                getTarifa().descripcion();
     }
 }

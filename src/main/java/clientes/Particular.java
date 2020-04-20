@@ -23,10 +23,12 @@ public class Particular extends Cliente implements Serializable {
         return "Nombre: " + getNombre() + "\n" +
                 "Apellidos: "+ getApellidos() + "\n" +
                 "NIF: " + getNif() + "\n" +
-                getDireccion().toString() + "\n" +
+                "Código postal: "+ getDireccion().getCodPostal() + "\n" +
+                "Población: "+ getDireccion().getPoblacion() + "\n" +
+                "Provincia: "+ getDireccion().getProvincia() + "\n" +
                 "Correo: " + getEmail() + "\n" +
                 "Fecha: " + getFecha().get(Calendar.DAY_OF_MONTH) + "/" + getFecha().get(Calendar.MONTH) + "/" + getFecha().get(Calendar.YEAR) + "\n" +
-                getTarifa().toString() + "€";
+                getTarifa().descripcion();
     }
 
 }

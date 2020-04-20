@@ -17,7 +17,7 @@ public class TarifaPorHoras extends TarifaEspecial implements Serializable {
 
     @Override
     public String descripcion() {
-        return "Usas la Tarifa por horas";
+        return super.descripcion() + "Usas la Tarifa por horas";
     }
 
     @Override
