@@ -45,7 +45,7 @@ public class GestorTest  extends GestorClientes {
         assertEquals(true, darAltaCliente(pau));
         assertEquals(true, darAltaCliente(porcelanosa));
         assertEquals(true, darAltaCliente(pamesa));
-        assertEquals(5, devolverLista().size());
+        assertEquals(4, devolverLista().size());
         System.out.println("TEST AÑADIR CLIENTE");
         System.out.println("Devuelve: " + devolverLista().toString());
     }

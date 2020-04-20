@@ -29,6 +29,6 @@ public class Direccion implements Serializable {
         this.codPostal = codPostal;
         this.provincia = provincia;
         this.poblacion = poblacion;
-
     }
+
 }

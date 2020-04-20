@@ -11,7 +11,7 @@ import tarifas.Tarifa;
 import java.io.*;
 import java.util.*;
 
-public class Main implements Serializable{
+public class Main{
 
     public static void main(String[] args) {
         Scanner input;  //Importante
@@ -20,8 +20,10 @@ public class Main implements Serializable{
         GestorClientes gestionClientes = new GestorClientes();
 
         //Leer del fichero
+
         LeerFichero lectura = new LeerFichero();
-        lectura.leerFichero(gestionClientes);
+        gestionClientes = lectura.leerFichero();
+
 
         while (!salir) {
             System.out.println("Introduce un número para elegir opción: ");
@@ -91,6 +93,7 @@ public class Main implements Serializable{
         //Escribir al fichero
         EscribirFichero escritura = new EscribirFichero();
         escritura.escribirFichero(gestionClientes);
+
     }
 
     private static int menuCliente() {
@@ -143,7 +146,7 @@ public class Main implements Serializable{
        System.out.println("1. Particular.\n2. Empresa\n3. Salir");
        FabricaClientes cliente = new FabricaClientes();
        FabricaTarifas tarifaAPedir = new FabricaTarifas();
-       Main datos = new Main();
+       //Main datos = new Main();
        PedirDatos dato = new PedirDatos();
        int opcion = input.nextInt();
        switch(opcion) {
@@ -160,8 +163,9 @@ public class Main implements Serializable{
                    float precioTarifa = dato.tarifa(input);
                    Direccion dir = new Direccion(codigoPostal, provincia, poblacion);
                    Tarifa tarifa = tarifaAPedir.crearTarifaBásica(precioTarifa);
-                   tarifa = datos.crearTarifas(input,tarifa);
+                   tarifa = crearTarifas(input,tarifa);
                    gestorClientes.darAltaCliente(cliente.crearParticular(nombre, apellidos, nif, dir, email, fecha, tarifa));
+                   break;
                }catch (ExcecpcionClienteYaExiste e) {
                    e.printStackTrace();
                }
@@ -177,8 +181,9 @@ public class Main implements Serializable{
                    float precioTarifa = dato.tarifa(input);
                    Direccion dir = new Direccion(codigoPostal, provincia, poblacion);
                    Tarifa tarifa = tarifaAPedir.crearTarifaBásica(precioTarifa);
-                   tarifa = datos.crearTarifas(input,tarifa);
+                   tarifa = crearTarifas(input,tarifa);
                    gestorClientes.darAltaCliente(cliente.crearEmpresa(nombre, nif, dir, email, fecha, tarifa));
+                   break;
                }catch (ExcecpcionClienteYaExiste e) {
                    e.printStackTrace();
                }
@@ -377,34 +382,40 @@ public class Main implements Serializable{
         }
     }
 
-    private Tarifa crearTarifas(Scanner entrada, Tarifa tarifa) {
-        System.out.println("Elige la tarifa que quieras utilizar:");
-        System.out.println("1. Tarifa Por Día\n2. Tarifa Por Horas\n3. Salir");
-        int opcion = entrada.nextInt();
-        float precio;
-        FabricaTarifas tarifaACrear = new FabricaTarifas();
-        switch (opcion) {
-            case 1:
-                System.out.println("Elige el precio de tu tarifa por día: ");
-                precio = entrada.nextFloat();
-                System.out.println("Elige el día: ");
-                String día = entrada.next();
-                tarifa = tarifaACrear.crearTarifaPorDías(tarifa,precio,día);
-                break;
-            case 2:
-                System.out.println("Elige el precio de tu tarifa por día: ");
-                precio = entrada.nextFloat();
-                System.out.println("Elige el día: ");
-                int horaInicial = entrada.nextInt();
-                int horaFinal = entrada.nextInt();
-                tarifa = tarifaACrear.crearTarifaPorHoras(tarifa,precio,horaInicial,horaFinal);
-                break;
-            case 3:
-                break;
+    private static Tarifa crearTarifas(Scanner entrada, Tarifa tarifa) {
+
+        boolean salir = false;
+        while(!salir) {
+            System.out.println("Elige la tarifa que quieras utilizar:");
+            System.out.println("1. Tarifa Por Día\n2. Tarifa Por Horas\n3. Salir");
+            int opcion = entrada.nextInt();
+            float precio;
+            FabricaTarifas tarifaACrear = new FabricaTarifas();
+
+            switch (opcion) {
+                case 1:
+                    System.out.println("Elige el precio de tu tarifa por día: ");
+                    precio = entrada.nextFloat();
+                    System.out.println("Elige el día: ");
+                    String día = entrada.next();
+                    tarifa = tarifaACrear.crearTarifaPorDías(tarifa, precio, día);
+                    break;
+                case 2:
+                    System.out.println("Elige el precio de tu tarifa por horas: ");
+                    precio = entrada.nextFloat();
+                    System.out.println("Elige la hora inicial: ");
+                    int horaInicial = entrada.nextInt();
+                    System.out.println("Elige la hora final: ");
+                    int horaFinal = entrada.nextInt();
+                    tarifa = tarifaACrear.crearTarifaPorHoras(tarifa, precio, horaInicial, horaFinal);
+                    break;
+                case 3:
+                    salir=true;
+                    break;
+            }
         }
         return tarifa;
     }
-
 
     private static final long serialVersionUID = 2164987154748724908L;
 
