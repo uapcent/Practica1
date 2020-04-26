@@ -8,12 +8,21 @@ import modelo.excepciones.ExcecpcionClienteYaExiste;
 import modelo.excepciones.ExcepcionClienteNoExiste;
 import modelo.excepciones.ExcepcionIntervaloFechas;
 import modelo.tarifas.Tarifa;
+import vista.InterfazVista;
 
 import java.io.*;
 import java.util.*;
 
 public class GestorClientes implements Serializable, GestorModelo {
     private Set<Cliente> listaClientes = new HashSet<Cliente>();
+    private InterfazVista vista;
+
+
+    public GestorClientes() {}
+
+    public  void setVista(InterfazVista vista) {
+        this.vista = vista;
+    }
 
     public boolean darAltaCliente(Cliente cliente) throws ExcecpcionClienteYaExiste {
         Cliente aux = buscarCliente(cliente.getNif());
