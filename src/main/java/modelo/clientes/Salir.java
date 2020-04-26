@@ -1,6 +1,6 @@
-package clientes;
-import datosCliente.Direccion;
-import tarifas.Tarifa;
+package modelo.clientes;
+import modelo.datosCliente.Direccion;
+import modelo.tarifas.Tarifa;
 
 import java.io.Serializable;
 import java.util.Calendar;

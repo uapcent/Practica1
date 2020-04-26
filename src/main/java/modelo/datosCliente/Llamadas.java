@@ -1,4 +1,4 @@
-package datosCliente;
+package modelo.datosCliente;
 
 import java.io.Serializable;
 import java.util.Calendar;

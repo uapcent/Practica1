@@ -1,4 +1,4 @@
-package tarifas;
+package modelo.tarifas;
 
 import java.io.Serializable;
 

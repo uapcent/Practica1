@@ -1,18 +1,18 @@
-package gestion;
+package modelo;
 
-import clientes.Cliente;
-import datosCliente.Facturas;
-import datosCliente.Fecha;
-import datosCliente.Llamadas;
-import excepciones.ExcecpcionClienteYaExiste;
-import excepciones.ExcepcionClienteNoExiste;
-import excepciones.ExcepcionIntervaloFechas;
-import tarifas.Tarifa;
+import modelo.clientes.Cliente;
+import modelo.datosCliente.Facturas;
+import modelo.datosCliente.Fecha;
+import modelo.datosCliente.Llamadas;
+import modelo.excepciones.ExcecpcionClienteYaExiste;
+import modelo.excepciones.ExcepcionClienteNoExiste;
+import modelo.excepciones.ExcepcionIntervaloFechas;
+import modelo.tarifas.Tarifa;
 
 import java.io.*;
 import java.util.*;
 
-public class GestorClientes implements Serializable {
+public class GestorClientes implements Serializable, GestorModelo {
     private Set<Cliente> listaClientes = new HashSet<Cliente>();
 
     public boolean darAltaCliente(Cliente cliente) throws ExcecpcionClienteYaExiste {

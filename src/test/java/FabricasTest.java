@@ -1,14 +1,14 @@
-import Fabricas.*;
+import modelo.Fabricas.*;
 import static org.junit.Assert.*;
 
-import clientes.*;
-import clientes.Particular;
-import datosCliente.Direccion;
+import modelo.clientes.*;
+import modelo.clientes.Particular;
+import modelo.datosCliente.Direccion;
 import org.junit.Test;
-import tarifas.Tarifa;
-import tarifas.TarifaBasica;
-import tarifas.TarifaPorDia;
-import tarifas.TarifaPorHoras;
+import modelo.tarifas.Tarifa;
+import modelo.tarifas.TarifaBasica;
+import modelo.tarifas.TarifaPorDia;
+import modelo.tarifas.TarifaPorHoras;
 
 import java.util.Calendar;
 

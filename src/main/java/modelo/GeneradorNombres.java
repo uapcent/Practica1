@@ -1,4 +1,4 @@
-package gestion;
+package modelo;
 
 import es.uji.www.GeneradorDatosINE;
 

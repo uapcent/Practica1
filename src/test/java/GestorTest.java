@@ -1,14 +1,14 @@
-import clientes.Cliente;
-import datosCliente.*;
-import clientes.Empresa;
-import clientes.Particular;
-import excepciones.ExcecpcionClienteYaExiste;
-import excepciones.ExcepcionClienteNoExiste;
-import excepciones.ExcepcionIntervaloFechas;
-import gestion.GestorClientes;
+import modelo.clientes.Cliente;
+import modelo.datosCliente.*;
+import modelo.clientes.Empresa;
+import modelo.clientes.Particular;
+import modelo.excepciones.ExcecpcionClienteYaExiste;
+import modelo.excepciones.ExcepcionClienteNoExiste;
+import modelo.excepciones.ExcepcionIntervaloFechas;
+import modelo.GestorClientes;
 import org.junit.jupiter.api.Test;
-import tarifas.Tarifa;
-import tarifas.TarifaBasica;
+import modelo.tarifas.Tarifa;
+import modelo.tarifas.TarifaBasica;
 
 import static org.junit.Assert.*;
 import java.util.Calendar;
@@ -59,7 +59,7 @@ public class GestorTest  extends GestorClientes {
         Tarifa tarifa = sergi.getTarifa();
         assertEquals(true, cambiarTarifa(sergi.getNif(), new TarifaBasica(50)));
         System.out.println("TEST CAMBIO TARIFA ");
-        System.out.println("Le hemos cambiado la tarifas.Tarifa a " + sergi.getNombre() + " con DNI:" + sergi.getNif() + " y ahora su tarifa es de " + sergi.getTarifa() + " y antes su tarifa era " + tarifa);
+        System.out.println("Le hemos cambiado la modelo.tarifas.Tarifa a " + sergi.getNombre() + " con DNI:" + sergi.getNif() + " y ahora su tarifa es de " + sergi.getTarifa() + " y antes su tarifa era " + tarifa);
     }
 
     @Test
@@ -173,7 +173,7 @@ public class GestorTest  extends GestorClientes {
         emitirFactura(sergi.getNif(), inicio,fin);
         assertEquals(1, sergi.getListaFacturas().size());
         System.out.println("TEST DEVOLVER LISTA FACTURAS CLIENTE");
-        System.out.println("El clientes.Cliente solicitado tiene estas facturas: " + sergi.getListaFacturas().toString());
+        System.out.println("El modelo.clientes.Cliente solicitado tiene estas facturas: " + sergi.getListaFacturas().toString());
     }
 
     @Test
@@ -187,7 +187,7 @@ public class GestorTest  extends GestorClientes {
 
         assertEquals(2, muestra(devolverLista(), inicio, fin).size());
         System.out.println("TEST DEVOLVER LISTA CLIENTE INTERVALO");
-        System.out.println("Los clientes en este intervalo son: " + muestra(devolverLista(), inicio, fin).toString());
+        System.out.println("Los modelo.clientes en este intervalo son: " + muestra(devolverLista(), inicio, fin).toString());
     }
 }
 

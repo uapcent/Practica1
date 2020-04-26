@@ -1,4 +1,4 @@
-package excepciones;
+package modelo.excepciones;
 
 import java.util.Calendar;
 

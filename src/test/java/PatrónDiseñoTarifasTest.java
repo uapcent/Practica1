@@ -1,8 +1,8 @@
 
 import org.junit.Test;
-import tarifas.*;
+import modelo.tarifas.*;
 import java.util.Calendar;
-import datosCliente.Llamadas;
+import modelo.datosCliente.Llamadas;
 import static org.junit.Assert.*;
 
 public class PatrónDiseñoTarifasTest {
@@ -13,7 +13,7 @@ public class PatrónDiseñoTarifasTest {
 
     @Test
     public void precioTarifaCorrecto() {
-        System.out.println("Calculamos el precio de las tarifas");
+        System.out.println("Calculamos el precio de las modelo.tarifas");
         assertEquals(4.5, tarifa.calcularTarifa(llamadas),0);
         System.out.println("Se esperaba 4.5 y el resultado es: " + tarifa.calcularTarifa(llamadas));
         tarifa = new TarifaPorDia(tarifa,0.10f, "LUNES");

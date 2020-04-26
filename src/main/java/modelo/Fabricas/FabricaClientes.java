@@ -1,10 +1,10 @@
-package Fabricas;
+package modelo.Fabricas;
 
-import clientes.Cliente;
-import clientes.Empresa;
-import clientes.Particular;
-import datosCliente.Direccion;
-import tarifas.Tarifa;
+import modelo.clientes.Cliente;
+import modelo.clientes.Empresa;
+import modelo.clientes.Particular;
+import modelo.datosCliente.Direccion;
+import modelo.tarifas.Tarifa;
 
 import java.util.Calendar;
 

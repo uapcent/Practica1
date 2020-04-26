@@ -1,14 +1,16 @@
 package gestion;
 
-import Fabricas.*;
-import clientes.Cliente;
-import datosCliente.*;
-import excepciones.ExcecpcionClienteYaExiste;
-import excepciones.ExcepcionClienteNoExiste;
-import excepciones.ExcepcionIntervaloFechas;
-import tarifas.Tarifa;
+import modelo.EscribirFichero;
+import modelo.Fabricas.*;
+import modelo.GestorClientes;
+import modelo.LeerFichero;
+import modelo.clientes.Cliente;
+import modelo.datosCliente.*;
+import modelo.excepciones.ExcecpcionClienteYaExiste;
+import modelo.excepciones.ExcepcionClienteNoExiste;
+import modelo.excepciones.ExcepcionIntervaloFechas;
+import modelo.tarifas.Tarifa;
 
-import java.io.*;
 import java.util.*;
 
 public class Main{
@@ -99,7 +101,7 @@ public class Main{
     private static int menuCliente() {
         Scanner input  = new Scanner(System.in);
         System.out.println("Introduce un número para elegir opción: ");
-        System.out.println("1. Añadir cliente\n2. Borrar cliente\n3. Obtener cliente\n4. Obtener lista de clientes\n5. Cambiar la tarifa de un cliente\n6. Obtener una lista de cliente por fecha\n7. Salir");
+        System.out.println("1. Añadir cliente\n2. Borrar cliente\n3. Obtener cliente\n4. Obtener lista de modelo.clientes\n5. Cambiar la tarifa de un cliente\n6. Obtener una lista de cliente por fecha\n7. Salir");
         int opcion = input.nextInt();
         switch (opcion){
             case 1: return 1;
@@ -222,7 +224,7 @@ public class Main{
     }
 
     private static void listaClientes(GestorClientes gestionClientes){
-        System.out.println("El listado de los clientes almacenado es el siguiente: ");
+        System.out.println("El listado de los modelo.clientes almacenado es el siguiente: ");
         Set<Cliente> lista =  gestionClientes.devolverLista();
         System.out.println(lista.size());
         for (Cliente cliente : lista) {
@@ -255,7 +257,7 @@ public class Main{
         int mes;
         int año;
         try {
-            System.out.println("Se quiere obtener la lista de clientes entre dos fechas.");
+            System.out.println("Se quiere obtener la lista de modelo.clientes entre dos fechas.");
             System.out.println("Introduzca la fecha inicial con el siguiente formato (01/01/2020): ");
             String fechaIni = input.next();
             dia = Integer.parseInt(fechaIni.substring(0, 2));

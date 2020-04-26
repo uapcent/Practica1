@@ -1,6 +1,6 @@
-package tarifas;
+package modelo.tarifas;
 
-import datosCliente.Llamadas;
+import modelo.datosCliente.Llamadas;
 
 import java.io.Serializable;
 import java.util.Calendar;

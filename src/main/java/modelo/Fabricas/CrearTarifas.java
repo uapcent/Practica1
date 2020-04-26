@@ -1,6 +1,6 @@
-package Fabricas;
+package modelo.Fabricas;
 
-import tarifas.Tarifa;
+import modelo.tarifas.Tarifa;
 
 public interface CrearTarifas {
 

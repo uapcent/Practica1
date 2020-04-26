@@ -1,9 +1,9 @@
-package Fabricas;
+package modelo.Fabricas;
 
-import tarifas.Tarifa;
-import tarifas.TarifaBasica;
-import tarifas.TarifaPorDia;
-import tarifas.TarifaPorHoras;
+import modelo.tarifas.Tarifa;
+import modelo.tarifas.TarifaBasica;
+import modelo.tarifas.TarifaPorDia;
+import modelo.tarifas.TarifaPorHoras;
 
 public class FabricaTarifas implements CrearTarifas{
     @Override

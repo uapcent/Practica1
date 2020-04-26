@@ -1,6 +1,6 @@
-package datosCliente;
+package modelo.datosCliente;
 
-import tarifas.Tarifa;
+import modelo.tarifas.Tarifa;
 
 import java.io.Serializable;
 import java.util.Calendar;
