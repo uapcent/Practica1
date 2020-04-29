@@ -1,6 +1,7 @@
 package controlador;
 
 import modelo.GestorModelo;
+import modelo.clientes.Cliente;
 import modelo.datosCliente.Direccion;
 import modelo.excepciones.ExcecpcionClienteYaExiste;
 import modelo.excepciones.ExcepcionClienteNoExiste;
@@ -9,6 +10,7 @@ import vista.InterfazVista;
 import modelo.Fabricas.*;
 
 import java.util.Calendar;
+import java.util.Set;
 
 public class Controlador implements InterfazControlador {
     private InterfazVista vista;
@@ -70,6 +72,16 @@ public class Controlador implements InterfazControlador {
 
     @Override
     public void listarClientesTXT() {
+        modelo.listaClientesTXT();
+    }
 
+    public void listarLlamadasClientesTXT() throws ExcepcionClienteNoExiste {
+        String nif = vista.getNIF();
+        modelo.listaLlamadasTXT(nif);
+    }
+
+    public void listaFacturasClientesTXT() throws ExcepcionClienteNoExiste {
+        String nif = vista.getNIF();
+        modelo.listaFacturasTXT(nif);
     }
 }

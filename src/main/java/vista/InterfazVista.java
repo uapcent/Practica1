@@ -9,4 +9,6 @@ public interface InterfazVista {
     int getCodigoPostal();
     String getEmail();
     float getPrecio();
+
+    void getDescripcion();
 }

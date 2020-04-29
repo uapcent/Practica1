@@ -16,9 +16,10 @@ import java.util.*;
 public class GestorClientes implements Serializable, GestorModelo {
     private Set<Cliente> listaClientes = new HashSet<Cliente>();
     private InterfazVista vista;
+    private String descriptor;
 
 
-    public GestorClientes() {}
+    public GestorClientes(){}
 
     public  void setVista(InterfazVista vista) {
         this.vista = vista;
@@ -71,6 +72,11 @@ public class GestorClientes implements Serializable, GestorModelo {
         return listaClientes;
     }
 
+    public void listaClientesTXT(){
+        descriptor = MostrarDatos.datosLista(listaClientes);
+        vista.getDescripcion();
+    }
+
     public boolean darAltaLlamada(Llamadas llamada, String nif) throws ExcepcionClienteNoExiste{
         Cliente cliente = buscarCliente(nif);
         if(cliente == null ) {
@@ -86,6 +92,11 @@ public class GestorClientes implements Serializable, GestorModelo {
             throw new ExcepcionClienteNoExiste();
         }
         return cliente.getListaLlamadas();
+    }
+
+    public void listaLlamadasTXT(String nif) throws ExcepcionClienteNoExiste {
+        descriptor = MostrarDatos.llamadasCliente(llamadasCliente(nif));
+        vista.getDescripcion();
     }
 
     public Facturas emitirFactura(String nif, Calendar inicio, Calendar fin) throws ExcepcionClienteNoExiste, ExcepcionIntervaloFechas {
@@ -137,6 +148,11 @@ public class GestorClientes implements Serializable, GestorModelo {
         return cliente.getListaFacturas();
     }
 
+    public void listaFacturasTXT(String nif) throws ExcepcionClienteNoExiste {
+        descriptor = MostrarDatos.facturasCliente(listaFacturaCliente(nif));
+        vista.getDescripcion();
+    }
+
     //Crea una lista filtrada según las fechas. Clase genérica, sirve para varios métodos
     public < T extends Fecha> Collection  muestra (Collection<T> conjunto, Calendar inicio, Calendar fin) throws ExcepcionIntervaloFechas {
         if(inicio.compareTo(fin) > 0) {
@@ -150,4 +166,6 @@ public class GestorClientes implements Serializable, GestorModelo {
         }
         return listaFiltrado;
     }
+
+
 }
