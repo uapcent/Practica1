@@ -6,4 +6,7 @@ public interface InterfazControlador {
     void borrarCliente();
 
     void listarClientesTXT();
+
+
+
 }

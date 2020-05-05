@@ -3,6 +3,7 @@ package controlador;
 import modelo.GestorModelo;
 import modelo.clientes.Cliente;
 import modelo.datosCliente.Direccion;
+import modelo.datosCliente.Llamadas;
 import modelo.excepciones.ExcecpcionClienteYaExiste;
 import modelo.excepciones.ExcepcionClienteNoExiste;
 import modelo.tarifas.Tarifa;
@@ -83,5 +84,25 @@ public class Controlador implements InterfazControlador {
     public void listaFacturasClientesTXT() throws ExcepcionClienteNoExiste {
         String nif = vista.getNIF();
         modelo.listaFacturasTXT(nif);
+    }
+
+    public void datosClienteTXT() throws ExcepcionClienteNoExiste {
+        String nif = vista.getNIF();
+        modelo.datosClienteTXT(nif);
+    }
+
+    public void datosFacturaTXT(){
+        String nif = vista.getNIF();
+        int codigo = vista.getCodigoFactura();
+        modelo.datosFacturaTXT(nif, codigo);
+    }
+
+    public void nuevaLlamada() throws ExcepcionClienteNoExiste {
+        String nif = vista.getNIF();
+        String telefono = vista.getTelefono();
+        Calendar fechaLlamada = new Calendar.Builder().setDate(vista.getAnyo(),vista.getMes(),vista.getDia()).setTimeOfDay(vista.getHora(),vista.getMinuto(), 0).build();
+        int duracion = vista.getDuracionLlamada();
+        Llamadas llamada = new Llamadas(telefono, fechaLlamada, duracion);
+        modelo.darAltaLlamada(llamada, nif);
     }
 }

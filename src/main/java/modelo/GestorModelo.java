@@ -44,5 +44,9 @@ public interface GestorModelo {
 
     public void listaFacturasTXT(String nif) throws ExcepcionClienteNoExiste;
 
+    public void datosClienteTXT(String nif) throws ExcepcionClienteNoExiste;
+
+    public void datosFacturaTXT(String nif, int codigo);
+
     public < T extends Fecha> Collection muestra (Collection<T> conjunto, Calendar inicio, Calendar fin) throws ExcepcionIntervaloFechas;
 }

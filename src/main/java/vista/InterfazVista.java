@@ -9,6 +9,15 @@ public interface InterfazVista {
     int getCodigoPostal();
     String getEmail();
     float getPrecio();
+    int getCodigoFactura();
+    int getMinuto();
+    int getHora();
+    int getDia();
+    int getMes();
+    int getAnyo();
+    String getTelefono();
+    int getDuracionLlamada();
+
 
     void getDescripcion();
 }

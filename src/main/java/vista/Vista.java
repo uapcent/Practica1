@@ -19,6 +19,14 @@ public class Vista implements InterfazVista {
     private JTextField jtfProvincia;
     private JTextField jtfCodigoPostal;
     private JTextField jtfPrecioTarifa;
+    private JTextField jtfCodigoFactura;
+    private JTextField jtfMinuto;
+    private JTextField jtfHora;
+    private JTextField jtfDia;
+    private JTextField jtfMes;
+    private JTextField jtfAnyo;
+    private JTextField jtfTelefono;
+    private JTextField jtfDuracion;
 
 
     public Vista() {
@@ -42,6 +50,7 @@ public class Vista implements InterfazVista {
         jtfProvincia = new JTextField(10);
         jtfCodigoPostal = new JTextField(10);
         jtfPrecioTarifa = new JTextField(10);
+
 
         JButton jbNuevoCliente = new JButton("Nuevo cliente");
         jbNuevoCliente.addActionListener(new ActionListener() {
@@ -126,5 +135,58 @@ public class Vista implements InterfazVista {
     public float getPrecio() {
         float numero = Float.parseFloat(jtfPrecioTarifa.getText());
         return numero;
+    }
+
+    @Override
+    public int getCodigoFactura() {
+        int numero = Integer.parseInt(jtfCodigoFactura.getText());
+        return numero;
+    }
+
+    @Override
+    public int getMinuto() {
+        int numero = Integer.parseInt(jtfMinuto.getText());
+        return numero;
+    }
+
+    @Override
+    public int getHora() {
+        int numero = Integer.parseInt(jtfHora.getText());
+        return numero;
+    }
+
+    @Override
+    public int getDia() {
+        int numero = Integer.parseInt(jtfDia.getText());
+        return numero;
+    }
+
+    @Override
+    public int getMes() {
+        int numero = Integer.parseInt(jtfMes.getText());
+        return numero;
+    }
+
+    @Override
+    public int getAnyo() {
+        int numero = Integer.parseInt(jtfAnyo.getText());
+        return numero;
+    }
+
+    @Override
+    public String getTelefono() {
+        return jtfTelefono.getText();
+    }
+
+    @Override
+    public int getDuracionLlamada() {
+        int numero = Integer.parseInt(jtfDuracion.getText());
+        return numero;
+    }
+
+
+    @Override
+    public void getDescripcion() {
+
     }
 }

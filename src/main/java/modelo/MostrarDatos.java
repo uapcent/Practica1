@@ -32,4 +32,16 @@ public class MostrarDatos {
         }
         return sb.toString();
     }
+
+    public static String mostrarDatosCliente(Cliente cliente){
+        StringBuilder sb = new StringBuilder();
+        sb.append(cliente.toString());
+        return sb.toString();
+    }
+
+    public static String mostrarDatosFactura(Facturas facturas){
+        StringBuilder sb = new StringBuilder();
+        sb.append(facturas.toString());
+        return sb.toString();
+    }
 }

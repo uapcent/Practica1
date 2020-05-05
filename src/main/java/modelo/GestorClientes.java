@@ -68,6 +68,11 @@ public class GestorClientes implements Serializable, GestorModelo {
         return cliente;
     }
 
+    public void datosClienteTXT(String nif) throws ExcepcionClienteNoExiste {
+        descriptor = MostrarDatos.mostrarDatosCliente(recuperarDatosClientes(nif));
+        vista.getDescripcion();
+    }
+
     public Set<Cliente> devolverLista(){
         return listaClientes;
     }
@@ -140,6 +145,11 @@ public class GestorClientes implements Serializable, GestorModelo {
         return null;
     }
 
+    public void datosFacturaTXT(String nif, int codigo) throws ExcepcionClienteNoExiste {
+        descriptor = MostrarDatos.mostrarDatosFactura(datosFactura(nif, codigo));
+        vista.getDescripcion();
+    }
+
     public List<Facturas> listaFacturaCliente(String nif)  throws ExcepcionClienteNoExiste{
         Cliente cliente = buscarCliente(nif);
         if(cliente == null ) {
@@ -152,6 +162,8 @@ public class GestorClientes implements Serializable, GestorModelo {
         descriptor = MostrarDatos.facturasCliente(listaFacturaCliente(nif));
         vista.getDescripcion();
     }
+
+
 
     //Crea una lista filtrada según las fechas. Clase genérica, sirve para varios métodos
     public < T extends Fecha> Collection  muestra (Collection<T> conjunto, Calendar inicio, Calendar fin) throws ExcepcionIntervaloFechas {
