@@ -225,7 +225,7 @@ public class Main{
 
     private static void listaClientes(GestorClientes gestionClientes){
         System.out.println("El listado de los modelo.clientes almacenado es el siguiente: ");
-        Set<Cliente> lista =  gestionClientes.devolverLista();
+        List<Cliente> lista =  gestionClientes.devolverLista();
         System.out.println(lista.size());
         for (Cliente cliente : lista) {
             System.out.println(cliente.toString());

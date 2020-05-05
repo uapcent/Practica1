@@ -14,7 +14,7 @@ import java.io.*;
 import java.util.*;
 
 public class GestorClientes implements Serializable, GestorModelo {
-    private Set<Cliente> listaClientes = new HashSet<Cliente>();
+    private List<Cliente> listaClientes = new LinkedList<Cliente>();
     private InterfazVista vista;
     private String descriptor;
 
@@ -73,7 +73,7 @@ public class GestorClientes implements Serializable, GestorModelo {
         vista.getDescripcion();
     }
 
-    public Set<Cliente> devolverLista(){
+    public List<Cliente> devolverLista(){
         return listaClientes;
     }
 

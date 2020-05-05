@@ -2,6 +2,7 @@ package vista;
 
 import controlador.InterfazControlador;
 import modelo.GestorModelo;
+import modelo.clientes.Cliente;
 
 import javax.swing.*;
 import java.awt.*;
@@ -66,6 +67,11 @@ public class Vista implements InterfazVista {
                 controlador.borrarCliente();
             }
         });
+
+        JButton jbTablaClientes = new JButton("Tabla Clientes");
+        ModeloTablaClientes modeloTablaClientes = new ModeloTablaClientes(modelo.devolverLista());
+        jbTablaClientes.addActionListener(e -> new TablaClientes(modeloTablaClientes));
+
         JPanel jpDatos = new JPanel();
         jpDatos.add(new JLabel("Nombre: "));
         jpDatos.add(jtfNombre);
@@ -85,13 +91,13 @@ public class Vista implements InterfazVista {
         jpDatos.add(jtfPrecioTarifa);
         jpDatos.add(jbNuevoCliente);
         jpDatos.add(jbBorrarCliente);
+        jpDatos.add(jbTablaClientes);
         JFrame ventana = new JFrame("Aplicación Telefónica");
         ventana.getContentPane().add(jpDatos, BorderLayout.NORTH);
         ventana.pack();
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana.setVisible(true);
     }
-
 
 
 

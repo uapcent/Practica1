@@ -31,4 +31,8 @@ public class Direccion implements Serializable {
         this.poblacion = poblacion;
     }
 
+    public String toString(){
+        return "Población: " + poblacion + " , Provincia: " + " , Codigo Postal:  " + codPostal;
+    }
+
 }

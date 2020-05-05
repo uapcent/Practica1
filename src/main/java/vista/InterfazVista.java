@@ -18,6 +18,5 @@ public interface InterfazVista {
     String getTelefono();
     int getDuracionLlamada();
 
-
     void getDescripcion();
 }

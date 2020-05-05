@@ -6,11 +6,13 @@ import modelo.datosCliente.Direccion;
 import modelo.datosCliente.Llamadas;
 import modelo.excepciones.ExcecpcionClienteYaExiste;
 import modelo.excepciones.ExcepcionClienteNoExiste;
+import modelo.excepciones.ExcepcionIntervaloFechas;
 import modelo.tarifas.Tarifa;
 import vista.InterfazVista;
 import modelo.Fabricas.*;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Set;
 
 public class Controlador implements InterfazControlador {
@@ -91,12 +93,13 @@ public class Controlador implements InterfazControlador {
         modelo.datosClienteTXT(nif);
     }
 
-    public void datosFacturaTXT(){
+    public void datosFacturaTXT() throws ExcepcionClienteNoExiste {
         String nif = vista.getNIF();
         int codigo = vista.getCodigoFactura();
         modelo.datosFacturaTXT(nif, codigo);
     }
 
+    @Override
     public void nuevaLlamada() throws ExcepcionClienteNoExiste {
         String nif = vista.getNIF();
         String telefono = vista.getTelefono();
@@ -104,5 +107,13 @@ public class Controlador implements InterfazControlador {
         int duracion = vista.getDuracionLlamada();
         Llamadas llamada = new Llamadas(telefono, fechaLlamada, duracion);
         modelo.darAltaLlamada(llamada, nif);
+    }
+
+    @Override
+    public void emitirFactura() throws ExcepcionClienteNoExiste, ExcepcionIntervaloFechas {
+        String nif = vista.getNIF();
+        Calendar fechaInicial = new Calendar.Builder().setDate(vista.getAnyo(),vista.getMes(),vista.getDia()).setTimeOfDay(vista.getHora(),vista.getMinuto(), 0).build();
+        Calendar fechaFinal = new Calendar.Builder().setDate(vista.getAnyo(),vista.getMes(),vista.getDia()).setTimeOfDay(vista.getHora(),vista.getMinuto(), 0).build();
+        modelo.emitirFactura(nif,fechaInicial, fechaFinal);
     }
 }

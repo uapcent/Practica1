@@ -26,7 +26,7 @@ public interface GestorModelo {
 
     public Cliente recuperarDatosClientes(String nif) throws ExcepcionClienteNoExiste;
 
-    public Set<Cliente> devolverLista();
+    public List<Cliente> devolverLista();
 
     public void listaClientesTXT();
 
@@ -46,7 +46,7 @@ public interface GestorModelo {
 
     public void datosClienteTXT(String nif) throws ExcepcionClienteNoExiste;
 
-    public void datosFacturaTXT(String nif, int codigo);
+    public void datosFacturaTXT(String nif, int codigo) throws ExcepcionClienteNoExiste;
 
     public < T extends Fecha> Collection muestra (Collection<T> conjunto, Calendar inicio, Calendar fin) throws ExcepcionIntervaloFechas;
 }

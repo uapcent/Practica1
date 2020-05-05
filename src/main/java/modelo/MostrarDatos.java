@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 public class MostrarDatos {
-    public static String datosLista(Set<Cliente> lista){
+    public static String datosLista(List<Cliente> lista){
         StringBuilder sb = new StringBuilder();
         for (Cliente cliente : lista){
             sb.append(cliente.toString() + "\n");
