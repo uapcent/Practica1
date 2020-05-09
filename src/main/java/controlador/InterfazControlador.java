@@ -11,11 +11,14 @@ public interface InterfazControlador {
 
     void borrarCliente();
 
+    public void datosClienteTXT();
+
     void listarClientesTXT();
 
-    void nuevaLlamada() throws ExcepcionClienteNoExiste;
+    void nuevaLlamada();
 
     void emitirFactura() throws ExcepcionClienteNoExiste, ExcepcionIntervaloFechas;
+
 
 
 

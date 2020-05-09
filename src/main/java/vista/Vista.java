@@ -3,6 +3,7 @@ package vista;
 import controlador.InterfazControlador;
 import modelo.GestorModelo;
 import modelo.clientes.Cliente;
+import modelo.excepciones.ExcepcionClienteNoExiste;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +13,7 @@ import java.awt.event.ActionListener;
 public class Vista implements InterfazVista {
     private InterfazControlador controlador;
     private GestorModelo modelo;
+    private Container container;
     private JTextField jtfNombre;
     private JTextField jtfApellidos;
     private JTextField jtfNif;
@@ -30,9 +32,9 @@ public class Vista implements InterfazVista {
     private JTextField jtfDuracion;
 
 
-    public Vista() {
-        creaInterfazVisual();
-    }
+//    public Vista() {
+//        creaInterfazVisual();
+//    }
 
     public void setControlador(InterfazControlador controlador) {
         this.controlador = controlador;
@@ -42,7 +44,10 @@ public class Vista implements InterfazVista {
         this.modelo = modelo;
     }
 
-    private void creaInterfazVisual() {
+
+
+    //Panel Añadir cliente
+    private JPanel panelAñadirCliente() {
         jtfNombre = new JTextField(10);
         jtfApellidos = new JTextField(10);
         jtfNif = new JTextField(10);
@@ -51,8 +56,6 @@ public class Vista implements InterfazVista {
         jtfProvincia = new JTextField(10);
         jtfCodigoPostal = new JTextField(10);
         jtfPrecioTarifa = new JTextField(10);
-
-
         JButton jbNuevoCliente = new JButton("Nuevo cliente");
         jbNuevoCliente.addActionListener(new ActionListener() {
             @Override
@@ -60,6 +63,31 @@ public class Vista implements InterfazVista {
                 controlador.nuevoCliente();
             }
         });
+
+        JPanel jpAnyadirCliente = new JPanel();
+        jpAnyadirCliente.add(new JLabel("Nombre: "));
+        jpAnyadirCliente.add(jtfNombre);
+        jpAnyadirCliente.add(new JLabel("Apellidos: "));
+        jpAnyadirCliente.add(jtfApellidos);
+        jpAnyadirCliente.add(new JLabel("NIF: "));
+        jpAnyadirCliente.add(jtfNif);
+        jpAnyadirCliente.add(new JLabel("E-mail: "));
+        jpAnyadirCliente.add(jtfEmail);
+        jpAnyadirCliente.add(new JLabel("Población: "));
+        jpAnyadirCliente.add(jtfPoblacion);
+        jpAnyadirCliente.add(new JLabel("Provincia: "));
+        jpAnyadirCliente.add(jtfProvincia);
+        jpAnyadirCliente.add(new JLabel("Código Postal: "));
+        jpAnyadirCliente.add(jtfCodigoPostal);
+        jpAnyadirCliente.add(new JLabel("Precio de Tarifa: "));
+        jpAnyadirCliente.add(jtfPrecioTarifa);
+        jpAnyadirCliente.add(jbNuevoCliente);
+        return jpAnyadirCliente;
+    }
+
+
+    private JPanel panelBorrarCliente() {
+        jtfNif = new JTextField(10);
         JButton jbBorrarCliente = new JButton("Borrar cliente");
         jbBorrarCliente.addActionListener(new ActionListener() {
             @Override
@@ -67,37 +95,82 @@ public class Vista implements InterfazVista {
                 controlador.borrarCliente();
             }
         });
-
-        JButton jbTablaClientes = new JButton("Tabla Clientes");
-        ModeloTablaClientes modeloTablaClientes = new ModeloTablaClientes(modelo.devolverLista());
-        jbTablaClientes.addActionListener(e -> new TablaClientes(modeloTablaClientes));
-
-        JPanel jpDatos = new JPanel();
-        jpDatos.add(new JLabel("Nombre: "));
-        jpDatos.add(jtfNombre);
-        jpDatos.add(new JLabel("Apellidos: "));
-        jpDatos.add(jtfApellidos);
-        jpDatos.add(new JLabel("NIF: "));
-        jpDatos.add(jtfNif);
-        jpDatos.add(new JLabel("E-mail: "));
-        jpDatos.add(jtfEmail);
-        jpDatos.add(new JLabel("Población: "));
-        jpDatos.add(jtfPoblacion);
-        jpDatos.add(new JLabel("Provincia: "));
-        jpDatos.add(jtfProvincia);
-        jpDatos.add(new JLabel("Código Postal: "));
-        jpDatos.add(jtfCodigoPostal);
-        jpDatos.add(new JLabel("Precio de Tarifa: "));
-        jpDatos.add(jtfPrecioTarifa);
-        jpDatos.add(jbNuevoCliente);
-        jpDatos.add(jbBorrarCliente);
-        jpDatos.add(jbTablaClientes);
-        JFrame ventana = new JFrame("Aplicación Telefónica");
-        ventana.getContentPane().add(jpDatos, BorderLayout.NORTH);
-        ventana.pack();
-        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ventana.setVisible(true);
+        JPanel  jpBorrarCliente = new JPanel();
+        jpBorrarCliente.add(new JLabel("NIF: "));
+        jpBorrarCliente.add(jtfNif);
+        jpBorrarCliente.add(jbBorrarCliente);
+        return jpBorrarCliente;
     }
+
+    private JPanel panelDatosDeUnCliente() {
+        jtfNif = new JTextField(10);
+        JButton jbObtenerDatosCliente = new JButton("Obtener datos del cliente");
+        jbObtenerDatosCliente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                    controlador.datosClienteTXT();
+            }
+        });
+
+        JPanel jpDatosCliente = new JPanel();
+        jpDatosCliente.add(new JLabel("NIF: "));
+        jpDatosCliente.add(jtfNif);
+        jpDatosCliente.add(jbObtenerDatosCliente);
+        return jpDatosCliente;
+    }
+
+    private JPanel panelListaClientes() {
+        ModeloTablaClientes modeloTablaClientes = new ModeloTablaClientes(modelo.devolverLista());
+        TablaClientes tablaClientes = new TablaClientes(modeloTablaClientes);
+        JButton jbActualizarTabla = new JButton("Actualiza la tabla");
+        jbActualizarTabla.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+              tablaClientes.setModel(new ModeloTablaClientes(modelo.devolverLista()));
+            }
+        });
+        JPanel jpListaClientes = new JPanel();
+        jpListaClientes.add(tablaClientes);
+        jpListaClientes.add(jbActualizarTabla);
+        return  jpListaClientes;
+    }
+
+    private JPanel panelAñadirLlamada() {
+        jtfNif = new JTextField(10);
+        jtfTelefono = new JTextField(10);
+        jtfDuracion = new JTextField(10);
+        jtfDia = new JTextField(10);
+        jtfMes = new JTextField(10);
+        jtfAnyo = new JTextField(10);
+        jtfHora = new JTextField(10);
+        jtfMinuto = new JTextField(10);
+
+        JButton jbAñadirLlamada = new JButton("Añadir llamada");
+        jbAñadirLlamada.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controlador.nuevaLlamada();
+            }
+        });
+
+        JPanel jpAñadirLlamada = new JPanel();
+        jpAñadirLlamada.add(new JLabel("NIF: "));
+        jpAñadirLlamada.add(jtfNif);
+        jpAñadirLlamada.add(new JLabel("Teléfono: "));
+        jpAñadirLlamada.add(jtfTelefono);
+        jpAñadirLlamada.add(new JLabel("Día (0-31): "));
+        jpAñadirLlamada.add(jtfDia);
+        jpAñadirLlamada.add(new JLabel("Mes (1-12): "));
+        jpAñadirLlamada.add(jtfMes);
+        jpAñadirLlamada.add(new JLabel("Año (Actual o inferior): "));
+        jpAñadirLlamada.add(jtfAnyo);
+        jpAñadirLlamada.add(new JLabel("Duracion (en minutos): "));
+        jbAñadirLlamada.add(jtfDuracion);
+        jpAñadirLlamada.add(jbAñadirLlamada);
+        return jpAñadirLlamada;
+    }
+
+
 
 
 

@@ -88,9 +88,13 @@ public class Controlador implements InterfazControlador {
         modelo.listaFacturasTXT(nif);
     }
 
-    public void datosClienteTXT() throws ExcepcionClienteNoExiste {
-        String nif = vista.getNIF();
-        modelo.datosClienteTXT(nif);
+    public void datosClienteTXT() {
+        try {
+            String nif = vista.getNIF();
+            modelo.datosClienteTXT(nif);
+        }catch(ExcepcionClienteNoExiste e) {
+            e.printStackTrace();
+            }
     }
 
     public void datosFacturaTXT() throws ExcepcionClienteNoExiste {
@@ -100,13 +104,17 @@ public class Controlador implements InterfazControlador {
     }
 
     @Override
-    public void nuevaLlamada() throws ExcepcionClienteNoExiste {
-        String nif = vista.getNIF();
-        String telefono = vista.getTelefono();
-        Calendar fechaLlamada = new Calendar.Builder().setDate(vista.getAnyo(),vista.getMes(),vista.getDia()).setTimeOfDay(vista.getHora(),vista.getMinuto(), 0).build();
-        int duracion = vista.getDuracionLlamada();
-        Llamadas llamada = new Llamadas(telefono, fechaLlamada, duracion);
-        modelo.darAltaLlamada(llamada, nif);
+    public void nuevaLlamada() {
+        try {
+            String nif = vista.getNIF();
+            String telefono = vista.getTelefono();
+            Calendar fechaLlamada = new Calendar.Builder().setDate(vista.getAnyo(), vista.getMes(), vista.getDia()).setTimeOfDay(vista.getHora(), vista.getMinuto(), 0).build();
+            int duracion = vista.getDuracionLlamada();
+            Llamadas llamada = new Llamadas(telefono, fechaLlamada, duracion);
+            modelo.darAltaLlamada(llamada, nif);
+        }catch (ExcepcionClienteNoExiste e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
