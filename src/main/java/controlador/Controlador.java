@@ -97,10 +97,14 @@ public class Controlador implements InterfazControlador {
             }
     }
 
-    public void datosFacturaTXT() throws ExcepcionClienteNoExiste {
-        String nif = vista.getNIF();
-        int codigo = vista.getCodigoFactura();
-        modelo.datosFacturaTXT(nif, codigo);
+    public void datosFacturaTXT() {
+        try {
+            String nif = vista.getNIF();
+            int codigo = vista.getCodigoFactura();
+            modelo.datosFacturaTXT(nif, codigo);
+        }catch (ExcepcionClienteNoExiste e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -118,10 +122,17 @@ public class Controlador implements InterfazControlador {
     }
 
     @Override
-    public void emitirFactura() throws ExcepcionClienteNoExiste, ExcepcionIntervaloFechas {
-        String nif = vista.getNIF();
-        Calendar fechaInicial = new Calendar.Builder().setDate(vista.getAnyo(),vista.getMes(),vista.getDia()).setTimeOfDay(vista.getHora(),vista.getMinuto(), 0).build();
-        Calendar fechaFinal = new Calendar.Builder().setDate(vista.getAnyo(),vista.getMes(),vista.getDia()).setTimeOfDay(vista.getHora(),vista.getMinuto(), 0).build();
-        modelo.emitirFactura(nif,fechaInicial, fechaFinal);
+    public void emitirFactura() {
+        try {
+            String nif = vista.getNIF();
+            Calendar fechaInicial = new Calendar.Builder().setDate(vista.getAnyo(), vista.getMes(), vista.getDia()).build();
+            Calendar fechaFinal = new Calendar.Builder().setDate(vista.getAnyoFinal(), vista.getMesFinal(), vista.getDiaFinal()).build();
+            modelo.emitirFactura(nif, fechaInicial, fechaFinal);
+        }catch (ExcepcionClienteNoExiste e) {
+            e.printStackTrace();
+        }catch (ExcepcionIntervaloFechas e) {
+            e.printStackTrace();
+        }
     }
+
 }

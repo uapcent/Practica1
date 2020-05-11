@@ -17,7 +17,9 @@ public interface InterfazControlador {
 
     void nuevaLlamada();
 
-    void emitirFactura() throws ExcepcionClienteNoExiste, ExcepcionIntervaloFechas;
+    void emitirFactura();
+
+    void datosFacturaTXT();
 
 
 

@@ -17,6 +17,8 @@ public interface InterfazVista {
     int getAnyo();
     String getTelefono();
     int getDuracionLlamada();
-
+    int getDiaFinal();
+    int getMesFinal();
+    int getAnyoFinal();
     void getDescripcion();
 }

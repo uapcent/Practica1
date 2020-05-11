@@ -30,6 +30,10 @@ public class Vista implements InterfazVista {
     private JTextField jtfAnyo;
     private JTextField jtfTelefono;
     private JTextField jtfDuracion;
+    private  JTextField jtfDiaFin;
+    private  JTextField jtfMesFin;
+    private  JTextField jtfAnyoFin;
+
 
 
 //    public Vista() {
@@ -171,6 +175,80 @@ public class Vista implements InterfazVista {
     }
 
 
+    private JPanel panelListaLlamadasCliente() {
+        jtfNif = new JTextField(10);
+        JButton jbListarLlamadas = new JButton();
+        JPanel jpListaLlamadas = new JPanel();
+        jpListaLlamadas.add(new JLabel("NIF: "));
+        jpListaLlamadas.add(jtfNif);
+        jpListaLlamadas.add(jbListarLlamadas);
+        return jpListaLlamadas;
+    }
+
+    private JPanel panelEmitirFactura() {
+        jtfNif = new JTextField(10);
+        jtfDia = new JTextField(10);
+        jtfMes = new JTextField(10);
+        jtfAnyo = new JTextField(10);
+        jtfDiaFin = new JTextField(10);
+        jtfMesFin = new JTextField(10);
+        jtfAnyoFin = new JTextField(10);
+
+        JButton jbEmitirFactura = new JButton();
+        jbEmitirFactura.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controlador.emitirFactura();
+            }
+        });
+
+        JPanel jpEmitirFactura = new JPanel();
+        jpEmitirFactura.add(new JLabel("NIF: "));
+        jpEmitirFactura.add(jtfNif);
+        jpEmitirFactura.add(new JLabel("NIF: "));
+        jpEmitirFactura.add(jtfDia);
+        jpEmitirFactura.add(new JLabel("NIF: "));
+        jpEmitirFactura.add(jtfMes);
+        jpEmitirFactura.add(new JLabel("NIF: "));
+        jpEmitirFactura.add(jtfAnyo);
+        jpEmitirFactura.add(new JLabel("NIF: "));
+        jpEmitirFactura.add(jtfDiaFin);
+        jpEmitirFactura.add(new JLabel("NIF: "));
+        jpEmitirFactura.add(jtfMesFin);
+        jpEmitirFactura.add(new JLabel("NIF: "));
+        jpEmitirFactura.add(jtfAnyoFin);
+        jpEmitirFactura.add(jbEmitirFactura);
+        return jpEmitirFactura;
+    }
+
+    private JPanel panelDatosDeUnaFactura() {
+        jtfNif = new JTextField(10);
+        jtfCodigoFactura = new JTextField();
+        JButton jbObtenerDatosCliente = new JButton("Obtener datos factura");
+        jbObtenerDatosCliente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controlador.datosFacturaTXT();
+            }
+        });
+
+        JPanel jpDatosFactura = new JPanel();
+        jpDatosFactura.add(new JLabel("NIF: "));
+        jpDatosFactura.add(jtfNif);
+        jpDatosFactura.add(jbObtenerDatosCliente);
+        return jpDatosFactura;
+    }
+
+    private JPanel listaFacturas() {
+        jtfNif = new JTextField(10);
+        JButton jbListaFacturas = new JButton();
+        JPanel jpListaFacturas = new JPanel();
+        jpListaFacturas.add(new JLabel("NIF: "));
+        jpListaFacturas.add(jtfNif);
+        jpListaFacturas.add(jbListaFacturas);
+        return jpListaFacturas;
+    }
+
 
 
 
@@ -260,6 +338,24 @@ public class Vista implements InterfazVista {
     @Override
     public int getDuracionLlamada() {
         int numero = Integer.parseInt(jtfDuracion.getText());
+        return numero;
+    }
+
+    @Override
+    public int getDiaFinal() {
+        int numero = Integer.parseInt(jtfDiaFin.getText());
+        return numero;
+    }
+
+    @Override
+    public int getMesFinal() {
+        int numero = Integer.parseInt(jtfMesFin.getText());
+        return numero;
+    }
+
+    @Override
+    public int getAnyoFinal() {
+        int numero = Integer.parseInt(jtfAnyoFin.getText());
         return numero;
     }
 
