@@ -33,7 +33,7 @@ public class Vista implements InterfazVista {
     private  JTextField jtfDiaFin;
     private  JTextField jtfMesFin;
     private  JTextField jtfAnyoFin;
-
+    private JTextArea jtaInfo;
 
 
     public Vista() {
@@ -60,7 +60,16 @@ public class Vista implements InterfazVista {
         pestanyas.add("Emitir Factura", panelEmitirFactura());
         pestanyas.add("Datos factura", panelDatosDeUnaFactura());
         pestanyas.add("Lista facturas", panelListaFacturas());
-        ventana.getContentPane().add(pestanyas);
+        JButton jbLimpiarInfo = new JButton("Limpia");
+        jbLimpiarInfo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jtaInfo.setText("");
+            }
+        });
+        ventana.getContentPane().add(pestanyas, BorderLayout.NORTH);
+        ventana.getContentPane().add(jbLimpiarInfo, BorderLayout.EAST);
+        ventana.getContentPane().add(panelInformacion());
         ventana.pack();
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana.setVisible(true);
@@ -87,6 +96,7 @@ public class Vista implements InterfazVista {
         });
 
         JPanel jpAnyadirCliente = new JPanel();
+
         jpAnyadirCliente.add(new JLabel("Nombre: "));
         jpAnyadirCliente.add(jtfNombre);
         jpAnyadirCliente.add(new JLabel("Apellidos: "));
@@ -271,6 +281,15 @@ public class Vista implements InterfazVista {
         return jpListaFacturas;
     }
 
+    private JScrollPane panelInformacion() {
+        jtaInfo = new JTextArea(20, 50);
+        JScrollPane jspMostrarInfo = new JScrollPane(jtaInfo);
+        jspMostrarInfo.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        jspMostrarInfo.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        return jspMostrarInfo;
+
+    }
+
 
 
 
@@ -384,6 +403,7 @@ public class Vista implements InterfazVista {
 
     @Override
     public void getDescripcion() {
+        jtaInfo.append(modelo.getDescriptor() + "\n");
 
     }
 }

@@ -31,6 +31,8 @@ public class GestorClientes implements Serializable, GestorModelo {
             throw new ExcecpcionClienteYaExiste();
         }
         listaClientes.add(cliente);
+        descriptor = "El cliente ha sido añadido";
+        vista.getDescripcion();
         return true;
     }
 
@@ -179,5 +181,8 @@ public class GestorClientes implements Serializable, GestorModelo {
         return listaFiltrado;
     }
 
+    public String getDescriptor() {
+        return descriptor;
+    }
 
 }
