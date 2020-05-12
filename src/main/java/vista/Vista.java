@@ -36,9 +36,9 @@ public class Vista implements InterfazVista {
 
 
 
-//    public Vista() {
-//        creaInterfazVisual();
-//    }
+    public Vista() {
+       pestanyas();
+   }
 
     public void setControlador(InterfazControlador controlador) {
         this.controlador = controlador;
@@ -46,6 +46,24 @@ public class Vista implements InterfazVista {
 
     public void setModelo(GestorModelo modelo) {
         this.modelo = modelo;
+    }
+
+    private void pestanyas() {
+        JFrame ventana = new JFrame("Aplicación telefonía");
+        JTabbedPane pestanyas = new JTabbedPane();
+        pestanyas.add("Añadir cliente", panelAñadirCliente());
+        pestanyas.add("Borrar cliente", panelBorrarCliente());
+        pestanyas.add("Datos cliente", panelDatosDeUnCliente());
+        //pestanyas.add("Lista clientes", panelListaClientes());
+        pestanyas.add("Añadir lLamada", panelAñadirLlamada());
+        pestanyas.add("Lista llamadas", panelListaLlamadasCliente());
+        pestanyas.add("Emitir Factura", panelEmitirFactura());
+        pestanyas.add("Datos factura", panelDatosDeUnaFactura());
+        pestanyas.add("Lista facturas", panelListaFacturas());
+        ventana.getContentPane().add(pestanyas);
+        ventana.pack();
+        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana.setVisible(true);
     }
 
 
@@ -142,12 +160,12 @@ public class Vista implements InterfazVista {
     private JPanel panelAñadirLlamada() {
         jtfNif = new JTextField(10);
         jtfTelefono = new JTextField(10);
-        jtfDuracion = new JTextField(10);
         jtfDia = new JTextField(10);
         jtfMes = new JTextField(10);
         jtfAnyo = new JTextField(10);
         jtfHora = new JTextField(10);
         jtfMinuto = new JTextField(10);
+        jtfDuracion = new JTextField(10);
 
         JButton jbAñadirLlamada = new JButton("Añadir llamada");
         jbAñadirLlamada.addActionListener(new ActionListener() {
@@ -162,14 +180,18 @@ public class Vista implements InterfazVista {
         jpAñadirLlamada.add(jtfNif);
         jpAñadirLlamada.add(new JLabel("Teléfono: "));
         jpAñadirLlamada.add(jtfTelefono);
+        jpAñadirLlamada.add(new JLabel("Duracion (en minutos): "));
+        jpAñadirLlamada.add(jtfDuracion);
         jpAñadirLlamada.add(new JLabel("Día (0-31): "));
         jpAñadirLlamada.add(jtfDia);
         jpAñadirLlamada.add(new JLabel("Mes (1-12): "));
         jpAñadirLlamada.add(jtfMes);
         jpAñadirLlamada.add(new JLabel("Año (Actual o inferior): "));
         jpAñadirLlamada.add(jtfAnyo);
-        jpAñadirLlamada.add(new JLabel("Duracion (en minutos): "));
-        jbAñadirLlamada.add(jtfDuracion);
+        jpAñadirLlamada.add(new JLabel("Hora: "));
+        jpAñadirLlamada.add(jtfHora);
+        jpAñadirLlamada.add(new JLabel("Minuto: "));
+        jpAñadirLlamada.add(jtfMinuto);
         jpAñadirLlamada.add(jbAñadirLlamada);
         return jpAñadirLlamada;
     }
@@ -177,7 +199,7 @@ public class Vista implements InterfazVista {
 
     private JPanel panelListaLlamadasCliente() {
         jtfNif = new JTextField(10);
-        JButton jbListarLlamadas = new JButton();
+        JButton jbListarLlamadas = new JButton("Lista las llamadas");
         JPanel jpListaLlamadas = new JPanel();
         jpListaLlamadas.add(new JLabel("NIF: "));
         jpListaLlamadas.add(jtfNif);
@@ -194,7 +216,7 @@ public class Vista implements InterfazVista {
         jtfMesFin = new JTextField(10);
         jtfAnyoFin = new JTextField(10);
 
-        JButton jbEmitirFactura = new JButton();
+        JButton jbEmitirFactura = new JButton("Emite factura");
         jbEmitirFactura.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -205,17 +227,17 @@ public class Vista implements InterfazVista {
         JPanel jpEmitirFactura = new JPanel();
         jpEmitirFactura.add(new JLabel("NIF: "));
         jpEmitirFactura.add(jtfNif);
-        jpEmitirFactura.add(new JLabel("NIF: "));
+        jpEmitirFactura.add(new JLabel("Dia inicial: "));
         jpEmitirFactura.add(jtfDia);
-        jpEmitirFactura.add(new JLabel("NIF: "));
+        jpEmitirFactura.add(new JLabel("Mes inicial: "));
         jpEmitirFactura.add(jtfMes);
-        jpEmitirFactura.add(new JLabel("NIF: "));
+        jpEmitirFactura.add(new JLabel("Año inicial: "));
         jpEmitirFactura.add(jtfAnyo);
-        jpEmitirFactura.add(new JLabel("NIF: "));
+        jpEmitirFactura.add(new JLabel("Dia final: "));
         jpEmitirFactura.add(jtfDiaFin);
-        jpEmitirFactura.add(new JLabel("NIF: "));
+        jpEmitirFactura.add(new JLabel("Mes final: "));
         jpEmitirFactura.add(jtfMesFin);
-        jpEmitirFactura.add(new JLabel("NIF: "));
+        jpEmitirFactura.add(new JLabel("Año final: "));
         jpEmitirFactura.add(jtfAnyoFin);
         jpEmitirFactura.add(jbEmitirFactura);
         return jpEmitirFactura;
@@ -239,9 +261,9 @@ public class Vista implements InterfazVista {
         return jpDatosFactura;
     }
 
-    private JPanel listaFacturas() {
+    private JPanel panelListaFacturas() {
         jtfNif = new JTextField(10);
-        JButton jbListaFacturas = new JButton();
+        JButton jbListaFacturas = new JButton("Lista las facturas");
         JPanel jpListaFacturas = new JPanel();
         jpListaFacturas.add(new JLabel("NIF: "));
         jpListaFacturas.add(jtfNif);
