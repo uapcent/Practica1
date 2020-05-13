@@ -8,6 +8,7 @@ import modelo.excepciones.ExcecpcionClienteYaExiste;
 import modelo.excepciones.ExcepcionClienteNoExiste;
 import modelo.excepciones.ExcepcionIntervaloFechas;
 import modelo.tarifas.Tarifa;
+import modelo.tarifas.TarifaPorDia;
 import vista.InterfazVista;
 
 import java.io.*;
@@ -165,7 +166,14 @@ public class GestorClientes implements Serializable, GestorModelo {
         vista.getDescripcion();
     }
 
-
+    public void cambiarTarifa(String nif, int precio) throws ExcepcionClienteNoExiste {
+        Cliente cliente = buscarCliente(nif);
+        //TarifaPorDia tarifa = new Tarifa();
+        if(cliente == null ) {
+            throw new ExcepcionClienteNoExiste();
+        }
+        //cliente.setTarifa(precio);
+    }
 
     //Crea una lista filtrada según las fechas. Clase genérica, sirve para varios métodos
     public < T extends Fecha> Collection  muestra (Collection<T> conjunto, Calendar inicio, Calendar fin) throws ExcepcionIntervaloFechas {

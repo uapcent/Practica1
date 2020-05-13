@@ -21,4 +21,9 @@ public interface InterfazVista {
     int getMesFinal();
     int getAnyoFinal();
     void getDescripcion();
+    String getDiaSemana();
+
+    void creaGUI();
+
+
 }
