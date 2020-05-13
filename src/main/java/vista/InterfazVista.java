@@ -20,5 +20,7 @@ public interface InterfazVista {
     int getDiaFinal();
     int getMesFinal();
     int getAnyoFinal();
+    String getDiaDeLaSemana();
+    float getPrecioTDiaria();
     void getDescripcion();
 }

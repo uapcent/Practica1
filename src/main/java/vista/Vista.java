@@ -33,7 +33,9 @@ public class Vista implements InterfazVista {
     private  JTextField jtfDiaFin;
     private  JTextField jtfMesFin;
     private  JTextField jtfAnyoFin;
+    private JTextField jtfDiaDeLaSemana;
     private JTextArea jtaInfo;
+    private JTextField jtfPrecioTatifaDiaría;
 
 
     public Vista() {
@@ -57,9 +59,11 @@ public class Vista implements InterfazVista {
         //pestanyas.add("Lista clientes", panelListaClientes());
         pestanyas.add("Añadir lLamada", panelAñadirLlamada());
         pestanyas.add("Lista llamadas", panelListaLlamadasCliente());
-        pestanyas.add("Emitir Factura", panelEmitirFactura());
+       // pestanyas.add("Emitir Factura", panelEmitirFactura());
         pestanyas.add("Datos factura", panelDatosDeUnaFactura());
         pestanyas.add("Lista facturas", panelListaFacturas());
+        pestanyas.add("Tarifa Diaria", panelTarifaPorDías());
+        pestanyas.add("Tarifa Basica", panelTarifaBásica());
         JButton jbLimpiarInfo = new JButton("Limpia");
         jbLimpiarInfo.addActionListener(new ActionListener() {
             @Override
@@ -255,7 +259,7 @@ public class Vista implements InterfazVista {
 
     private JPanel panelDatosDeUnaFactura() {
         jtfNif = new JTextField(10);
-        jtfCodigoFactura = new JTextField();
+        jtfCodigoFactura = new JTextField(10);
         JButton jbObtenerDatosCliente = new JButton("Obtener datos factura");
         jbObtenerDatosCliente.addActionListener(new ActionListener() {
             @Override
@@ -267,6 +271,8 @@ public class Vista implements InterfazVista {
         JPanel jpDatosFactura = new JPanel();
         jpDatosFactura.add(new JLabel("NIF: "));
         jpDatosFactura.add(jtfNif);
+        jpDatosFactura.add(new JLabel("Codigo factura: "));
+        jpDatosFactura.add(jtfCodigoFactura);
         jpDatosFactura.add(jbObtenerDatosCliente);
         return jpDatosFactura;
     }
@@ -288,6 +294,50 @@ public class Vista implements InterfazVista {
         jspMostrarInfo.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         return jspMostrarInfo;
 
+    }
+
+    private JPanel panelTarifaPorDías() {
+        jtfNif = new JTextField(10);
+        jtfDiaDeLaSemana = new JTextField(10);
+        jtfPrecioTatifaDiaría = new JTextField(10);
+        JButton jbTarifaDias = new JButton("Modificar tarifa");
+        jbTarifaDias.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controlador.nuevaTarifaDiaria();
+            }
+        });
+
+        JPanel jpTarifaDias =  new JPanel();
+        jpTarifaDias.add(new JLabel("NIF: "));
+        jpTarifaDias.add(jtfNif);
+        jpTarifaDias.add(new JLabel("Dia (en letra): "));
+        jpTarifaDias.add(jtfDiaDeLaSemana);
+        jpTarifaDias.add(new JLabel ("Precio Tarifa Diaría: "));
+        jpTarifaDias.add(jtfPrecioTatifaDiaría);
+        jpTarifaDias.add(jbTarifaDias);
+        return jpTarifaDias;
+
+    }
+
+    private JPanel panelTarifaBásica() {
+        jtfNif = new JTextField(10);
+        jtfPrecioTatifaDiaría = new JTextField(10);
+        JButton jbTarifaBasica = new JButton("Modificar Tarifa");
+        jbTarifaBasica.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controlador.nuevaTarifaBasica();
+            }
+        });
+
+        JPanel jpTarifaBasica = new JPanel();
+        jpTarifaBasica.add(new JLabel("NIF: "));
+        jpTarifaBasica.add(jtfNif);
+        jpTarifaBasica.add(new JLabel("Precio Tarifa: "));
+        jpTarifaBasica.add(jtfPrecioTatifaDiaría);
+        jpTarifaBasica.add(jbTarifaBasica);
+        return jpTarifaBasica;
     }
 
 
@@ -397,6 +447,17 @@ public class Vista implements InterfazVista {
     @Override
     public int getAnyoFinal() {
         int numero = Integer.parseInt(jtfAnyoFin.getText());
+        return numero;
+    }
+
+    @Override
+    public String getDiaDeLaSemana() {
+        return jtfDiaDeLaSemana.getText();
+    }
+
+    @Override
+    public float getPrecioTDiaria() {
+        float numero = Float.parseFloat(jtfPrecioTatifaDiaría.getText());
         return numero;
     }
 

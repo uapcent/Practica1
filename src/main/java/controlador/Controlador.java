@@ -42,19 +42,18 @@ public class Controlador implements InterfazControlador {
         String email = vista.getEmail();
         Calendar fecha = Calendar.getInstance();
         float precio = vista.getPrecio();
-        Tarifa tarifa;
         FabricaClientes cliente = new FabricaClientes();
         FabricaTarifas tarifaFabrica = new FabricaTarifas();
         if (apellidos.equals("")) {
             try {
-                tarifa = tarifaFabrica.crearTarifaBásica(precio);
+               Tarifa tarifa = tarifaFabrica.crearTarifaBásica(precio);
                 modelo.darAltaCliente(cliente.crearEmpresa(nombre, nif, direccion, email, fecha, tarifa));
             } catch (ExcecpcionClienteYaExiste e) {
                 e.printStackTrace();
             }
         }else {
             try {
-                tarifa = tarifaFabrica.crearTarifaBásica(precio);
+                Tarifa tarifa = tarifaFabrica.crearTarifaBásica(precio);
                 modelo.darAltaCliente(cliente.crearParticular(nombre, apellidos, nif, direccion, email, fecha, tarifa));
             }catch (ExcecpcionClienteYaExiste e) {
                 e.printStackTrace();
@@ -107,12 +106,47 @@ public class Controlador implements InterfazControlador {
         }
     }
 
+
+
+    @Override
+    public void nuevaTarifaDiaria() {
+        try {
+            String nif = vista.getNIF();
+            String dia = vista.getDiaDeLaSemana();
+            float precio = vista.getPrecioTDiaria();
+            Tarifa preTarifaCliente = modelo.buscarCliente(nif).getTarifa();
+            FabricaTarifas tarifaFabrica = new FabricaTarifas();
+            preTarifaCliente = tarifaFabrica.crearTarifaPorDías(preTarifaCliente, precio, dia);
+            modelo.cambiarTarifa(nif, preTarifaCliente);
+        }catch (ExcepcionClienteNoExiste e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void nuevaTarifaBasica() {
+        try {
+            String nif = vista.getNIF();
+            float precio = vista.getPrecioTDiaria();
+            FabricaTarifas tarifaFabrica = new FabricaTarifas();
+            Tarifa tarifa = tarifaFabrica.crearTarifaBásica(precio);
+            modelo.cambiarTarifa(nif, tarifa);
+        }catch (ExcepcionClienteNoExiste e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void nuevaLlamada() {
         try {
             String nif = vista.getNIF();
             String telefono = vista.getTelefono();
-            Calendar fechaLlamada = new Calendar.Builder().setDate(vista.getAnyo(), vista.getMes(), vista.getDia()).setTimeOfDay(vista.getHora(), vista.getMinuto(), 0).build();
+            int año = vista.getAnyo();
+            int mes = vista.getMes();
+            int dia = vista.getDia();
+            int hora = vista.getHora();
+            int minuto = vista.getMinuto();
+            Calendar fechaLlamada = new Calendar.Builder().setDate(año, mes, dia).setTimeOfDay(hora,minuto, 0).build();
             int duracion = vista.getDuracionLlamada();
             Llamadas llamada = new Llamadas(telefono, fechaLlamada, duracion);
             modelo.darAltaLlamada(llamada, nif);

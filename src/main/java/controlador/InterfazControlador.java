@@ -21,6 +21,10 @@ public interface InterfazControlador {
 
     void datosFacturaTXT();
 
+    void nuevaTarifaDiaria();
+
+    void nuevaTarifaBasica();
+
 
 
 

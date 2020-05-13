@@ -31,7 +31,7 @@ public class GestorClientes implements Serializable, GestorModelo {
             throw new ExcecpcionClienteYaExiste();
         }
         listaClientes.add(cliente);
-        descriptor = "El cliente ha sido añadido";
+        descriptor = "El cliente ha sido añadido\n\n";
         vista.getDescripcion();
         return true;
     }
@@ -50,6 +50,8 @@ public class GestorClientes implements Serializable, GestorModelo {
         if(cliente == null ) {
            throw new ExcepcionClienteNoExiste();
         }
+        descriptor = "El cliente ha sido borrado.\n\n";
+        vista.getDescripcion();
         return listaClientes.remove(cliente);
     }
 
@@ -59,6 +61,8 @@ public class GestorClientes implements Serializable, GestorModelo {
             throw new ExcepcionClienteNoExiste();
         }
         cliente.setTarifa(tarifa);
+        descriptor = "Tarifa añadida.\n\n";
+        vista.getDescripcion();
         return true;
     }
 
@@ -71,7 +75,7 @@ public class GestorClientes implements Serializable, GestorModelo {
     }
 
     public void datosClienteTXT(String nif) throws ExcepcionClienteNoExiste {
-        descriptor = MostrarDatos.mostrarDatosCliente(recuperarDatosClientes(nif));
+        descriptor = MostrarDatos.mostrarDatosCliente(recuperarDatosClientes(nif))+"\n\n";
         vista.getDescripcion();
     }
 
