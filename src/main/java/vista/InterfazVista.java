@@ -24,8 +24,4 @@ public interface InterfazVista {
     float getPrecioTDiaria();
     void getDescripcion();
     String getDiaSemana();
-
-    void creaGUI();
-
-
 }

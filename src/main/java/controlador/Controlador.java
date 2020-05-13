@@ -169,18 +169,4 @@ public class Controlador implements InterfazControlador {
         }
     }
 
-    public void nuevaTarifaDias(){
-        String nif = vista.getNIF();
-        float precio = vista.getPrecio();
-        String dia = vista.getDiaSemana();
-        Tarifa tarifa;
-        FabricaTarifas fabrica = new FabricaTarifas();
-
-    }
-
-    @Override
-    public void nuevaTarifaHoras() {
-
-    }
-
 }

@@ -23,7 +23,6 @@ public class ProgramaPrincipalSwing {
                 controlador.setVista(vista);
                 vista.setModelo(modelo);
                 vista.setControlador(controlador);
-                vista.creaGUI();
             }
         });
     }
