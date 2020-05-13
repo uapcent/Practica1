@@ -28,6 +28,7 @@ public class Vista implements InterfazVista {
     private JTextField jtfDia;
     private JTextField jtfMes;
     private JTextField jtfAnyo;
+    private JTextField jtfDiaSemana;
     private JTextField jtfTelefono;
     private JTextField jtfDuracion;
     private  JTextField jtfDiaFin;
@@ -50,7 +51,7 @@ public class Vista implements InterfazVista {
         this.modelo = modelo;
     }
 
-    private void pestanyas() {
+    private void pestanyasCliente() {
         JFrame ventana = new JFrame("Aplicación telefonía");
         JTabbedPane pestanyas = new JTabbedPane();
         pestanyas.add("Añadir cliente", panelAñadirCliente());
@@ -79,6 +80,34 @@ public class Vista implements InterfazVista {
         ventana.setVisible(true);
     }
 
+    private void pestanyas() {
+        JFrame ventana = new JFrame("Aplicación telefonía");
+        JTabbedPane pestanyas = new JTabbedPane();
+        pestanyas.add("Añadir cliente", panelAñadirCliente());
+        pestanyas.add("Borrar cliente", panelBorrarCliente());
+        pestanyas.add("Datos cliente", panelDatosDeUnCliente());
+        //pestanyas.add("Lista clientes", panelListaClientes());
+        pestanyas.add("Añadir lLamada", panelAñadirLlamada());
+        pestanyas.add("Lista llamadas", panelListaLlamadasCliente());
+        pestanyas.add("Emitir Factura", panelEmitirFactura());
+        pestanyas.add("Datos factura", panelDatosDeUnaFactura());
+        pestanyas.add("Lista facturas", panelListaFacturas());
+        pestanyas.add("Añadir tarifa dias", panelAñadirTarifaDias());
+        pestanyas.add("Añadir tarifa horas", panelAñadirTarifaHoras());
+        JButton jbLimpiarInfo = new JButton("Limpia");
+        jbLimpiarInfo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jtaInfo.setText("");
+            }
+        });
+        ventana.getContentPane().add(pestanyas, BorderLayout.NORTH);
+        ventana.getContentPane().add(jbLimpiarInfo, BorderLayout.EAST);
+        ventana.getContentPane().add(panelInformacion());
+        ventana.pack();
+        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana.setVisible(true);
+    }
 
 
     //Panel Añadir cliente
@@ -120,7 +149,6 @@ public class Vista implements InterfazVista {
         jpAnyadirCliente.add(jbNuevoCliente);
         return jpAnyadirCliente;
     }
-
 
     private JPanel panelBorrarCliente() {
         jtfNif = new JTextField(10);
@@ -285,6 +313,53 @@ public class Vista implements InterfazVista {
         jpListaFacturas.add(jtfNif);
         jpListaFacturas.add(jbListaFacturas);
         return jpListaFacturas;
+    }
+
+    private JPanel panelAñadirTarifaDias(){
+        jtfNif = new JTextField(10);
+        jtfPrecioTarifa = new JTextField(10);
+        jtfDiaSemana = new JTextField(10);
+        JButton jbNuevaTarifaDias = new JButton("Nueva tarifa dias");
+        jbNuevaTarifaDias.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controlador.nuevaTarifaDias();
+            }
+        });
+
+        JPanel jpAnyadirTarifaDias = new JPanel();
+        jpAnyadirTarifaDias.add(new JLabel("Nif cliente: "));
+        jpAnyadirTarifaDias.add(jtfNif);
+        jpAnyadirTarifaDias.add(new JLabel("Dia: "));
+        jpAnyadirTarifaDias.add(jtfDiaSemana);
+        jpAnyadirTarifaDias.add(new JLabel("Precio de Tarifa: "));
+        jpAnyadirTarifaDias.add(jtfPrecioTarifa);
+        jpAnyadirTarifaDias.add(jbNuevaTarifaDias);
+
+        return jpAnyadirTarifaDias;
+    }
+
+    private JPanel panelAñadirTarifaHoras(){
+        jtfNif = new JTextField(10);
+        jtfPrecioTarifa = new JTextField(10);
+        JButton jbNuevaTarifaHoras = new JButton("Nueva tarifa horas");
+        jbNuevaTarifaHoras.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controlador.nuevaTarifaHoras();
+            }
+        });
+
+        JPanel jpAnyadirTarifaHoras = new JPanel();
+        jpAnyadirTarifaHoras.add(new JLabel("Nif cliente: "));
+        jpAnyadirTarifaHoras.add(jtfNif);
+        jpAnyadirTarifaHoras.add(new JLabel("Hora: "));
+        jpAnyadirTarifaHoras.add(jtfHora);
+        jpAnyadirTarifaHoras.add(new JLabel("Precio de Tarifa: "));
+        jpAnyadirTarifaHoras.add(jtfPrecioTarifa);
+        jpAnyadirTarifaHoras.add(jbNuevaTarifaHoras);
+
+        return jpAnyadirTarifaHoras;
     }
 
     private JScrollPane panelInformacion() {
@@ -466,5 +541,43 @@ public class Vista implements InterfazVista {
     public void getDescripcion() {
         jtaInfo.append(modelo.getDescriptor() + "\n");
 
+    }
+
+    @Override
+    public String getDiaSemana() {
+        return jtfDiaSemana.getText();
+    }
+
+    @Override
+    public void creaGUI() {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() { GUI(); }
+        });
+    }
+
+    private void GUI() {
+        JFrame ventana = new JFrame("Modelo/Vista/Controlador");    //Creamos ventana
+        Container contenedor = ventana.getContentPane();
+        Escuchador escuchador = new Escuchador();
+        JButton jbNuevo = new JButton("Nuevo");
+        jbNuevo.addActionListener(escuchador);
+    }
+
+    class Escuchador implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            int i = 0;
+            JButton boton = (JButton)e.getSource();
+            String texto = boton.getText();
+            if(texto.equals("Nuevo"))
+                //controlador.atras();
+                i=1;
+            else if(texto.equals("Atras"))
+                //controlador.atras();
+                i=2;
+            else if(texto.equals("Adelante"))
+                //controlador.adelante();
+                i=3;
+        }
     }
 }
