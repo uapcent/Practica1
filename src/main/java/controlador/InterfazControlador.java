@@ -7,6 +7,7 @@ import modelo.excepciones.ExcepcionIntervaloFechas;
 import java.util.List;
 
 public interface InterfazControlador {
+
     void nuevoCliente();
 
     void borrarCliente();

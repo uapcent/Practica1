@@ -15,12 +15,14 @@ import java.io.*;
 import java.util.*;
 
 public class GestorClientes implements Serializable, GestorModelo {
-    private List<Cliente> listaClientes = new LinkedList<Cliente>();
+    private LinkedList<Cliente> listaClientes;
     private InterfazVista vista;
     private String descriptor;
 
 
-    public GestorClientes(){}
+    public GestorClientes(){
+        this.listaClientes = new LinkedList<>();
+    }
 
     public  void setVista(InterfazVista vista) {
         this.vista = vista;
@@ -31,19 +33,21 @@ public class GestorClientes implements Serializable, GestorModelo {
         if(aux != null) {
             throw new ExcecpcionClienteYaExiste();
         }
-        listaClientes.add(cliente);
+        this.listaClientes.add(cliente);
+        System.out.println("La lista tiene " + this.listaClientes.size() + " clientes.");
         descriptor = "El cliente ha sido añadido\n\n";
         vista.getDescripcion();
         return true;
     }
 
-    public Cliente buscarCliente(String nif){
-        for(Cliente cliente : listaClientes) {
-            if(cliente.getNif().equals(nif)) {
-                return cliente;
+    public Cliente buscarCliente(String nif) {
+            for (Cliente cliente : listaClientes) {
+                System.out.println(cliente.getNif());
+                if (cliente.getNif().equals(nif)) {
+                    return cliente;
+                }
             }
-        }
-        return null;
+            return null;
     }
 
     public boolean borrar(String nif) throws ExcepcionClienteNoExiste {
@@ -76,6 +80,7 @@ public class GestorClientes implements Serializable, GestorModelo {
     }
 
     public void datosClienteTXT(String nif) throws ExcepcionClienteNoExiste {
+        System.out.println(nif);
         descriptor = MostrarDatos.mostrarDatosCliente(recuperarDatosClientes(nif))+"\n\n";
         vista.getDescripcion();
     }
@@ -170,14 +175,6 @@ public class GestorClientes implements Serializable, GestorModelo {
         vista.getDescripcion();
     }
 
-    public void cambiarTarifa(String nif, int precio) throws ExcepcionClienteNoExiste {
-        Cliente cliente = buscarCliente(nif);
-        //TarifaPorDia tarifa = new Tarifa();
-        if(cliente == null ) {
-            throw new ExcepcionClienteNoExiste();
-        }
-        //cliente.setTarifa(precio);
-    }
 
     //Crea una lista filtrada según las fechas. Clase genérica, sirve para varios métodos
     public < T extends Fecha> Collection  muestra (Collection<T> conjunto, Calendar inicio, Calendar fin) throws ExcepcionIntervaloFechas {

@@ -2,8 +2,6 @@ package vista;
 
 import controlador.InterfazControlador;
 import modelo.GestorModelo;
-import modelo.clientes.Cliente;
-import modelo.excepciones.ExcepcionClienteNoExiste;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,29 +12,59 @@ public class Vista implements InterfazVista {
     private InterfazControlador controlador;
     private GestorModelo modelo;
     private Container container;
+
+    //Atributos para añadir cliente
     private JTextField jtfNombre;
     private JTextField jtfApellidos;
-    private JTextField jtfNif;
+    private JTextField jtfNifAñadirCliente;
     private JTextField jtfEmail;
     private JTextField jtfPoblacion;
     private JTextField jtfProvincia;
     private JTextField jtfCodigoPostal;
     private JTextField jtfPrecioTarifa;
-    private JTextField jtfCodigoFactura;
-    private JTextField jtfMinuto;
-    private JTextField jtfHora;
-    private JTextField jtfDia;
-    private JTextField jtfMes;
-    private JTextField jtfAnyo;
-    private JTextField jtfDiaSemana;
+
+    //Atributos para Borrar Cliente
+    private JTextField jtfNifBorrar;
+
+    //Atributos para obtener datos de un cliente
+    private JTextField jtfNifCliDat;
+
+
+    //Atributos añadir llamada
+    private JTextField jtfNifLlam;
+    private JTextField jtfMinutoLlam;
+    private JTextField jtfHoraLlam;
+    private JTextField jtfDiaLlam;
+    private JTextField jtfMesLlam;
+    private JTextField jtfAnyoLlam;
     private JTextField jtfTelefono;
     private JTextField jtfDuracion;
-    private  JTextField jtfDiaFin;
-    private  JTextField jtfMesFin;
-    private  JTextField jtfAnyoFin;
-    private JTextField jtfDiaDeLaSemana;
+
+    //Atributos emitir factura
+    private JTextField jtfNifEFac;
+    private JTextField jtfDiaEFac;
+    private JTextField jtfMesEFac;
+    private JTextField jtfAnyoEfac;
+    private  JTextField jtfDiaFinEfac;
+    private  JTextField jtfMesFinEfac;
+    private  JTextField jtfAnyoFinEfac;
+
+    //Atributos Datos Factura
+    private JTextField jtfNifDatFac;
+    private JTextField jtfCodigoFactura;
+
+    //Atributos Modificar Tarifa Básica
+    private JTextField jtfNifTarBas;
+    private JTextField jtfPrecioTarBas;
+
+    //Atributos Modificar Tarifa Diaria
+    private JTextField jtfNifTarDia;
+    private JTextField jtfDiaTarDia;
+    private JTextField jtfPrecioTarDia;
+
+    //Atributos mostrar informacion
     private JTextArea jtaInfo;
-    private JTextField jtfPrecioTatifaDiaría;
+
 
 
     public Vista() {
@@ -59,10 +87,10 @@ public class Vista implements InterfazVista {
         pestanyas.add("Datos cliente", panelDatosDeUnCliente());
         //pestanyas.add("Lista clientes", panelListaClientes());
         pestanyas.add("Añadir lLamada", panelAñadirLlamada());
-        pestanyas.add("Lista llamadas", panelListaLlamadasCliente());
+       // pestanyas.add("Lista llamadas", panelListaLlamadasCliente());
         //pestanyas.add("Emitir Factura", panelEmitirFactura());
         pestanyas.add("Datos factura", panelDatosDeUnaFactura());
-        pestanyas.add("Lista facturas", panelListaFacturas());
+        //pestanyas.add("Lista facturas", panelListaFacturas());
         pestanyas.add("Tarifa Dias", panelTarifaPorDías());
         pestanyas.add("Tarifa Basica", panelTarifaBásica());
         JButton jbLimpiarInfo = new JButton("Limpia");
@@ -85,7 +113,7 @@ public class Vista implements InterfazVista {
     private JPanel panelAñadirCliente() {
         jtfNombre = new JTextField(10);
         jtfApellidos = new JTextField(10);
-        jtfNif = new JTextField(10);
+        jtfNifAñadirCliente = new JTextField(10);
         jtfEmail = new JTextField(10);
         jtfPoblacion = new JTextField(10);
         jtfProvincia = new JTextField(10);
@@ -106,7 +134,7 @@ public class Vista implements InterfazVista {
         jpAnyadirCliente.add(new JLabel("Apellidos: "));
         jpAnyadirCliente.add(jtfApellidos);
         jpAnyadirCliente.add(new JLabel("NIF: "));
-        jpAnyadirCliente.add(jtfNif);
+        jpAnyadirCliente.add(jtfNifAñadirCliente);
         jpAnyadirCliente.add(new JLabel("E-mail: "));
         jpAnyadirCliente.add(jtfEmail);
         jpAnyadirCliente.add(new JLabel("Población: "));
@@ -122,7 +150,7 @@ public class Vista implements InterfazVista {
     }
 
     private JPanel panelBorrarCliente() {
-        jtfNif = new JTextField(10);
+        jtfNifBorrar = new JTextField(10);
         JButton jbBorrarCliente = new JButton("Borrar cliente");
         jbBorrarCliente.addActionListener(new ActionListener() {
             @Override
@@ -132,13 +160,13 @@ public class Vista implements InterfazVista {
         });
         JPanel  jpBorrarCliente = new JPanel();
         jpBorrarCliente.add(new JLabel("NIF: "));
-        jpBorrarCliente.add(jtfNif);
+        jpBorrarCliente.add(jtfNifBorrar);
         jpBorrarCliente.add(jbBorrarCliente);
         return jpBorrarCliente;
     }
 
     private JPanel panelDatosDeUnCliente() {
-        jtfNif = new JTextField(10);
+        jtfNifCliDat = new JTextField(10);
         JButton jbObtenerDatosCliente = new JButton("Obtener datos del cliente");
         jbObtenerDatosCliente.addActionListener(new ActionListener() {
             @Override
@@ -149,7 +177,7 @@ public class Vista implements InterfazVista {
 
         JPanel jpDatosCliente = new JPanel();
         jpDatosCliente.add(new JLabel("NIF: "));
-        jpDatosCliente.add(jtfNif);
+        jpDatosCliente.add(jtfNifCliDat);
         jpDatosCliente.add(jbObtenerDatosCliente);
         return jpDatosCliente;
     }
@@ -171,13 +199,13 @@ public class Vista implements InterfazVista {
     }
 
     private JPanel panelAñadirLlamada() {
-        jtfNif = new JTextField(10);
+        jtfNifLlam = new JTextField(10);
         jtfTelefono = new JTextField(10);
-        jtfDia = new JTextField(10);
-        jtfMes = new JTextField(10);
-        jtfAnyo = new JTextField(10);
-        jtfHora = new JTextField(10);
-        jtfMinuto = new JTextField(10);
+        jtfDiaLlam = new JTextField(10);
+        jtfMesLlam = new JTextField(10);
+        jtfAnyoLlam = new JTextField(10);
+        jtfHoraLlam = new JTextField(10);
+        jtfMinutoLlam = new JTextField(10);
         jtfDuracion = new JTextField(10);
 
         JButton jbAñadirLlamada = new JButton("Añadir llamada");
@@ -190,44 +218,44 @@ public class Vista implements InterfazVista {
 
         JPanel jpAñadirLlamada = new JPanel();
         jpAñadirLlamada.add(new JLabel("NIF: "));
-        jpAñadirLlamada.add(jtfNif);
+        jpAñadirLlamada.add(jtfNifLlam);
         jpAñadirLlamada.add(new JLabel("Teléfono: "));
         jpAñadirLlamada.add(jtfTelefono);
         jpAñadirLlamada.add(new JLabel("Duracion (en minutos): "));
         jpAñadirLlamada.add(jtfDuracion);
         jpAñadirLlamada.add(new JLabel("Día (0-31): "));
-        jpAñadirLlamada.add(jtfDia);
+        jpAñadirLlamada.add(jtfDiaLlam);
         jpAñadirLlamada.add(new JLabel("Mes (1-12): "));
-        jpAñadirLlamada.add(jtfMes);
+        jpAñadirLlamada.add(jtfMesLlam);
         jpAñadirLlamada.add(new JLabel("Año (Actual o inferior): "));
-        jpAñadirLlamada.add(jtfAnyo);
+        jpAñadirLlamada.add(jtfAnyoLlam);
         jpAñadirLlamada.add(new JLabel("Hora: "));
-        jpAñadirLlamada.add(jtfHora);
+        jpAñadirLlamada.add(jtfHoraLlam);
         jpAñadirLlamada.add(new JLabel("Minuto: "));
-        jpAñadirLlamada.add(jtfMinuto);
+        jpAñadirLlamada.add(jtfMinutoLlam);
         jpAñadirLlamada.add(jbAñadirLlamada);
         return jpAñadirLlamada;
     }
 
 
-    private JPanel panelListaLlamadasCliente() {
-        jtfNif = new JTextField(10);
-        JButton jbListarLlamadas = new JButton("Lista las llamadas");
-        JPanel jpListaLlamadas = new JPanel();
-        jpListaLlamadas.add(new JLabel("NIF: "));
-        jpListaLlamadas.add(jtfNif);
-        jpListaLlamadas.add(jbListarLlamadas);
-        return jpListaLlamadas;
-    }
+//    private JPanel panelListaLlamadasCliente() {
+//        jtfNif = new JTextField(10);
+//        JButton jbListarLlamadas = new JButton("Lista las llamadas");
+//        JPanel jpListaLlamadas = new JPanel();
+//        jpListaLlamadas.add(new JLabel("NIF: "));
+//        jpListaLlamadas.add(jtfNif);
+//        jpListaLlamadas.add(jbListarLlamadas);
+//        return jpListaLlamadas;
+//    }
 
     private JPanel panelEmitirFactura() {
-        jtfNif = new JTextField(10);
-        jtfDia = new JTextField(10);
-        jtfMes = new JTextField(10);
-        jtfAnyo = new JTextField(10);
-        jtfDiaFin = new JTextField(10);
-        jtfMesFin = new JTextField(10);
-        jtfAnyoFin = new JTextField(10);
+        jtfNifEFac = new JTextField(10);
+        jtfDiaEFac = new JTextField(10);
+        jtfMesEFac = new JTextField(10);
+        jtfAnyoEfac = new JTextField(10);
+        jtfDiaFinEfac = new JTextField(10);
+        jtfMesFinEfac = new JTextField(10);
+        jtfAnyoFinEfac = new JTextField(10);
 
         JButton jbEmitirFactura = new JButton("Emite factura");
         jbEmitirFactura.addActionListener(new ActionListener() {
@@ -239,25 +267,25 @@ public class Vista implements InterfazVista {
 
         JPanel jpEmitirFactura = new JPanel();
         jpEmitirFactura.add(new JLabel("NIF: "));
-        jpEmitirFactura.add(jtfNif);
+        jpEmitirFactura.add(jtfNifEFac);
         jpEmitirFactura.add(new JLabel("Dia inicial: "));
-        jpEmitirFactura.add(jtfDia);
+        jpEmitirFactura.add(jtfDiaEFac);
         jpEmitirFactura.add(new JLabel("Mes inicial: "));
-        jpEmitirFactura.add(jtfMes);
+        jpEmitirFactura.add(jtfMesEFac);
         jpEmitirFactura.add(new JLabel("Año inicial: "));
-        jpEmitirFactura.add(jtfAnyo);
+        jpEmitirFactura.add(jtfAnyoEfac);
         jpEmitirFactura.add(new JLabel("Dia final: "));
-        jpEmitirFactura.add(jtfDiaFin);
+        jpEmitirFactura.add(jtfDiaFinEfac);
         jpEmitirFactura.add(new JLabel("Mes final: "));
-        jpEmitirFactura.add(jtfMesFin);
+        jpEmitirFactura.add(jtfMesFinEfac);
         jpEmitirFactura.add(new JLabel("Año final: "));
-        jpEmitirFactura.add(jtfAnyoFin);
+        jpEmitirFactura.add(jtfAnyoFinEfac);
         jpEmitirFactura.add(jbEmitirFactura);
         return jpEmitirFactura;
     }
 
     private JPanel panelDatosDeUnaFactura() {
-        jtfNif = new JTextField(10);
+        jtfNifDatFac = new JTextField(10);
         jtfCodigoFactura = new JTextField(10);
         JButton jbObtenerDatosCliente = new JButton("Obtener datos factura");
         jbObtenerDatosCliente.addActionListener(new ActionListener() {
@@ -269,22 +297,22 @@ public class Vista implements InterfazVista {
 
         JPanel jpDatosFactura = new JPanel();
         jpDatosFactura.add(new JLabel("NIF: "));
-        jpDatosFactura.add(jtfNif);
+        jpDatosFactura.add(jtfNifDatFac);
         jpDatosFactura.add(new JLabel("Codigo factura: "));
         jpDatosFactura.add(jtfCodigoFactura);
         jpDatosFactura.add(jbObtenerDatosCliente);
         return jpDatosFactura;
     }
 
-    private JPanel panelListaFacturas() {
-        jtfNif = new JTextField(10);
-        JButton jbListaFacturas = new JButton("Lista las facturas");
-        JPanel jpListaFacturas = new JPanel();
-        jpListaFacturas.add(new JLabel("NIF: "));
-        jpListaFacturas.add(jtfNif);
-        jpListaFacturas.add(jbListaFacturas);
-        return jpListaFacturas;
-    }
+//    private JPanel panelListaFacturas() {
+//        jtfNif = new JTextField(10);
+//        JButton jbListaFacturas = new JButton("Lista las facturas");
+//        JPanel jpListaFacturas = new JPanel();
+//        jpListaFacturas.add(new JLabel("NIF: "));
+//        jpListaFacturas.add(jtfNif);
+//        jpListaFacturas.add(jbListaFacturas);
+//        return jpListaFacturas;
+//    }
 
 
     private JScrollPane panelInformacion() {
@@ -297,9 +325,9 @@ public class Vista implements InterfazVista {
     }
 
     private JPanel panelTarifaPorDías() {
-        jtfNif = new JTextField(10);
-        jtfDiaDeLaSemana = new JTextField(10);
-        jtfPrecioTatifaDiaría = new JTextField(10);
+        jtfNifTarDia = new JTextField(10);
+        jtfDiaTarDia = new JTextField(10);
+        jtfPrecioTarDia = new JTextField(10);
         JButton jbTarifaDias = new JButton("Modificar tarifa");
         jbTarifaDias.addActionListener(new ActionListener() {
             @Override
@@ -310,19 +338,19 @@ public class Vista implements InterfazVista {
 
         JPanel jpTarifaDias =  new JPanel();
         jpTarifaDias.add(new JLabel("NIF: "));
-        jpTarifaDias.add(jtfNif);
+        jpTarifaDias.add(jtfNifTarDia);
         jpTarifaDias.add(new JLabel("Dia (en letra): "));
-        jpTarifaDias.add(jtfDiaDeLaSemana);
+        jpTarifaDias.add(jtfDiaTarDia);
         jpTarifaDias.add(new JLabel ("Precio Tarifa Diaría: "));
-        jpTarifaDias.add(jtfPrecioTatifaDiaría);
+        jpTarifaDias.add(jtfPrecioTarDia);
         jpTarifaDias.add(jbTarifaDias);
         return jpTarifaDias;
 
     }
 
     private JPanel panelTarifaBásica() {
-        jtfNif = new JTextField(10);
-        jtfPrecioTatifaDiaría = new JTextField(10);
+        jtfNifTarBas = new JTextField(10);
+        jtfPrecioTarBas = new JTextField(10);
         JButton jbTarifaBasica = new JButton("Modificar Tarifa");
         jbTarifaBasica.addActionListener(new ActionListener() {
             @Override
@@ -333,9 +361,9 @@ public class Vista implements InterfazVista {
 
         JPanel jpTarifaBasica = new JPanel();
         jpTarifaBasica.add(new JLabel("NIF: "));
-        jpTarifaBasica.add(jtfNif);
+        jpTarifaBasica.add(jtfNifTarBas);
         jpTarifaBasica.add(new JLabel("Precio Tarifa: "));
-        jpTarifaBasica.add(jtfPrecioTatifaDiaría);
+        jpTarifaBasica.add(jtfPrecioTarBas);
         jpTarifaBasica.add(jbTarifaBasica);
         return jpTarifaBasica;
     }
@@ -354,8 +382,8 @@ public class Vista implements InterfazVista {
     }
 
     @Override
-    public String getNIF() {
-        return jtfNif.getText();
+    public String getNIFAñadirCliente() {
+        return jtfNifAñadirCliente.getText();
     }
 
     @Override
@@ -386,39 +414,18 @@ public class Vista implements InterfazVista {
     }
 
     @Override
-    public int getCodigoFactura() {
-        int numero = Integer.parseInt(jtfCodigoFactura.getText());
-        return numero;
+    public String getNIFBorrar() {
+        return jtfNifBorrar.getText();
     }
 
     @Override
-    public int getMinuto() {
-        int numero = Integer.parseInt(jtfMinuto.getText());
-        return numero;
+    public String getNifDatosCliente() {
+        return jtfNifCliDat.getText();
     }
 
     @Override
-    public int getHora() {
-        int numero = Integer.parseInt(jtfHora.getText());
-        return numero;
-    }
-
-    @Override
-    public int getDia() {
-        int numero = Integer.parseInt(jtfDia.getText());
-        return numero;
-    }
-
-    @Override
-    public int getMes() {
-        int numero = Integer.parseInt(jtfMes.getText());
-        return numero;
-    }
-
-    @Override
-    public int getAnyo() {
-        int numero = Integer.parseInt(jtfAnyo.getText());
-        return numero;
+    public String getNifLlamada() {
+        return jtfNifLlam.getText();
     }
 
     @Override
@@ -427,37 +434,116 @@ public class Vista implements InterfazVista {
     }
 
     @Override
+    public int getMinutoLlamada() {
+        int minuto = Integer.parseInt(jtfMinutoLlam.getText());
+        return minuto;
+    }
+
+    @Override
+    public int getHoraLlamada() {
+        int hora = Integer.parseInt(jtfHoraLlam.getText());
+        return hora;
+    }
+
+    @Override
+    public int getDiaLlamada() {
+        int dia = Integer.parseInt(jtfDiaLlam.getText());
+        return dia;
+    }
+
+    @Override
+    public int getMesLlamada() {
+        int mes = Integer.parseInt(jtfMesLlam.getText());
+        return mes;
+    }
+
+    @Override
+    public int getAnyoLlamada() {
+        int anyo = Integer.parseInt(jtfAnyoLlam.getText());
+        return anyo;
+    }
+
+    @Override
     public int getDuracionLlamada() {
-        int numero = Integer.parseInt(jtfDuracion.getText());
+        int duracion = Integer.parseInt(jtfDuracion.getText());
+        return duracion;
+    }
+
+    @Override
+    public String getNifEmitFactura() {
+        return jtfNifEFac.getText();
+    }
+
+    @Override
+    public int getDiaIniEmitFactura() {
+        int dia = Integer.parseInt(jtfDiaEFac.getText());
+        return dia;
+    }
+
+    @Override
+    public int getMesIniEmitFactura() {
+        int mes = Integer.parseInt(jtfMesEFac.getText());
+        return mes;    }
+
+    @Override
+    public int getAnyoIniEmitFactura() {
+        int anyo = Integer.parseInt(jtfAnyoEfac.getText());
+        return anyo;
+    }
+
+    @Override
+    public int getDiaFinEmitFactura() {
+        int dia = Integer.parseInt(jtfDiaFinEfac.getText());
+        return dia;
+    }
+
+    @Override
+    public int getMesFinEmitFactura() {
+        int mes = Integer.parseInt(jtfMesFinEfac.getText());
+        return mes;
+    }
+
+    @Override
+    public int getAnyoFinEmitFactura() {
+        int anyo = Integer.parseInt(jtfAnyoFinEfac.getText());
+        return anyo;
+    }
+
+    @Override
+    public String getNifDatosFactura() {
+        return jtfNifDatFac.getText();
+    }
+
+    @Override
+    public int getCodigoFactura() {
+        int numero = Integer.parseInt(jtfCodigoFactura.getText());
         return numero;
     }
 
     @Override
-    public int getDiaFinal() {
-        int numero = Integer.parseInt(jtfDiaFin.getText());
+    public String getNifTarBas() {
+        return jtfNifTarBas.getText();
+    }
+
+    @Override
+    public float getPrecioTarBas() {
+        float numero = Float.parseFloat(jtfPrecioTarBas.getText());
         return numero;
     }
 
     @Override
-    public int getMesFinal() {
-        int numero = Integer.parseInt(jtfMesFin.getText());
-        return numero;
+    public String getNifTarDia() {
+        return jtfNifTarDia.getText();
     }
 
     @Override
-    public int getAnyoFinal() {
-        int numero = Integer.parseInt(jtfAnyoFin.getText());
-        return numero;
+    public String getDiaTarDia() {
+        return jtfDiaTarDia.getText();
     }
 
     @Override
-    public String getDiaDeLaSemana() {
-        return jtfDiaDeLaSemana.getText();
-    }
-
-    @Override
-    public float getPrecioTDiaria() {
-        float numero = Float.parseFloat(jtfPrecioTatifaDiaría.getText());
+    public float getPrecioTarDia() {
+        float numero = Float.parseFloat(jtfPrecioTarDia.getText());
         return numero;
     }
 
@@ -466,11 +552,6 @@ public class Vista implements InterfazVista {
     public void getDescripcion() {
         jtaInfo.append(modelo.getDescriptor() + "\n");
 
-    }
-
-    @Override
-    public String getDiaSemana() {
-        return jtfDiaSemana.getText();
     }
 
 }
