@@ -78,15 +78,23 @@ public class Controlador implements InterfazControlador {
         modelo.listaClientesTXT();
     }
 
-    public void listarLlamadasClientesTXT() throws ExcepcionClienteNoExiste {
-        String nif = vista.getNifLlamada();
-        modelo.listaLlamadasTXT(nif);
+    public void listarLlamadasClientesTXT() {
+        try {
+            String nif = vista.getNifListaLlamadas();
+            modelo.listaLlamadasTXT(nif);
+        }catch (ExcepcionClienteNoExiste e) {
+            e.printStackTrace();
+        }
     }
 
-//    public void listaFacturasClientesTXT() throws ExcepcionClienteNoExiste {
-//        String nif = vista.getNIF();
-//        modelo.listaFacturasTXT(nif);
-//    }
+    public void listarFacturasClientesTXT() {
+        try {
+            String nif = vista.getNifListaFacturas();
+            modelo.listaFacturasTXT(nif);
+        }catch (ExcepcionClienteNoExiste e) {
+            e.printStackTrace();
+        }
+    }
 
     public void datosClienteTXT() {
         try {
@@ -124,6 +132,8 @@ public class Controlador implements InterfazControlador {
         }
     }
 
+
+
     @Override
     public void nuevaTarifaBasica() {
         try {
@@ -136,6 +146,23 @@ public class Controlador implements InterfazControlador {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void nuevaTarifaProHoras() {
+        try {
+            String nif = vista.getNifTarHor();
+            int horaIni = vista.getHoraIniTarHor();
+            int horaFin = vista.getHoraFinTarHor();
+            float precio = vista.getPrecioTarHora();
+            Tarifa preTarifaCliente = modelo.buscarCliente(nif).getTarifa();
+            FabricaTarifas tarifaFabrica = new FabricaTarifas();
+            preTarifaCliente = tarifaFabrica.crearTarifaPorHoras(preTarifaCliente, precio, horaIni, horaFin);
+            modelo.cambiarTarifa(nif, preTarifaCliente);
+        }catch (ExcepcionClienteNoExiste e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public void nuevaLlamada() {

@@ -40,6 +40,9 @@ public class Vista implements InterfazVista {
     private JTextField jtfTelefono;
     private JTextField jtfDuracion;
 
+    //Atributos para listar las llamadas de un cliente
+    private JTextField jtfNifListaLlamadas;
+
     //Atributos emitir factura
     private JTextField jtfNifEFac;
     private JTextField jtfDiaEFac;
@@ -53,6 +56,9 @@ public class Vista implements InterfazVista {
     private JTextField jtfNifDatFac;
     private JTextField jtfCodigoFactura;
 
+    //Atributos para listar la lista de facturas de un cliente.
+    private JTextField jtfNifListaFacturas;
+
     //Atributos Modificar Tarifa Básica
     private JTextField jtfNifTarBas;
     private JTextField jtfPrecioTarBas;
@@ -61,6 +67,13 @@ public class Vista implements InterfazVista {
     private JTextField jtfNifTarDia;
     private JTextField jtfDiaTarDia;
     private JTextField jtfPrecioTarDia;
+
+    //Atributos para modificar Tarifa por Horas.
+    private JTextField jtfNifTarHora;
+    private JTextField jtfHoraIniTarHora;
+    private JTextField jtfHoraFinTarHora;
+    private JTextField jtfPrecioTarHora;
+
 
     //Atributos mostrar informacion
     private JTextArea jtaInfo;
@@ -85,14 +98,15 @@ public class Vista implements InterfazVista {
         pestanyas.add("Añadir cliente", panelAñadirCliente());
         pestanyas.add("Borrar cliente", panelBorrarCliente());
         pestanyas.add("Datos cliente", panelDatosDeUnCliente());
-        //pestanyas.add("Lista clientes", panelListaClientes());
+        pestanyas.add("Lista clientes", panelListadoClientes());
         pestanyas.add("Añadir lLamada", panelAñadirLlamada());
-       // pestanyas.add("Lista llamadas", panelListaLlamadasCliente());
-        //pestanyas.add("Emitir Factura", panelEmitirFactura());
+        pestanyas.add("Lista llamadas", panelListaLlamadasCliente());
+        pestanyas.add("Emitir Factura", panelEmitirFactura());
         pestanyas.add("Datos factura", panelDatosDeUnaFactura());
-        //pestanyas.add("Lista facturas", panelListaFacturas());
+        pestanyas.add("Lista facturas", panelListaFacturas());
         pestanyas.add("Tarifa Dias", panelTarifaPorDías());
         pestanyas.add("Tarifa Basica", panelTarifaBásica());
+        pestanyas.add("Tarifa por Horas", panelTarifaPorHoras());
         JButton jbLimpiarInfo = new JButton("Limpia");
         jbLimpiarInfo.addActionListener(new ActionListener() {
             @Override
@@ -182,21 +196,35 @@ public class Vista implements InterfazVista {
         return jpDatosCliente;
     }
 
-    private JPanel panelListaClientes() {
-        ModeloTablaClientes modeloTablaClientes = new ModeloTablaClientes(modelo.devolverLista());
-        TablaClientes tablaClientes = new TablaClientes(modeloTablaClientes);
-        JButton jbActualizarTabla = new JButton("Actualiza la tabla");
-        jbActualizarTabla.addActionListener(new ActionListener() {
+//    private JPanel panelListaClientes() {
+//        ModeloTablaClientes modeloTablaClientes = new ModeloTablaClientes(modelo.devolverLista());
+//        TablaClientes tablaClientes = new TablaClientes(modeloTablaClientes);
+//        JButton jbActualizarTabla = new JButton("Actualiza la tabla");
+//        jbActualizarTabla.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//              tablaClientes.setModel(new ModeloTablaClientes(modelo.devolverLista()));
+//            }
+//        });
+//        JPanel jpListaClientes = new JPanel();
+//        jpListaClientes.add(tablaClientes);
+//        jpListaClientes.add(jbActualizarTabla);
+//        return  jpListaClientes;
+//    }
+
+    private JPanel panelListadoClientes() {
+        JButton jbListarClientes = new JButton("Lista de clientes");
+        jbListarClientes.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              tablaClientes.setModel(new ModeloTablaClientes(modelo.devolverLista()));
+                controlador.listarClientesTXT();
             }
         });
-        JPanel jpListaClientes = new JPanel();
-        jpListaClientes.add(tablaClientes);
-        jpListaClientes.add(jbActualizarTabla);
-        return  jpListaClientes;
+        JPanel jpListarClientes = new JPanel();
+        jpListarClientes.add(jbListarClientes);
+        return jpListarClientes;
     }
+
 
     private JPanel panelAñadirLlamada() {
         jtfNifLlam = new JTextField(10);
@@ -238,15 +266,21 @@ public class Vista implements InterfazVista {
     }
 
 
-//    private JPanel panelListaLlamadasCliente() {
-//        jtfNif = new JTextField(10);
-//        JButton jbListarLlamadas = new JButton("Lista las llamadas");
-//        JPanel jpListaLlamadas = new JPanel();
-//        jpListaLlamadas.add(new JLabel("NIF: "));
-//        jpListaLlamadas.add(jtfNif);
-//        jpListaLlamadas.add(jbListarLlamadas);
-//        return jpListaLlamadas;
-//    }
+    private JPanel panelListaLlamadasCliente() {
+        jtfNifListaLlamadas = new JTextField(10);
+        JButton jbListarLlamadas = new JButton("Lista las llamadas");
+        jbListarLlamadas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controlador.listarLlamadasClientesTXT();
+            }
+        });
+        JPanel jpListaLlamadas = new JPanel();
+        jpListaLlamadas.add(new JLabel("NIF: "));
+        jpListaLlamadas.add(jtfNifListaLlamadas);
+        jpListaLlamadas.add(jbListarLlamadas);
+        return jpListaLlamadas;
+    }
 
     private JPanel panelEmitirFactura() {
         jtfNifEFac = new JTextField(10);
@@ -304,15 +338,21 @@ public class Vista implements InterfazVista {
         return jpDatosFactura;
     }
 
-//    private JPanel panelListaFacturas() {
-//        jtfNif = new JTextField(10);
-//        JButton jbListaFacturas = new JButton("Lista las facturas");
-//        JPanel jpListaFacturas = new JPanel();
-//        jpListaFacturas.add(new JLabel("NIF: "));
-//        jpListaFacturas.add(jtfNif);
-//        jpListaFacturas.add(jbListaFacturas);
-//        return jpListaFacturas;
-//    }
+private JPanel panelListaFacturas() {
+        jtfNifListaFacturas = new JTextField(10);
+        JButton jbListaFacturas = new JButton("Lista las facturas");
+        jbListaFacturas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controlador.listarFacturasClientesTXT();
+            }
+        });
+        JPanel jpListaFacturas = new JPanel();
+        jpListaFacturas.add(new JLabel("NIF: "));
+        jpListaFacturas.add(jtfNifListaFacturas);
+        jpListaFacturas.add(jbListaFacturas);
+        return jpListaFacturas;
+    }
 
 
     private JScrollPane panelInformacion() {
@@ -366,6 +406,32 @@ public class Vista implements InterfazVista {
         jpTarifaBasica.add(jtfPrecioTarBas);
         jpTarifaBasica.add(jbTarifaBasica);
         return jpTarifaBasica;
+    }
+
+    private JPanel panelTarifaPorHoras() {
+        jtfNifTarHora = new JTextField(10);
+        jtfHoraIniTarHora = new JTextField(10);
+        jtfHoraFinTarHora = new JTextField(10);
+        jtfPrecioTarHora = new JTextField(10);
+        JButton jbTarifaPorHoras = new JButton("Modificar Tarifa");
+        jbTarifaPorHoras.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controlador.nuevaTarifaProHoras();
+            }
+        });
+
+        JPanel jpTarifaPorHoras = new JPanel();
+        jpTarifaPorHoras.add(new JLabel("NIF: "));
+        jpTarifaPorHoras.add(jtfNifTarHora);
+        jpTarifaPorHoras.add(new JLabel("Hora inicial: "));
+        jpTarifaPorHoras.add(jtfHoraIniTarHora);
+        jpTarifaPorHoras.add(new JLabel("Hora final: "));
+        jpTarifaPorHoras.add(jtfHoraFinTarHora);
+        jpTarifaPorHoras.add(new JLabel("Precio Tarifa: "));
+        jpTarifaPorHoras.add(jtfPrecioTarHora);
+        jpTarifaPorHoras.add(jbTarifaPorHoras);
+        return jpTarifaPorHoras;
     }
 
 
@@ -470,6 +536,11 @@ public class Vista implements InterfazVista {
     }
 
     @Override
+    public String getNifListaLlamadas() {
+        return jtfNifListaLlamadas.getText();
+    }
+
+    @Override
     public String getNifEmitFactura() {
         return jtfNifEFac.getText();
     }
@@ -510,6 +581,11 @@ public class Vista implements InterfazVista {
     }
 
     @Override
+    public String getNifListaFacturas() {
+        return jtfNifListaFacturas.getText();
+    }
+
+    @Override
     public String getNifDatosFactura() {
         return jtfNifDatFac.getText();
     }
@@ -545,6 +621,29 @@ public class Vista implements InterfazVista {
     public float getPrecioTarDia() {
         float numero = Float.parseFloat(jtfPrecioTarDia.getText());
         return numero;
+    }
+
+    @Override
+    public String getNifTarHor() {
+        return jtfNifTarHora.getText();
+    }
+
+    @Override
+    public int getHoraIniTarHor() {
+        int horaIni = Integer.parseInt(jtfHoraIniTarHora.getText());
+        return horaIni;
+    }
+
+    @Override
+    public int getHoraFinTarHor() {
+        int horaFin = Integer.parseInt(jtfHoraFinTarHora.getText());
+        return horaFin;
+    }
+
+    @Override
+    public float getPrecioTarHora() {
+        float precioTarHora = Float.parseFloat(jtfPrecioTarHora.getText());
+        return precioTarHora;
     }
 
 

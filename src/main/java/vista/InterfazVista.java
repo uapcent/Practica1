@@ -27,6 +27,9 @@ public interface InterfazVista {
     int getAnyoLlamada();
     int getDuracionLlamada();
 
+    //Gets para la lista de llamadas
+    String getNifListaLlamadas();
+
     //Gets para emitir factura
     String getNifEmitFactura();
     int getDiaIniEmitFactura();
@@ -35,6 +38,9 @@ public interface InterfazVista {
     int getDiaFinEmitFactura();
     int getMesFinEmitFactura();
     int getAnyoFinEmitFactura();
+
+    //Gets para la lista de facturas
+    String getNifListaFacturas();
 
     //Gets para datos de factura
     String getNifDatosFactura();
@@ -49,6 +55,12 @@ public interface InterfazVista {
     String getNifTarDia();
     String getDiaTarDia();
     float getPrecioTarDia();
+
+    //Gets para modificar la Tarifa por horas
+    String getNifTarHor();
+    int getHoraIniTarHor();
+    int getHoraFinTarHor();
+    float getPrecioTarHora();
 
     //Para pasar los datos a cadena.
     void getDescripcion();

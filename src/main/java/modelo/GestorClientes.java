@@ -34,7 +34,6 @@ public class GestorClientes implements Serializable, GestorModelo {
             throw new ExcecpcionClienteYaExiste();
         }
         this.listaClientes.add(cliente);
-        System.out.println("La lista tiene " + this.listaClientes.size() + " clientes.");
         descriptor = "El cliente ha sido añadido\n\n";
         vista.getDescripcion();
         return true;
@@ -42,7 +41,6 @@ public class GestorClientes implements Serializable, GestorModelo {
 
     public Cliente buscarCliente(String nif) {
             for (Cliente cliente : listaClientes) {
-                System.out.println(cliente.getNif());
                 if (cliente.getNif().equals(nif)) {
                     return cliente;
                 }
@@ -100,6 +98,8 @@ public class GestorClientes implements Serializable, GestorModelo {
             throw new ExcepcionClienteNoExiste();
         }
         cliente.getListaLlamadas().add(llamada);
+        descriptor = "La llamada ha sido añadida correctamente.";
+        vista.getDescripcion();
         return true;
     }
 
@@ -127,6 +127,8 @@ public class GestorClientes implements Serializable, GestorModelo {
         double resultado = CalcularPrecioFactura(cliente, inicio, fin);
         Facturas nueva = new Facturas(cliente.getListaFacturas().size(),cliente.getTarifa(),Calendar.getInstance(),inicio,fin,resultado);
         cliente.getListaFacturas().add(nueva);
+        descriptor = "La factura se ha añadido correctamente.";
+        vista.getDescripcion();
         return nueva;
     }
 

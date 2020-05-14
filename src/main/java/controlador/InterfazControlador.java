@@ -12,19 +12,25 @@ public interface InterfazControlador {
 
     void borrarCliente();
 
-    public void datosClienteTXT();
+    void datosClienteTXT();
 
     void listarClientesTXT();
 
     void nuevaLlamada();
 
+    void listarLlamadasClientesTXT();
+
     void emitirFactura();
 
     void datosFacturaTXT();
 
+    void listarFacturasClientesTXT();
+
     void nuevaTarifaDiaria();
 
     void nuevaTarifaBasica();
+
+    void nuevaTarifaProHoras();
 
 
 
