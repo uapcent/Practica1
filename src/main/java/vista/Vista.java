@@ -196,22 +196,6 @@ public class Vista implements InterfazVista {
         return jpDatosCliente;
     }
 
-//    private JPanel panelListaClientes() {
-//        ModeloTablaClientes modeloTablaClientes = new ModeloTablaClientes(modelo.devolverLista());
-//        TablaClientes tablaClientes = new TablaClientes(modeloTablaClientes);
-//        JButton jbActualizarTabla = new JButton("Actualiza la tabla");
-//        jbActualizarTabla.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//              tablaClientes.setModel(new ModeloTablaClientes(modelo.devolverLista()));
-//            }
-//        });
-//        JPanel jpListaClientes = new JPanel();
-//        jpListaClientes.add(tablaClientes);
-//        jpListaClientes.add(jbActualizarTabla);
-//        return  jpListaClientes;
-//    }
-
     private JPanel panelListadoClientes() {
         JButton jbListarClientes = new JButton("Lista de clientes");
         jbListarClientes.addActionListener(new ActionListener() {

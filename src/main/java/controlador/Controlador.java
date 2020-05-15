@@ -99,7 +99,6 @@ public class Controlador implements InterfazControlador {
     public void datosClienteTXT() {
         try {
             String nif = vista.getNifDatosCliente();
-            System.out.println(nif);
             modelo.datosClienteTXT(nif);
         } catch (ExcepcionClienteNoExiste e) {
             e.printStackTrace();
