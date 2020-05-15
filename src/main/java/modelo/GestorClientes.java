@@ -31,6 +31,8 @@ public class GestorClientes implements Serializable, GestorModelo {
     public boolean darAltaCliente(Cliente cliente) throws ExcecpcionClienteYaExiste {
         Cliente aux = buscarCliente(cliente.getNif());
         if(aux != null) {
+            descriptor = "El cliente ya existe en nuestra base de datos.";
+            vista.getDescripcion();
             throw new ExcecpcionClienteYaExiste();
         }
         this.listaClientes.add(cliente);
@@ -51,6 +53,8 @@ public class GestorClientes implements Serializable, GestorModelo {
     public boolean borrar(String nif) throws ExcepcionClienteNoExiste {
         Cliente cliente = buscarCliente(nif);
         if(cliente == null ) {
+            descriptor = "El cliente no existe en nuestra base de datos. Prueba con otro NIF.";
+            vista.getDescripcion();
            throw new ExcepcionClienteNoExiste();
         }
         descriptor = "El cliente ha sido borrado.\n\n";
@@ -61,6 +65,8 @@ public class GestorClientes implements Serializable, GestorModelo {
     public boolean cambiarTarifa(String nif, Tarifa tarifa) throws ExcepcionClienteNoExiste{
         Cliente cliente = buscarCliente(nif);
         if(cliente == null ) {
+            descriptor = "El cliente no existe en nuestra base de datos. Prueba con otro NIF.";
+            vista.getDescripcion();
             throw new ExcepcionClienteNoExiste();
         }
         cliente.setTarifa(tarifa);
@@ -72,29 +78,36 @@ public class GestorClientes implements Serializable, GestorModelo {
     public Cliente recuperarDatosClientes(String nif) throws ExcepcionClienteNoExiste {
         Cliente cliente = buscarCliente(nif);
         if(cliente == null ) {
+            descriptor = "El cliente no existe en nuestra base de datos. Prueba con otro NIF.";
+            vista.getDescripcion();
             throw new ExcepcionClienteNoExiste();
         }
         return cliente;
     }
 
     public void datosClienteTXT(String nif) throws ExcepcionClienteNoExiste {
-        System.out.println(nif);
         descriptor = MostrarDatos.mostrarDatosCliente(recuperarDatosClientes(nif))+"\n\n";
         vista.getDescripcion();
     }
 
     public List<Cliente> devolverLista(){
+        if (listaClientes.size() == 0) {
+            descriptor = "La lista está vacía.";
+            vista.getDescripcion();
+        }
         return listaClientes;
     }
 
     public void listaClientesTXT(){
-        descriptor = MostrarDatos.datosLista(listaClientes);
+        descriptor = MostrarDatos.datosLista(devolverLista());
         vista.getDescripcion();
     }
 
     public boolean darAltaLlamada(Llamadas llamada, String nif) throws ExcepcionClienteNoExiste{
         Cliente cliente = buscarCliente(nif);
         if(cliente == null ) {
+            descriptor = "El cliente no existe en nuestra base de datos. Prueba con otro NIF.";
+            vista.getDescripcion();
             throw new ExcepcionClienteNoExiste();
         }
         cliente.getListaLlamadas().add(llamada);
@@ -106,6 +119,8 @@ public class GestorClientes implements Serializable, GestorModelo {
     public List<Llamadas> llamadasCliente(String nif) throws ExcepcionClienteNoExiste {
         Cliente cliente = buscarCliente(nif);
         if(cliente == null ) {
+            descriptor = "El cliente no existe en nuestra base de datos. Prueba con otro NIF.";
+            vista.getDescripcion();
             throw new ExcepcionClienteNoExiste();
         }
         return cliente.getListaLlamadas();
@@ -119,9 +134,13 @@ public class GestorClientes implements Serializable, GestorModelo {
     public Facturas emitirFactura(String nif, Calendar inicio, Calendar fin) throws ExcepcionClienteNoExiste, ExcepcionIntervaloFechas {
         Cliente cliente = buscarCliente(nif);
         if(cliente == null) {
+            descriptor = "El cliente no existe en nuestra base de datos. Prueba con otro NIF.";
+            vista.getDescripcion();
             throw new ExcepcionClienteNoExiste();
         }
         if(inicio.compareTo(fin)>0 || fin.compareTo(inicio) < 0) {
+            descriptor = "El intervalo de fechas es incorrecto. Prueba con otro intervalo.";
+            vista.getDescripcion();
             throw new ExcepcionIntervaloFechas();
         }
         double resultado = CalcularPrecioFactura(cliente, inicio, fin);
@@ -149,6 +168,8 @@ public class GestorClientes implements Serializable, GestorModelo {
     public Facturas datosFactura(String nif, int codigo) throws ExcepcionClienteNoExiste{
         Cliente cliente = buscarCliente(nif);
         if(cliente == null ) {
+            descriptor = "El cliente no existe en nuestra base de datos. Prueba con otro NIF.";
+            vista.getDescripcion();
             throw new ExcepcionClienteNoExiste();
         }
         for (Facturas factura : cliente.getListaFacturas()) {
@@ -167,6 +188,8 @@ public class GestorClientes implements Serializable, GestorModelo {
     public List<Facturas> listaFacturaCliente(String nif)  throws ExcepcionClienteNoExiste{
         Cliente cliente = buscarCliente(nif);
         if(cliente == null ) {
+            descriptor = "El cliente no existe en nuestra base de datos. Prueba con otro NIF.";
+            vista.getDescripcion();
             throw new ExcepcionClienteNoExiste();
         }
         return cliente.getListaFacturas();
