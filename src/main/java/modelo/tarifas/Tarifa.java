@@ -14,20 +14,15 @@ public abstract class Tarifa implements Serializable {
     public float getPrecio() {
         return precio;
     }
+
     public void  setPrecio(float precio) {
         this.precio = precio;
     }
 
-    public String getDia() {
-        return null;
-    }
-
-    public int getHoraInicial() {
-        return 0;
-    }
-
-    public int getHoraFinal() {
-        return 0;
+    public boolean equals(Tarifa otraTarifa) {
+        if (this.precio == otraTarifa.precio)
+            return true;
+        return false;
     }
 
     public abstract String descripcion();

@@ -15,6 +15,12 @@ public class TarifaPorHoras extends TarifaEspecial implements Serializable {
         this.horaFinal = horaFinal;
     }
 
+    public boolean equals(TarifaPorHoras otraTarifa) {
+        if (this.horaInicial == otraTarifa.horaInicial && this.horaFinal == otraTarifa.horaFinal)
+            return true;
+        return false;
+    }
+
     @Override
     public String descripcion() {
         return super.descripcion() + "Usas la Tarifa por horas";
@@ -29,12 +35,4 @@ public class TarifaPorHoras extends TarifaEspecial implements Serializable {
         }
         return 0;
     }
-
-    public int getHoraInicial() {
-        return horaInicial;
-    }
-    public int getHoraFinal() {
-        return horaFinal;
-    }
-
 }

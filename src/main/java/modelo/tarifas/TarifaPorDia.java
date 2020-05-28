@@ -13,6 +13,12 @@ public class TarifaPorDia extends TarifaEspecial implements Serializable {
         this.dia = dia;
     }
 
+    public boolean equals(TarifaPorDia otraTarifa) {
+        if (this.dia == otraTarifa.dia)
+            return true;
+        return false;
+    }
+
     @Override
     public String descripcion() {
         return  super.descripcion() + "Usas la tarifa por días.";
@@ -54,7 +60,4 @@ public class TarifaPorDia extends TarifaEspecial implements Serializable {
         return 0;
     }
 
-    public String getDia() {
-        return dia;
-    }
 }

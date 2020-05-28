@@ -54,13 +54,14 @@ public class FabricasTest {
     }
 
     @Test
-    public void fabricaTarifaBasica() {
+    public void fabricaTarifasBasica() {
         Tarifa tarifa = new TarifaBasica(0.15f);
         FabricaTarifas tarifaACrear = new FabricaTarifas();
         Tarifa tarifaFabrica = tarifaACrear.crearTarifaBásica(0.15f);
-        assertEquals(tarifa.getPrecio(), tarifaFabrica.getPrecio(),0);
-        System.out.println("Crea la misma tarifa con el mismo precio: " + tarifaFabrica.getPrecio());
+        assertEquals(true, tarifa.equals(tarifaFabrica));
+        System.out.println("Las tarifas basicas son iguales");
     }
+
     @Test
     public void fabricaTarifaDias() {
         Tarifa tarifa = new TarifaBasica(0.15f);
@@ -68,24 +69,19 @@ public class FabricasTest {
         FabricaTarifas tarifaACrear = new FabricaTarifas();
         Tarifa tarifaFabrica = tarifaACrear.crearTarifaBásica(0.15f);
         tarifaFabrica = tarifaACrear.crearTarifaPorDías(tarifaFabrica, 0.10f,"MARTES");
-        assertEquals(tarifa.getPrecio(), tarifaFabrica.getPrecio(),0);
-        assertEquals(tarifa.getDia(), tarifaFabrica.getDia());
-        System.out.println("Crea la misma tarifa con el mismo precio: " + tarifaFabrica.getPrecio());
-        System.out.println("Crea la misma tarifa con el mismo precio: " + tarifaFabrica.getDia());
+        assertEquals(true, tarifa.equals(tarifaFabrica));
+        System.out.println("Las tarifas diarias son iguales");
     }
+
 
     @Test
     public void fabricaTarifaPorHoras() {
         Tarifa tarifa = new TarifaBasica(0.15f);
-        tarifa = new TarifaPorHoras(tarifa, 0.10f, 10,12);
+        tarifa = new TarifaPorHoras(tarifa, 0.10f, 10, 12);
         FabricaTarifas tarifaACrear = new FabricaTarifas();
         Tarifa tarifaFabrica = tarifaACrear.crearTarifaBásica(0.15f);
-        tarifaFabrica = tarifaACrear.crearTarifaPorHoras(tarifaFabrica, 0.10f,10,12);
-        assertEquals(tarifa.getPrecio(), tarifaFabrica.getPrecio(),0);
-        assertEquals(tarifa.getHoraInicial(), tarifaFabrica.getHoraInicial());
-        assertEquals(tarifa.getHoraFinal(), tarifaFabrica.getHoraFinal());
-        System.out.println("Crea la misma tarifa con el mismo precio: " + tarifaFabrica.getPrecio());
-        System.out.println("Crea la misma tarifa con la misma hora inicial " + tarifaFabrica.getHoraInicial() + " y hora final " + tarifaFabrica.getHoraFinal());
+        tarifaFabrica = tarifaACrear.crearTarifaPorHoras(tarifaFabrica, 0.10f, 10, 12);
+        assertEquals(true, tarifa.equals(tarifaFabrica));
+        System.out.println("Las tarifas por horas son iguales");
     }
-
 }
